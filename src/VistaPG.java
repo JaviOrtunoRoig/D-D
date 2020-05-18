@@ -28,7 +28,11 @@ public class VistaPG implements ActionListener{
         String e = actionEvent.getActionCommand();
 
         if (e.equals(VistaPG.REGISTRARSE)) {
-
+            VistaRegistrarse vistaRegistrarse = new VistaRegistrarse();
+            ActionListener controladorRegistro = new ControladorRegistro(vistaRegistrarse); //Lo he metdido en la propia vista
+            vistaRegistrarse.controlador(controladorRegistro);
+            Principal.frame.setContentPane(vistaRegistrarse.Registro);
+            Principal.frame.setVisible(true);
         } else if (e.equals(VistaPG.INICIARSESION)) {
             Principal.frame.setContentPane(new VistaIniciarSesion().IniciarSesion);
             Principal.frame.setVisible(true);

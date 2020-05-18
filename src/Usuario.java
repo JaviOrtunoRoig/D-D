@@ -3,12 +3,12 @@ import java.sql.*;
 
 public class Usuario {
 
-	private String nombre, contraseña;
+	private String nombre, password;
 	
 	public Usuario(String nom, String cont)
 	{
 		nombre = nom;
-		contraseña = cont;
+		password = cont;
 	}
 	
 	public String getnombre()
@@ -18,7 +18,7 @@ public class Usuario {
 	
 	public String getcontraseña()
 	{
-		return contraseña;
+		return password;
 	}
 	
 	

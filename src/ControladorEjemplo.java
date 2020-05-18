@@ -1,12 +1,12 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Controlador implements ActionListener {
+public class ControladorEjemplo implements ActionListener {
 
     VistaPG vistaInicial;
     Partida modelo;
 
-    public Controlador(VistaPG vistaInicial, Partida modelo) {
+    public ControladorEjemplo(VistaPG vistaInicial, Partida modelo) {
         this.vistaInicial = vistaInicial;
         this.modelo = modelo;
     }

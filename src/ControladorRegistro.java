@@ -1,10 +1,12 @@
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class IniciarAPP {
+public class ControladorRegistro implements ActionListener {
 	
 	private Connection conn = null;
 	private Statement stmt = null;
@@ -16,17 +18,25 @@ public class IniciarAPP {
 	//  Database credentials
 	static final String USER = "dundragons";
 	static final String PASS = "VengerHank";
+
+	//Vista
+	VistaRegistrarse vistaRegistrarse;
+
+	public ControladorRegistro(VistaRegistrarse vista) {
+		this.vistaRegistrarse = vista;
+	}
 	
 	public void Registrarse(String nombre, String password, String confPassword)
 	{
+
+		vistaRegistrarse.setErrorMessageValue("nombre " + nombre + " pass: " + password + " passwc: " + confPassword);
+
 		try {
 		
 			Class.forName(JDBC_DRIVER);
 
 			conn = DriverManager.getConnection(DB_URL + "/" + DB_SCHEMA, USER, PASS);
-			
-			
-			
+
 			stmt = conn.createStatement();
 			
 			boolean encontrado = false;
@@ -44,10 +54,9 @@ public class IniciarAPP {
 		         {
 		        	 encontrado = true;
 		         }
-		         
 			 }
 			 
-		    if(!encontrado)
+		    if (!encontrado)
 		    {
 		    	String sqlInsert = "INSERT INTO Usuario " + "VALUES ('" + nombre + "','" + password + "')";
 		         System.out.println(sqlInsert);
@@ -64,13 +73,13 @@ public class IniciarAPP {
 		    	else
 		    	{
 		    		//JOptionPane.showMessageDialog(parentComponent, message);
-		    		System.err.println("Error. Las contraseña no coincide con la confirmación");
+		    		vistaRegistrarse.setErrorMessageValue("Las contraseñas no coinciden");
 		    	}
 		    	
 		    }
 		    else
 		    {
-		    	System.err.println("Error. Nombre ya existente");
+				vistaRegistrarse.setErrorMessageValue("Nombre ya existentes");
 
 		    }
 		   
@@ -91,8 +100,17 @@ public class IniciarAPP {
 	{
 		
 	}
-	
-	
-	
 
+
+	@Override
+	public void actionPerformed(ActionEvent actionEvent) {
+		String e = actionEvent.getActionCommand();
+
+		if (e.equals(VistaRegistrarse.ACEPTAR)) {
+			String user = vistaRegistrarse.getUsername().getText();
+			String passw = new String(vistaRegistrarse.getPassword().getPassword());
+			String passWConfig = new String(vistaRegistrarse.getPasswordConfirmation().getPassword());
+			this.Registrarse(user, passw, passWConfig);
+		}
+	}
 }
