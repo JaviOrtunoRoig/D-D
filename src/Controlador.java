@@ -1,14 +1,14 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.PrintWriter;
 
 public class Controlador implements ActionListener {
 
-    VistaPG vista;
+    VistaPG vistaInicial;
     Partida modelo;
 
-    public Controlador(VistaPG vista, Partida modelo) {
-
+    public Controlador(VistaPG vistaInicial, Partida modelo) {
+        this.vistaInicial = vistaInicial;
+        this.modelo = modelo;
     }
 
 
@@ -17,8 +17,11 @@ public class Controlador implements ActionListener {
 
         String e = actionEvent.getActionCommand();
 
-        /*if (e.toUpperCase().equals()) {
+        if (e.equals(VistaPG.REGISTRARSE)) {
 
-        }*/
+        } else if (e.equals(VistaPG.INICIARSESION)) {
+           Principal.frame.setContentPane(new VistaIniciarSesion().IniciarSesion);
+           Principal.frame.setVisible(true);
+        }
     }
 }
