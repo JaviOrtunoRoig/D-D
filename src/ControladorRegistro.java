@@ -21,9 +21,11 @@ public class ControladorRegistro implements ActionListener {
 
 	//Vista
 	VistaRegistrarse vistaRegistrarse;
+	VistaPG vistaInicio;
 
-	public ControladorRegistro(VistaRegistrarse vista) {
+	public ControladorRegistro(VistaRegistrarse vista, VistaPG vistaInicio) {
 		this.vistaRegistrarse = vista;
+		this.vistaInicio = vistaInicio;
 	}
 	
 	public void Registrarse(String nombre, String password, String confPassword)
@@ -59,11 +61,7 @@ public class ControladorRegistro implements ActionListener {
 		    if (!encontrado)
 		    {
 		    	String sqlInsert = "INSERT INTO Usuario " + "VALUES ('" + nombre + "','" + password + "')";
-		         System.out.println(sqlInsert);
 
-		    	System.out.println("Introduce la confirmación de la contraseña");
-		    	
-		    	
 		    	if (password.equals(confPassword))
 		    	{
 		    		stmt = conn.createStatement();

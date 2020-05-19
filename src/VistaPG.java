@@ -29,7 +29,7 @@ public class VistaPG implements ActionListener{
 
         if (e.equals(VistaPG.REGISTRARSE)) {
             VistaRegistrarse vistaRegistrarse = new VistaRegistrarse();
-            ActionListener controladorRegistro = new ControladorRegistro(vistaRegistrarse); //Lo he metdido en la propia vista
+            ActionListener controladorRegistro = new ControladorRegistro(vistaRegistrarse, this); //Lo he metdido en la propia vista
             vistaRegistrarse.controlador(controladorRegistro);
             Principal.frame.setContentPane(vistaRegistrarse.Registro);
             Principal.frame.setVisible(true);
