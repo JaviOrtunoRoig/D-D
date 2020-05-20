@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class ControladorRegistro implements ActionListener {
+public class ControladorIdentificarse implements ActionListener {
 	
 	private Connection conn = null;
 	private Statement stmt = null;
@@ -21,8 +21,10 @@ public class ControladorRegistro implements ActionListener {
 
 	//Vista
 	VistaRegistrarse vistaRegistrarse;
+	VistaIniciarSesion vistaIniciarSesion;
 
-	public ControladorRegistro(VistaRegistrarse vista) {
+	public ControladorIdentificarse(VistaRegistrarse vista, VistaIniciarSesion vistaIni) {
+		this.vistaIniciarSesion = vistaIni;
 		this.vistaRegistrarse = vista;
 	}
 	
@@ -93,10 +95,61 @@ public class ControladorRegistro implements ActionListener {
 		}
 	}
 	
-	public void IniciarSesion()
-	{
-		
+
+public void IniciarSesion(String nombre, String password) {
+	try {
+
+		Class.forName(JDBC_DRIVER);
+
+		conn = DriverManager.getConnection(DB_URL + "/" + DB_SCHEMA, USER, PASS);
+		stmt = conn.createStatement();
+
+		boolean encontrado = false;
+
+		String sqlConsulta = "SELECT nombre, contrase?a FROM Usuario";
+		ResultSet rsConsulta = stmt.executeQuery(sqlConsulta);
+
+		while(rsConsulta.next() && !encontrado){
+
+			String nombreBD = rsConsulta.getString("nombre");
+
+			if (nombreBD.equals(nombre))
+			{
+				encontrado = true;
+			}
+
+		}
+
+		if(encontrado) {
+			String pass = rsConsulta.getString("contrase?a");
+
+			if(pass.equals(password)) {
+
+				System.out.println("La contrase?a es correcta. Bienvenido " + nombre);
+
+
+			} else {
+				System.err.println("Error. Las contrase?a introducida no coincide con la del usuario");
+			}
+
+		} else {
+			System.err.println("Error. El nombre del usuario no exite");
+		}
+
+
+
+	} catch (SQLException e) {
+
+		System.err.println("Error en la base de datos");
+
+
 	}
+	catch (Exception e)
+	{
+		System.err.println("Error: " + e.getMessage());
+	}
+}
+
 
 
 	@Override
@@ -108,6 +161,11 @@ public class ControladorRegistro implements ActionListener {
 			String passw = new String(vistaRegistrarse.getPassword().getPassword());
 			String passWConfig = new String(vistaRegistrarse.getPasswordConfirmation().getPassword());
 			this.Registrarse(user, passw, passWConfig);
+		} else {
+			System.out.println("df");
+			String user = vistaIniciarSesion.getUsername().getText();
+			String passw = new String(vistaIniciarSesion.getPassword().getPassword());
+			this.IniciarSesion(user, passw);
 		}
 	}
 }
