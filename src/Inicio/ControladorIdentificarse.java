@@ -28,7 +28,7 @@ public class ControladorIdentificarse implements ActionListener {
 		this.vistaRegistrarse = vista;
 	}
 	
-	public boolean Registrarse(String nombre, String password, String confPassword)	{
+	public boolean registrarse(String nombre, String password, String confPassword)	{
 
 		vistaRegistrarse.setErrorMessageValue("Cuenta registrada con exito");
 
