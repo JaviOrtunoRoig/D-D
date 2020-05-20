@@ -28,13 +28,17 @@ public class ControladorIdentificarse implements ActionListener {
 		this.vistaRegistrarse = vista;
 	}
 	
-	public void Registrarse(String nombre, String password, String confPassword)
+	public boolean Registrarse(String nombre, String password, String confPassword)
 	{
 
-		vistaRegistrarse.setErrorMessageValue("nombre " + nombre + " pass: " + password + " passwc: " + confPassword);
+		vistaRegistrarse.setErrorMessageValue("Cuenta registrada con exito");
+
+		boolean res = false;
 
 		try {
-		
+
+
+
 			Class.forName(JDBC_DRIVER);
 
 			conn = DriverManager.getConnection(DB_URL + "/" + DB_SCHEMA, USER, PASS);
@@ -68,6 +72,7 @@ public class ControladorIdentificarse implements ActionListener {
 		    		stmt = conn.createStatement();
 		    		stmt.executeUpdate(sqlInsert);
 		    		System.out.println("Registro realizado con exito");
+		    		res = true;
 		    	}
 		    	else
 		    	{
@@ -81,7 +86,8 @@ public class ControladorIdentificarse implements ActionListener {
 				vistaRegistrarse.setErrorMessageValue("Nombre ya existentes");
 
 		    }
-		   
+
+
 			
 		} catch (SQLException e) {
 			
@@ -93,11 +99,18 @@ public class ControladorIdentificarse implements ActionListener {
 		{
 			System.err.println("Error: " + e.getMessage());
 		}
+
+		return res;
 	}
 	
 
-public void IniciarSesion(String nombre, String password) {
-	try {
+public boolean IniciarSesion(String nombre, String password) {
+
+		boolean res = false;
+
+		try {
+
+
 
 		Class.forName(JDBC_DRIVER);
 
@@ -105,8 +118,10 @@ public void IniciarSesion(String nombre, String password) {
 		stmt = conn.createStatement();
 
 		boolean encontrado = false;
+		String pass = null;
 
-		String sqlConsulta = "SELECT nombre, contrase?a FROM Usuario";
+
+		String sqlConsulta = "SELECT nombre, contrasena FROM Usuario";
 		ResultSet rsConsulta = stmt.executeQuery(sqlConsulta);
 
 		while(rsConsulta.next() && !encontrado){
@@ -115,39 +130,45 @@ public void IniciarSesion(String nombre, String password) {
 
 			if (nombreBD.equals(nombre))
 			{
+				pass = rsConsulta.getString("contrasena");
 				encontrado = true;
+
 			}
 
 		}
 
 		if(encontrado) {
-			String pass = rsConsulta.getString("contrase?a");
+
 
 			if(pass.equals(password)) {
 
-				System.out.println("La contrase?a es correcta. Bienvenido " + nombre);
+				res = true;
+				this.vistaIniciarSesion.setErrorMessage("La contrasena es correcta. Bienvenido " + nombre);
 
 
 			} else {
-				System.err.println("Error. Las contrase?a introducida no coincide con la del usuario");
+				this.vistaIniciarSesion.setErrorMessage("Error. Las contrasena introducida no coincide con la del usuario");
 			}
 
 		} else {
-			System.err.println("Error. El nombre del usuario no exite");
+			this.vistaIniciarSesion.setErrorMessage("Error. El nombre del usuario no existe");
 		}
+
 
 
 
 	} catch (SQLException e) {
 
-		System.err.println("Error en la base de datos");
+		this.vistaIniciarSesion.setErrorMessage("Error en la base de datos");
 
 
 	}
 	catch (Exception e)
 	{
-		System.err.println("Error: " + e.getMessage());
+		this.vistaIniciarSesion.setErrorMessage("Error: " + e.getMessage());
 	}
+
+	return res;
 }
 
 
@@ -156,16 +177,29 @@ public void IniciarSesion(String nombre, String password) {
 	public void actionPerformed(ActionEvent actionEvent) {
 		String e = actionEvent.getActionCommand();
 
+		boolean correcto = false;
+
 		if (e.equals(VistaRegistrarse.ACEPTAR)) {
 			String user = vistaRegistrarse.getUsername().getText();
 			String passw = new String(vistaRegistrarse.getPassword().getPassword());
 			String passWConfig = new String(vistaRegistrarse.getPasswordConfirmation().getPassword());
-			this.Registrarse(user, passw, passWConfig);
+			correcto = this.Registrarse(user, passw, passWConfig);
+			if (correcto)
+			{
+				Principal.frame.setContentPane(new VistaPG().Inicio);
+				Principal.frame.setVisible(true);
+			}
+
 		} else {
-			System.out.println("df");
 			String user = vistaIniciarSesion.getUsername().getText();
 			String passw = new String(vistaIniciarSesion.getPassword().getPassword());
-			this.IniciarSesion(user, passw);
+			correcto = this.IniciarSesion(user, passw);
+			if (correcto)
+			{
+				Principal.frame.setContentPane(new VistaPG().Inicio);
+				Principal.frame.setVisible(true);
+			}
+
 		}
 	}
 }

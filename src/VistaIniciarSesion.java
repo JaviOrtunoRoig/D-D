@@ -25,4 +25,14 @@ public class VistaIniciarSesion {
         buttonIniciarSesion.setActionCommand(INICIO);
     }
 
+    public JLabel getErrorMessage()
+    {
+        return errorMessage;
+    }
+
+    public void setErrorMessage(String text)
+    {
+        errorMessage.setText(text);
+    }
+
 }
