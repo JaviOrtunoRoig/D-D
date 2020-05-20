@@ -28,8 +28,7 @@ public class ControladorIdentificarse implements ActionListener {
 		this.vistaRegistrarse = vista;
 	}
 	
-	public boolean registrarse(String nombre, String password, String confPassword)
-	{
+	public boolean Registrarse(String nombre, String password, String confPassword)	{
 
 		vistaRegistrarse.setErrorMessageValue("Cuenta registrada con exito");
 
@@ -37,66 +36,50 @@ public class ControladorIdentificarse implements ActionListener {
 
 		try {
 
-
-
 			Class.forName(JDBC_DRIVER);
-
 			conn = DriverManager.getConnection(DB_URL + "/" + DB_SCHEMA, USER, PASS);
-
 			stmt = conn.createStatement();
 			
 			boolean encontrado = false;
 			
 			String sqlConsulta = "SELECT nombre FROM Usuario";
-			
 			ResultSet rsConsulta = stmt.executeQuery(sqlConsulta);
 			
-			 while(rsConsulta.next() && !encontrado){
+			 while (rsConsulta.next() && !encontrado) {
 				 
 		         //Retrieve by column name
 		         String nombreBD = rsConsulta.getString("nombre");
 		         
-		         if (nombreBD.equals(nombre))
-		         {
+		         if (nombreBD.equals(nombre)) {
 		        	 encontrado = true;
 		         }
 			 }
 			 
-		    if (!encontrado)
-		    {
+		    if (!encontrado) {
+
 		    	String sqlInsert = "INSERT INTO Usuario " + "VALUES ('" + nombre + "','" + password + "')";
 
-		    	
-		    	if (password.equals(confPassword))
-		    	{
+		    	if (password.equals(confPassword)) {
+
 		    		stmt = conn.createStatement();
 		    		stmt.executeUpdate(sqlInsert);
 		    		System.out.println("Registro realizado con exito");
 		    		res = true;
-		    	}
-		    	else
-		    	{
+
+		    	} else {
 		    		//JOptionPane.showMessageDialog(parentComponent, message);
-		    		vistaRegistrarse.setErrorMessageValue("Las contraseñas no coinciden");
+		    		vistaRegistrarse.setErrorMessageValue("Las contraseï¿½as no coinciden");
 		    	}
 		    	
 		    }
-		    else
-		    {
+		    else {
 				vistaRegistrarse.setErrorMessageValue("Nombre ya existentes");
-
 		    }
 
-
-			
 		} catch (SQLException e) {
-			
 			System.err.println("Error en la base de datos");
-			
-			
 		}
-		catch (Exception e)
-		{
+		catch (Exception e)	{
 			System.err.println("Error: " + e.getMessage());
 		}
 
@@ -139,36 +122,29 @@ public boolean iniciarSesion(String nombre, String password) {
 		boolean encontrado = false;
 		String pass = null;
 
-
 		String sqlConsulta = "SELECT nombre, contrasena FROM Usuario";
 		ResultSet rsConsulta = stmt.executeQuery(sqlConsulta);
 
-		while(rsConsulta.next() && !encontrado){
+		while (rsConsulta.next() && !encontrado) {
 
 			String nombreBD = rsConsulta.getString("nombre");
 
-			if (nombreBD.equals(nombre))
-			{
+			if (nombreBD.equals(nombre)) {
 				pass = rsConsulta.getString("contrasena");
 				encontrado = true;
-
 			}
-
 		}
 
 		if(encontrado) {
-
 
 			if(pass.equals(password)) {
 
 				res = true;
 				this.vistaIniciarSesion.setErrorMessage("La contrasena es correcta. Bienvenido " + nombre);
 
-
 			} else {
 				this.vistaIniciarSesion.setErrorMessage("Error. Las contrasena introducida no coincide con la del usuario");
 			}
-
 		} else {
 			this.vistaIniciarSesion.setErrorMessage("Error. El nombre del usuario no existe");
 		}
@@ -177,16 +153,11 @@ public boolean iniciarSesion(String nombre, String password) {
 
 
 	} catch (SQLException e) {
-
 		this.vistaIniciarSesion.setErrorMessage("Error en la base de datos");
-
-
 	}
-	catch (Exception e)
-	{
+	catch (Exception e)	{
 		this.vistaIniciarSesion.setErrorMessage("Error: " + e.getMessage());
 	}
-
 	return res;
 }
 
