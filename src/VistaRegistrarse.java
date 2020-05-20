@@ -20,14 +20,26 @@ public class VistaRegistrarse {
         this.errorMessage.setText(errorMessage);
     }
 
+    /**
+     *
+     * @return TextField con la informacion del username.
+     */
     public JTextField getUsername() {
         return username;
     }
 
+    /**
+     *
+     * @return PasswordField con la informacion del password.
+     */
     public JPasswordField getPassword() {
         return password;
     }
 
+    /**
+     *
+     * @return PasswordField con la informacion del password de confirmacion.
+     */
     public JPasswordField getPasswordConfirmation() {
         return passwordConfirmation;
     }
