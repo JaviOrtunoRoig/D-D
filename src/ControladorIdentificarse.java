@@ -28,7 +28,7 @@ public class ControladorIdentificarse implements ActionListener {
 		this.vistaRegistrarse = vista;
 	}
 	
-	public boolean Registrarse(String nombre, String password, String confPassword)
+	public boolean registrarse(String nombre, String password, String confPassword)
 	{
 
 		vistaRegistrarse.setErrorMessageValue("Cuenta registrada con exito");
@@ -102,16 +102,35 @@ public class ControladorIdentificarse implements ActionListener {
 
 		return res;
 	}
+
+	public boolean borrarUsuario(String nombre)
+	{
+		boolean res = false;
+		try {
+			Class.forName(JDBC_DRIVER);
+			conn = DriverManager.getConnection(DB_URL + "/" + DB_SCHEMA, USER, PASS);
+			String sqlInsert = "DELETE from Usuario where nombre = '"+nombre+"'";
+			stmt = conn.createStatement();
+			stmt.executeUpdate(sqlInsert);
+			System.out.println("Borrado con exito");
+			res = true;
+
+		} catch (SQLException e) {
+			System.err.println("Error en la base de datos");
+		}
+		catch (Exception e)
+		{
+			System.err.println("Error: " + e.getMessage());
+		}
+		return res;
+	}
 	
 
-public boolean IniciarSesion(String nombre, String password) {
+public boolean iniciarSesion(String nombre, String password) {
 
 		boolean res = false;
 
 		try {
-
-
-
 		Class.forName(JDBC_DRIVER);
 
 		conn = DriverManager.getConnection(DB_URL + "/" + DB_SCHEMA, USER, PASS);
@@ -173,6 +192,9 @@ public boolean IniciarSesion(String nombre, String password) {
 
 
 
+
+
+
 	@Override
 	public void actionPerformed(ActionEvent actionEvent) {
 		String e = actionEvent.getActionCommand();
@@ -183,7 +205,7 @@ public boolean IniciarSesion(String nombre, String password) {
 			String user = vistaRegistrarse.getUsername().getText();
 			String passw = new String(vistaRegistrarse.getPassword().getPassword());
 			String passWConfig = new String(vistaRegistrarse.getPasswordConfirmation().getPassword());
-			correcto = this.Registrarse(user, passw, passWConfig);
+			correcto = this.registrarse(user, passw, passWConfig);
 			if (correcto)
 			{
 				Principal.frame.setContentPane(new VistaPG().Inicio);
@@ -193,7 +215,7 @@ public boolean IniciarSesion(String nombre, String password) {
 		} else {
 			String user = vistaIniciarSesion.getUsername().getText();
 			String passw = new String(vistaIniciarSesion.getPassword().getPassword());
-			correcto = this.IniciarSesion(user, passw);
+			correcto = this.iniciarSesion(user, passw);
 			if (correcto)
 			{
 				Principal.frame.setContentPane(new VistaPG().Inicio);
