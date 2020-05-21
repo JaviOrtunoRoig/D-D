@@ -22,7 +22,7 @@ public class ControladorIdentificarse implements ActionListener {
 	static final String DB_URL = "jdbc:mysql://database-iis.cobadwnzalab.eu-central-1.rds.amazonaws.com";
 	static final String DB_SCHEMA = "dungeonsdragonsdb";
 
-	//  Database credentials
+	//Database credentials
 	static final String USER = "dundragons";
 	static final String PASS = "VengerHank";
 
@@ -34,7 +34,14 @@ public class ControladorIdentificarse implements ActionListener {
 		this.vistaIniciarSesion = vistaIni;
 		this.vistaRegistrarse = vista;
 	}
-	
+
+	/**
+	 *
+	 * @param nombre del usuario.
+	 * @param password del usuario.
+	 * @param confPassword confirmación del password del usuario.
+	 * @return true si se ha registrado al usuario satisfactoriamente.
+	 */
 	public boolean registrarse(String nombre, String password, String confPassword)	{
 
 		vistaRegistrarse.setErrorMessageValue("Cuenta registrada con exito");
@@ -89,6 +96,11 @@ public class ControladorIdentificarse implements ActionListener {
 		return res;
 	}
 
+	/**
+	 *
+	 * @param nombre del usuario que se quiere borrar.
+	 * @return true si el usuario ha sido eliminado satisfactoriamnete de la base de datos.
+	 */
 	public boolean borrarUsuario(String nombre) {
 		boolean res = false;
 		try {
@@ -108,8 +120,13 @@ public class ControladorIdentificarse implements ActionListener {
 		}
 		return res;
 	}
-	
 
+	/**
+	 *
+	 * @param nombre del usuario.
+	 * @param password del usuario.
+	 * @return true si el inicio de sesion ha sido satisfactorio.
+	 */
 	public boolean iniciarSesion(String nombre, String password) {
 
 		boolean res = false;
