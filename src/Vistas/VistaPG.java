@@ -1,6 +1,7 @@
-package Inicio;
+package Vistas;
 
-import Principal.Principal;
+import Controladores.ControladorIdentificarse;
+import Modelos.Principal;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;

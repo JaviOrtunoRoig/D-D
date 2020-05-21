@@ -1,6 +1,9 @@
-package Inicio;
+package Controladores;
 
-import Principal.Principal;
+import Modelos.Principal;
+import Vistas.VistaIniciarSesion;
+import Vistas.VistaPG;
+import Vistas.VistaRegistrarse;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -168,8 +171,8 @@ public class ControladorIdentificarse implements ActionListener {
 			String passw = new String(vistaRegistrarse.getPassword().getPassword());
 			String passWConfig = new String(vistaRegistrarse.getPasswordConfirmation().getPassword());
 			correcto = this.registrarse(user, passw, passWConfig);
-			if (correcto)
-			{
+
+			if (correcto) {
 				Principal.frame.setContentPane(new VistaPG().Inicio);
 				Principal.frame.setVisible(true);
 			}
@@ -178,12 +181,11 @@ public class ControladorIdentificarse implements ActionListener {
 			String user = vistaIniciarSesion.getUsername().getText();
 			String passw = new String(vistaIniciarSesion.getPassword().getPassword());
 			correcto = this.iniciarSesion(user, passw);
-			if (correcto)
-			{
+
+			if (correcto) {
 				Principal.frame.setContentPane(new VistaPG().Inicio);
 				Principal.frame.setVisible(true);
 			}
-
 		}
 	}
 }

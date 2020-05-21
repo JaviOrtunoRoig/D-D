@@ -1,8 +1,8 @@
-package Principal;
+package Modelos;
 
 import javax.swing.*;
 import java.awt.*;
-import Inicio.*;
+import Vistas.*;
 
 public class Principal {
 

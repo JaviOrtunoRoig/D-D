@@ -1,4 +1,5 @@
-import Inicio.*;
+import Controladores.ControladorIdentificarse;
+import Vistas.*;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

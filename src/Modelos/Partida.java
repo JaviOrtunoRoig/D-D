@@ -1,4 +1,4 @@
-package Principal;
+package Modelos;
 
 public class Partida {
 

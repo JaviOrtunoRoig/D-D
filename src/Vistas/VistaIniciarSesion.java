@@ -1,4 +1,4 @@
-package Inicio;
+package Vistas;
 
 import javax.swing.*;
 import java.awt.event.ActionListener;
