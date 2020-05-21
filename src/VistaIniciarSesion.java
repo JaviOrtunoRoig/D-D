@@ -11,18 +11,11 @@ public class VistaIniciarSesion {
     private JButton buttonIniciarSesion;
     private JLabel errorMessage; //TODO Aqui se mostrará un mensaje de error cuando tenga q mostrarse
 
-    /**
-     * 
-     * @return TextField con la informacion del username.
-     */
+
     public JTextField getUsername() {
         return username;
     }
 
-    /**
-     *
-     * @return PasswordField con la informacion del password.
-     */
     public JPasswordField getPassword() {
         return password;
     }
@@ -32,19 +25,11 @@ public class VistaIniciarSesion {
         buttonIniciarSesion.setActionCommand(INICIO);
     }
 
-    /**
-     *
-     * @return JLabel para el control de rrores
-     */
     public JLabel getErrorMessage()
     {
         return errorMessage;
     }
 
-    /**
-     *
-     * @param text que se quiere mostrar al usuario
-     */
     public void setErrorMessage(String text)
     {
         errorMessage.setText(text);

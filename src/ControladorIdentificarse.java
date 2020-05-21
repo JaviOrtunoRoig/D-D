@@ -27,14 +27,7 @@ public class ControladorIdentificarse implements ActionListener {
 		this.vistaIniciarSesion = vistaIni;
 		this.vistaRegistrarse = vista;
 	}
-
-	/**
-	 *
-	 * @param nombre del usuario.
-	 * @param password del usuario.
-	 * @param confPassword confirmacion del password del usuario.
-	 * @return true si se ha registrado al usuario satisfactoriamente.
-	 */
+	
 	public boolean registrarse(String nombre, String password, String confPassword)	{
 
 		vistaRegistrarse.setErrorMessageValue("Cuenta registrada con exito");
@@ -42,17 +35,19 @@ public class ControladorIdentificarse implements ActionListener {
 		boolean res = false;
 
 		try {
-
 			Class.forName(JDBC_DRIVER);
+
 			conn = DriverManager.getConnection(DB_URL + "/" + DB_SCHEMA, USER, PASS);
+
 			stmt = conn.createStatement();
 			
 			boolean encontrado = false;
 			
 			String sqlConsulta = "SELECT nombre FROM Usuario";
+			
 			ResultSet rsConsulta = stmt.executeQuery(sqlConsulta);
 			
-			 while (rsConsulta.next() && !encontrado) {
+			 while(rsConsulta.next() && !encontrado){
 				 
 		         //Retrieve by column name
 		         String nombreBD = rsConsulta.getString("nombre");
@@ -63,43 +58,31 @@ public class ControladorIdentificarse implements ActionListener {
 			 }
 			 
 		    if (!encontrado) {
-
 		    	String sqlInsert = "INSERT INTO Usuario " + "VALUES ('" + nombre + "','" + password + "')";
 
 		    	if (password.equals(confPassword)) {
 
 		    		stmt = conn.createStatement();
 		    		stmt.executeUpdate(sqlInsert);
-		    		System.out.println("Registro realizado con exito");
 		    		res = true;
-
 		    	} else {
 		    		//JOptionPane.showMessageDialog(parentComponent, message);
-		    		vistaRegistrarse.setErrorMessageValue("Las contrase�as no coinciden");
+		    		vistaRegistrarse.setErrorMessageValue("Las contrasenias no coinciden");
 		    	}
-		    	
 		    }
 		    else {
 				vistaRegistrarse.setErrorMessageValue("Nombre ya existentes");
-		    }
 
+		    }
 		} catch (SQLException e) {
 			System.err.println("Error en la base de datos");
-		}
-		catch (Exception e)	{
+		} catch (Exception e) {
 			System.err.println("Error: " + e.getMessage());
 		}
-
 		return res;
 	}
 
-	/**
-	 *
-	 * @param nombre del usuario a borrar.
-	 * @return true si se ha borrado satisfactoriamente.
-	 */
-	public boolean borrarUsuario(String nombre)	{
-
+	public boolean borrarUsuario(String nombre) {
 		boolean res = false;
 		try {
 			Class.forName(JDBC_DRIVER);
@@ -116,16 +99,10 @@ public class ControladorIdentificarse implements ActionListener {
 		catch (Exception e) {
 			System.err.println("Error: " + e.getMessage());
 		}
-
 		return res;
 	}
+	
 
-	/**
-	 *
-	 * @param nombre del usuario.
-	 * @param password del usuario.
-	 * @return true si se ha podido iniciar sesion satisfactoriamente.
-	 */
 	public boolean iniciarSesion(String nombre, String password) {
 
 		boolean res = false;
@@ -139,10 +116,11 @@ public class ControladorIdentificarse implements ActionListener {
 			boolean encontrado = false;
 			String pass = null;
 
+
 			String sqlConsulta = "SELECT nombre, contrasena FROM Usuario";
 			ResultSet rsConsulta = stmt.executeQuery(sqlConsulta);
 
-			while (rsConsulta.next() && !encontrado) {
+			while(rsConsulta.next() && !encontrado){
 
 				String nombreBD = rsConsulta.getString("nombre");
 
@@ -154,7 +132,7 @@ public class ControladorIdentificarse implements ActionListener {
 
 			if (encontrado) {
 
-				if(pass.equals(password)) {
+				if (pass.equals(password)) {
 
 					res = true;
 					this.vistaIniciarSesion.setErrorMessage("La contrasena es correcta. Bienvenido " + nombre);
@@ -162,14 +140,14 @@ public class ControladorIdentificarse implements ActionListener {
 				} else {
 					this.vistaIniciarSesion.setErrorMessage("Error. Las contrasena introducida no coincide con la del usuario");
 				}
+
 			} else {
 				this.vistaIniciarSesion.setErrorMessage("Error. El nombre del usuario no existe");
 			}
-
 		} catch (SQLException e) {
 			this.vistaIniciarSesion.setErrorMessage("Error en la base de datos");
 		}
-		catch (Exception e)	{
+		catch (Exception e) {
 			this.vistaIniciarSesion.setErrorMessage("Error: " + e.getMessage());
 		}
 		return res;

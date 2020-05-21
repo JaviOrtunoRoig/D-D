@@ -16,7 +16,7 @@ class ControladorIdentificarseTest {
 
     @Test
     void registrarseFail() {
-        boolean reg1 = ci.registrarse("test", "test", "test");
+        ci.registrarse("test", "test", "test");
         boolean reg2 = ci.registrarse("test", "test", "test");
         assertFalse(reg2);
     }
