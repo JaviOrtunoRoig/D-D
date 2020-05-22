@@ -1,6 +1,7 @@
 package Controladores;
 
 import Modelos.Principal;
+import Vistas.VistaDM_Usuario;
 import Vistas.VistaIniciarSesion;
 import Vistas.VistaPG;
 import Vistas.VistaRegistrarse;
@@ -29,10 +30,12 @@ public class ControladorIdentificarse implements ActionListener {
 	//Vista
 	VistaRegistrarse vistaRegistrarse;
 	VistaIniciarSesion vistaIniciarSesion;
+	VistaDM_Usuario vistaDM_Usuario;
 
-	public ControladorIdentificarse(VistaRegistrarse vista, VistaIniciarSesion vistaIni) {
+	public ControladorIdentificarse(VistaRegistrarse vista, VistaIniciarSesion vistaIni, VistaDM_Usuario vistaDM_Usuario) {
 		this.vistaIniciarSesion = vistaIni;
 		this.vistaRegistrarse = vista;
+		this.vistaDM_Usuario = vistaDM_Usuario;
 	}
 
 	/**
@@ -200,7 +203,9 @@ public class ControladorIdentificarse implements ActionListener {
 			correcto = this.iniciarSesion(user, passw);
 
 			if (correcto) {
-				Principal.frame.setContentPane(new VistaPG().Inicio);
+				//Principal.frame.setContentPane(new VistaPG().Inicio);
+				//Principal.frame.setVisible(true);
+				Principal.frame.setContentPane(new VistaDM_Usuario().DM_Usuario);
 				Principal.frame.setVisible(true);
 			}
 		} else if (e.equals(VistaRegistrarse.VOLVER)) {

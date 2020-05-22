@@ -35,8 +35,9 @@ public class VistaPG implements ActionListener{
         if (e.equals(VistaPG.REGISTRARSE)) {
             VistaRegistrarse vistaRegistrarse = new VistaRegistrarse();
             VistaIniciarSesion vistaIniciarSesion = new VistaIniciarSesion();
+            VistaDM_Usuario vistaDM_Usuario = new VistaDM_Usuario();
 
-            ActionListener controladorRegistro = new ControladorIdentificarse(vistaRegistrarse, vistaIniciarSesion); //Lo he metdido en la propia vista
+            ActionListener controladorRegistro = new ControladorIdentificarse(vistaRegistrarse, vistaIniciarSesion, vistaDM_Usuario); //Lo he metido en la propia vista
             vistaRegistrarse.controlador(controladorRegistro);
 
             Principal.frame.setContentPane(vistaRegistrarse.Registro);
@@ -45,7 +46,9 @@ public class VistaPG implements ActionListener{
         } else if (e.equals(VistaPG.INICIARSESION)) {
             VistaRegistrarse vistaRegistrarse = new VistaRegistrarse();
             VistaIniciarSesion vistaIniciarSesion = new VistaIniciarSesion();
-            ActionListener controladorInicioSesion = new ControladorIdentificarse(vistaRegistrarse, vistaIniciarSesion); //Lo he metdido en la propia vista
+            VistaDM_Usuario vistaDM_Usuario = new VistaDM_Usuario();
+
+            ActionListener controladorInicioSesion = new ControladorIdentificarse(vistaRegistrarse, vistaIniciarSesion, vistaDM_Usuario); //Lo he metiddo en la propia vista
             vistaIniciarSesion.controlador(controladorInicioSesion);
 
             Principal.frame.setContentPane(vistaIniciarSesion.IniciarSesion);
