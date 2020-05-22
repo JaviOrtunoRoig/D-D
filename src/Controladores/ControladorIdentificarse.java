@@ -194,7 +194,7 @@ public class ControladorIdentificarse implements ActionListener {
 				Principal.frame.setVisible(true);
 			}
 
-		} else {
+		} else if (e.equals(VistaIniciarSesion.INICIO)) {
 			String user = vistaIniciarSesion.getUsername().getText();
 			String passw = new String(vistaIniciarSesion.getPassword().getPassword());
 			correcto = this.iniciarSesion(user, passw);
@@ -203,6 +203,12 @@ public class ControladorIdentificarse implements ActionListener {
 				Principal.frame.setContentPane(new VistaPG().Inicio);
 				Principal.frame.setVisible(true);
 			}
+		} else if (e.equals(VistaRegistrarse.VOLVER)) {
+			Principal.frame.setContentPane(new VistaPG().Inicio);
+			Principal.frame.setVisible(true);
+		} else if (e.equals(VistaIniciarSesion.VOLVER)) {
+			Principal.frame.setContentPane(new VistaPG().Inicio);
+			Principal.frame.setVisible(true);
 		}
 	}
 }

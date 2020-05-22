@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 public class VistaRegistrarse {
 
     public static String ACEPTAR = "ACEPTAR";
+    public static String VOLVER = "VOLVER";
 
     public JPanel Registro;
     private JTextField username;
@@ -13,6 +14,10 @@ public class VistaRegistrarse {
     private JPasswordField passwordConfirmation;
     private JButton buttonAceptar;
     private JLabel errorMessage;
+    private JButton buttonAtrasRegistrarse;
+    private JLabel usernameLabel;
+    private JLabel passwordLabel;
+    private JLabel confPasswordLabel;
 
     /**
      *
@@ -57,5 +62,8 @@ public class VistaRegistrarse {
     public void controlador(ActionListener ctr) {
         buttonAceptar.addActionListener(ctr);
         buttonAceptar.setActionCommand(ACEPTAR);
+
+        buttonAtrasRegistrarse.addActionListener(ctr);
+        buttonAtrasRegistrarse.setActionCommand(VOLVER);
     }
 }

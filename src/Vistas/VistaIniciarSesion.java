@@ -6,12 +6,16 @@ import java.awt.event.ActionListener;
 public class VistaIniciarSesion {
 
     public static String INICIO = "INICIO";
+    public static String VOLVER = "VOLVER";
 
     public JPanel IniciarSesion;
     private JTextField username;
     private JPasswordField password;
     private JButton buttonIniciarSesion;
     private JLabel errorMessage; //TODO Aqui se mostrará un mensaje de error cuando tenga q mostrarse
+    private JLabel passwordLabel;
+    private JButton buttonAtrasInicioSesion;
+    private JLabel usuarioLabel;
 
 
     /**
@@ -33,6 +37,9 @@ public class VistaIniciarSesion {
     public void controlador(ActionListener ctr) {
         buttonIniciarSesion.addActionListener(ctr);
         buttonIniciarSesion.setActionCommand(INICIO);
+
+        buttonAtrasInicioSesion.addActionListener(ctr);
+        buttonAtrasInicioSesion.setActionCommand(VOLVER);
     }
 
     /**
