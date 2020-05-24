@@ -64,8 +64,11 @@ public class ControladorMetodosDM implements ActionListener {
                     encontrado = true;
                 }
             }
-
-            if (encontrado) {
+            if(id == 0)
+            {
+                id = -1;
+            }
+            else if (encontrado) {
                 String query2 = "SELECT idPartida, DM FROM Partida";
                 ResultSet rsConsulta2 = stmt.executeQuery(query2);
                 boolean encontradoDM = false;
@@ -85,7 +88,8 @@ public class ControladorMetodosDM implements ActionListener {
                 }
             }
 
-        } catch(SQLException e) {
+        } catch(
+                SQLException e) {
             System.err.println("Error en la conexion a la base de datos");
         } catch(Exception e) {
             System.err.println("Error : " + e.getMessage());
