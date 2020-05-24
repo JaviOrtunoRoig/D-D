@@ -37,7 +37,9 @@ public class ControladorMetodosDM implements ActionListener {
     /** Este método buscará al DM en la partida
      *
      * @param nom nombre del usuario.
-     * @return id de la partida si es encontrada o "-1" si no ha sido encontrada
+     * @return id de la partida si es encontrada
+     * @return "-1" si el usuario no tiene asociada una partida
+     * @return "-2" si el usuario tiene asociada una partida, pero no es el DM de la misma
      */
     public int estaDMEnPartida(String nom) {
 
@@ -81,7 +83,7 @@ public class ControladorMetodosDM implements ActionListener {
                 }
 
                 if (!encontradoDM) {
-                    id = -1;
+                    id = -2;
                 }
             }
 
