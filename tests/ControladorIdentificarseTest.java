@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ControladorIdentificarseTest {
 
-    ControladorIdentificarse ci = new ControladorIdentificarse(new VistaRegistrarse(), new VistaIniciarSesion(), new VistaDM_Usuario());
+    ControladorIdentificarse ci = new ControladorIdentificarse(new VistaRegistrarse(), new VistaIniciarSesion(), new VistaDM_Usuario(null));
 
     @Test
     void registrarseSuccess() {

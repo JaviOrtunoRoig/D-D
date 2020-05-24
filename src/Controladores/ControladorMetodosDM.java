@@ -101,12 +101,9 @@ public class ControladorMetodosDM implements ActionListener {
         if (comando.equals(VistaDM_Usuario.DM)) {
             int idPartida = estaDMEnPartida(usuario);
 
-            System.out.println(idPartida);
-
             if (idPartida >= 0) { //Se ha encontrado partida
                 //TODO: Redirigir a la partida.
             } else { //No tiene ninguna partida asociada.
-                //Todo: Pasar vista al controlador y viceversa
                 VistaConfirCreacionPartida vistaConfirCreacionPartida = new VistaConfirCreacionPartida();
                 vistaConfirCreacionPartida.controlador(this);
 
@@ -118,7 +115,7 @@ public class ControladorMetodosDM implements ActionListener {
             //TODO: Que hacer si elige ser jugador
         } else if (comando.equals(VistaConfirCreacionPartida.NO)) { //En el aviso de crear nueva partida se dice que no
 
-            Principal.frame.setContentPane(new VistaDM_Usuario().DM_Usuario);
+            Principal.frame.setContentPane(new VistaDM_Usuario(this).DM_Usuario);
             Principal.frame.setVisible(true);
         }
     }
