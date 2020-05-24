@@ -3,7 +3,6 @@ package Controladores;
 import Modelos.Principal;
 import Vistas.VistaConfirCreacionPartida;
 import Vistas.VistaDM_Usuario;
-import Vistas.VistaPG;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -24,9 +23,9 @@ public class ControladorMetodosDM implements ActionListener {
     static final String USER = "dundragons";
     static final String PASS = "VengerHank";
 
-    private VistaDM_Usuario vistaDM_usuario;
-
     private String usuario;
+
+    VistaDM_Usuario vistaDM_usuario;
 
     public ControladorMetodosDM(String usuario, VistaDM_Usuario vistaDM_usuario) {
         this.usuario = usuario;
@@ -38,8 +37,7 @@ public class ControladorMetodosDM implements ActionListener {
      *
      * @param nom nombre del usuario.
      * @return id de la partida si es encontrada
-     * @return "-1" si el usuario no tiene asociada una partida
-     * @return "-2" si el usuario tiene asociada una partida, pero no es el DM de la misma
+     * @return "-1" si el usuario no tiene asociada una partida ó -2" si el usuario tiene asociada una partida, pero no es el DM de la misma
      */
     public int estaDMEnPartida(String nom) {
 
@@ -103,14 +101,19 @@ public class ControladorMetodosDM implements ActionListener {
         if (comando.equals(VistaDM_Usuario.DM)) {
             int idPartida = estaDMEnPartida(usuario);
 
+            System.out.println(idPartida);
+
             if (idPartida >= 0) { //Se ha encontrado partida
                 //TODO: Redirigir a la partida.
-            } else { //No tiene ninguna partida asociada.
+            } else if (idPartida == -1) { //No tiene ninguna partida asociada.
                 VistaConfirCreacionPartida vistaConfirCreacionPartida = new VistaConfirCreacionPartida();
                 vistaConfirCreacionPartida.controlador(this);
 
                 Principal.frame.setContentPane(vistaConfirCreacionPartida.confirmarPartida);
                 Principal.frame.setVisible(true);
+            } else {
+                System.out.println("Hola");
+                vistaDM_usuario.setMensajeError("Error: Estás asociado a una partida, \n pero no como dm.");
             }
 
         } else if (comando.equals(VistaDM_Usuario.JUGADOR)) {
