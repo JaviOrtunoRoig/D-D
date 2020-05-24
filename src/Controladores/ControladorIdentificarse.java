@@ -203,9 +203,10 @@ public class ControladorIdentificarse implements ActionListener {
 			correcto = this.iniciarSesion(user, passw);
 
 			if (correcto) {
-				//Principal.frame.setContentPane(new VistaPG().Inicio);
-				//Principal.frame.setVisible(true);
-				Principal.frame.setContentPane(new VistaDM_Usuario().DM_Usuario);
+				ActionListener ControladorMetodosDM = new ControladorMetodosDM(user, new VistaDM_Usuario()); //Lo he metido en la propia vista
+				vistaDM_Usuario.controlador(ControladorMetodosDM);
+
+				Principal.frame.setContentPane(vistaDM_Usuario.DM_Usuario);
 				Principal.frame.setVisible(true);
 			}
 		} else if (e.equals(VistaRegistrarse.VOLVER)) {

@@ -32,7 +32,7 @@ public class Principal {
 
 
 		// Display the window.
-		//frame.pack(); //si lo pongo no va el tamaño por defecto
+		frame.pack(); //si lo pongo no va el tamaño por defecto
 		frame.setVisible(true);
 	}
 
