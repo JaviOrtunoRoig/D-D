@@ -47,7 +47,6 @@ public class ControladorIdentificarse implements ActionListener {
 	 */
 	public boolean registrarse(String nombre, String password, String confPassword)	{
 
-		vistaRegistrarse.setErrorMessageValue("Cuenta registrada con exito");
 
 		boolean res = false;
 
@@ -75,13 +74,16 @@ public class ControladorIdentificarse implements ActionListener {
 			 }
 			 
 		    if (!encontrado) {
-		    	String sqlInsert = "INSERT INTO Usuario " + "VALUES ('" + nombre + "','" + password + "')";
+		    	String sqlInsert = "INSERT INTO `dungeonsdragonsdb`.`Usuario` (`nombre`, `contrasena`) VALUES ('" + nombre +"','" + password + "')";
+				;
+				System.out.println(sqlInsert);
 
 		    	if (password.equals(confPassword)) {
 
 		    		stmt = conn.createStatement();
 		    		stmt.executeUpdate(sqlInsert);
-		    		res = true;
+
+					res = true;
 		    	} else {
 		    		//JOptionPane.showMessageDialog(parentComponent, message);
 		    		vistaRegistrarse.setErrorMessageValue("Las contrasenias no coinciden");
