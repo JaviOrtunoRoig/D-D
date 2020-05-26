@@ -8,6 +8,9 @@ import Vistas.VistaDM_Usuario;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.*;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.Random;
 
 public class ControladorMetodosDM implements ActionListener {
 
@@ -97,6 +100,91 @@ public class ControladorMetodosDM implements ActionListener {
         }
 
         return id;
+    }
+
+
+    /** Este método creará una partida para el DM
+     *
+     * @param nombreusuario: nombre del usuario
+     * @param contrasena :  nombre del contraseña.
+     * @return id de la partida si ha sido creada con éxito
+     * @return "-1" si  ha habido algún error creando la partida
+     */
+    public int crearPartida(String nombreusuario, String contrasena) {
+
+        int id = -1;
+
+        try {
+
+            Calendar fecha = new GregorianCalendar();
+            int anio = fecha.get(Calendar.YEAR);
+            int mes = fecha.get(Calendar.MONTH);
+            int dia = fecha.get(Calendar.DAY_OF_MONTH);
+            String fechasistema = anio + "-" + (mes+1) + "-" + dia;
+
+            Class.forName(JDBC_DRIVER);
+
+            conn = DriverManager.getConnection(DB_URL + "/" + DB_SCHEMA, USER, PASS);
+
+            stmt = conn.createStatement();
+
+            Random r = new Random();
+
+
+            boolean seguir = true;
+
+            while(seguir)
+            {
+
+                int idPartida = r.nextInt(10000);
+
+                String query1 = "SELECT idPartida FROM Partida";
+                ResultSet rsConsulta1 = stmt.executeQuery(query1);
+                boolean encontrado = false;
+
+                while (rsConsulta1.next() && !encontrado) {
+
+                    int idPartidaBBDD = rsConsulta1.getInt("idPartida");
+
+
+                    if (idPartidaBBDD == idPartida) {
+                        encontrado = true;
+                    }
+                }
+
+                if(!encontrado)
+                {
+                    seguir = false;
+                    id = idPartida;
+                    String insert1 = "INSERT INTO `dungeonsdragonsdb`.`Partida` (`idPartida`, `contrasena`, `fechaCreacion`, `numeroJugadores`, `DM`) " +
+                            "VALUES ('" + id + "','" + contrasena + "','" + fechasistema + "','" + 0 + "','" + nombreusuario + "')";
+
+                    System.out.println(insert1);
+
+                    stmt.executeUpdate(insert1);
+
+                    String insert2 = "UPDATE `dungeonsdragonsdb`.`Usuario` SET `partida` = '" + id + "' WHERE (`nombre` = '" + nombreusuario + "')";
+
+                    stmt.executeUpdate(insert2);
+
+
+                }
+            }
+
+
+
+
+        }catch(SQLException e)
+        {
+            System.err.println("Error en la base de Datos");
+        }
+        catch(Exception e)
+        {
+            System.err.println(e.getMessage());
+        }
+
+        return id;
+
     }
 
 
