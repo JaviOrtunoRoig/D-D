@@ -2,6 +2,7 @@ package Controladores;
 
 import Modelos.Principal;
 import Vistas.VistaConfirCreacionPartida;
+import Vistas.VistaCrearPartida;
 import Vistas.VistaDM_Usuario;
 
 import java.awt.event.ActionEvent;
@@ -116,7 +117,6 @@ public class ControladorMetodosDM implements ActionListener {
                 Principal.frame.setContentPane(vistaConfirCreacionPartida.confirmarPartida);
                 Principal.frame.setVisible(true);
             } else {
-                System.out.println("Hola");
                 vistaDM_usuario.setMensajeError("Error: Estás asociado a una partida, \n pero no como dm.");
             }
 
@@ -125,6 +125,10 @@ public class ControladorMetodosDM implements ActionListener {
         } else if (comando.equals(VistaConfirCreacionPartida.NO)) { //En el aviso de crear nueva partida se dice que no
 
             Principal.frame.setContentPane(new VistaDM_Usuario(this).DM_Usuario);
+            Principal.frame.setVisible(true);
+
+        } else if (comando.equals(VistaConfirCreacionPartida.SI)) {
+            Principal.frame.setContentPane(new VistaCrearPartida().crear);
             Principal.frame.setVisible(true);
         }
     }
