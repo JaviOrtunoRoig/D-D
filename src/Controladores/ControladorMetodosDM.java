@@ -181,6 +181,81 @@ public class ControladorMetodosDM implements ActionListener {
         return id;
     }
 
+    /**
+     @param nombre: nombre usuario (jugador)
+     @return Primer caso: Retornas "-1" si no tiene partida
+     Segundo caso: Tiene idPartida, no es DM, devuelves el idPartida
+     Tercer caso: Tiene idPartida, es DM, devuelve "-2"
+     */
+
+    public int estaJugadorEnPartida (String nombre) {
+        //res es lo que va a devolver este metodo.
+        int res=0;
+
+        try {
+            Class.forName(JDBC_DRIVER);
+            conn = DriverManager.getConnection(DB_URL + "/" + DB_SCHEMA, USER, PASS);
+            stmt = conn.createStatement();
+            //vamos a consultar si pertenece a partida por ello hacemos la consulta
+            String sqlConsulta = "SELECT partida FROM Usuario WHERE nombre LIKE '" + nombre + "'";
+            ResultSet resultado = stmt.executeQuery(sqlConsulta);
+            resultado.next();
+            //cargamos el int de partida en un int para trabajar con el.
+            int result = resultado.getInt("partida");
+
+            //si el codigo de la partida es null en la BD devuelve 0, por ello lo pongo así.
+            if (result == 0) {
+                res = -1;
+            } else {
+                //cree otro metodo para saber si dicho jugador, estando en la partida 'x' es dm o no y nos devuelve un bool.
+                boolean esDM = EsDM(nombre, result);
+                if (esDM) {
+                    res = -2;
+                } else {
+                    res = result;
+                }
+            }
+        } catch (SQLException e){
+            System.err.println("Error de conexion a la base de datos.");
+        } catch (Exception e){
+            System.err.println(e.getMessage());
+        }
+        return res;
+    }
+
+    /**
+     @param nombre: nombre usuario (jugador)
+     partida: idPartida.
+     @return
+     true si el jugador de dicha partida es DM
+     false si el jugador de dicha partida no lo es.
+
+     */
+    private boolean EsDM (String nombre, int Partida) {
+        boolean esDM=false;
+
+        //creo lo necesario para hacer una consulta preguntando en la partida 'x' cual es el nombre del DM
+        //para poder compararo con el nombre del jugador dado.
+        try {
+            Class.forName(JDBC_DRIVER);
+            conn = DriverManager.getConnection(DB_URL + "/" + DB_SCHEMA, USER, PASS);
+            stmt = conn.createStatement();
+            String sqlConsulta = "SELECT DM FROM Partida WHERE idPartida =" + Partida;
+            ResultSet resultado = stmt.executeQuery(sqlConsulta);
+            resultado.next();
+            //cargo el resultado en un string para porder compararlo con comodidad.
+            String DM = resultado.getString("DM");
+            //por defecto esDM=false. Si el nombre del DM y el nombre del jugador coinciden, esDM pasara a ser true.
+            if (DM.equals(nombre)) {
+                esDM = true;
+            }
+        }catch (SQLException e){
+            System.err.println("Error conexion a la base de datos");
+        } catch (Exception e){
+            System.err.println(e.getMessage());
+        }
+        return esDM;
+    }
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -203,7 +278,17 @@ public class ControladorMetodosDM implements ActionListener {
             }
 
         } else if (comando.equals(VistaDM_Usuario.JUGADOR)) {
-            //TODO: Que hacer si elige ser jugador
+
+            int id = estaJugadorEnPartida(usuario);
+
+            if (id >= 0) { //to do bien
+                vistaDM_usuario.setMensajeError("Todo gucci");
+            } else if (id == -1) { //no tiene partida
+                vistaDM_usuario.setMensajeError("No tiene partida");
+            } else { //tiene partida pero es DM
+                vistaDM_usuario.setMensajeError("Tiene partida pero es DM");
+            }
+
         } else if (comando.equals(VistaConfirCreacionPartida.NO)) { //En el aviso de crear nueva partida se dice que no
 
             Principal.frame.setContentPane(new VistaDM_Usuario(this).DM_Usuario);
