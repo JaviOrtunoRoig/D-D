@@ -1,9 +1,7 @@
 package Controladores;
 
 import Modelos.Principal;
-import Vistas.VistaConfirCreacionPartida;
-import Vistas.VistaCrearPartida;
-import Vistas.VistaDM_Usuario;
+import Vistas.*;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -32,6 +30,7 @@ public class ControladorMetodosDM implements ActionListener {
     VistaDM_Usuario vistaDM_usuario;
     VistaCrearPartida vistaCrearPartida;
     VistaConfirCreacionPartida vistaConfirCreacionPartida;
+    VistaBuscarPartida vistaBuscarPartida;
 
     public ControladorMetodosDM(String usuario, VistaDM_Usuario vistaDM_usuario) {
         this.usuario = usuario;
@@ -257,6 +256,57 @@ public class ControladorMetodosDM implements ActionListener {
         return esDM;
     }
 
+
+    /**
+     *   Unir jugador a partida:
+     *     -partida y contraseña coinciden
+     *     -unir al jugador
+     *
+     @param: nombre: nombre usuario (jugador)
+     idPartida.
+     pass: contrasena partida
+     */
+
+    public void UnirseAPartida (String nombre, int idpartida, int password) {
+        System.out.println("ESTO DEBERIA APARECER SOLO UNA VEZ");
+
+        try{
+            Class.forName(JDBC_DRIVER);
+            conn = DriverManager.getConnection(DB_URL + "/" + DB_SCHEMA, USER, PASS);
+            stmt = conn.createStatement();
+            //vamos a ver que la partida existe y coincide con la contrasena.
+            String sqlConsultapartida = "SELECT contrasena FROM Partida WHERE idPartida =" + idpartida;
+            stmt.executeQuery(sqlConsultapartida);
+            ResultSet resultado = stmt.executeQuery(sqlConsultapartida);
+            resultado.next();
+            int pass = resultado.getInt("contrasena");
+
+
+            System.out.println("Voy a comprobar si las contrasenas coinciden. He obtenido que de la partida: "
+                    + idpartida + " la pass= " + pass + ". La password dada ha sido: " + password);
+            if (pass==password){
+                //vamos a realizar la inclusion del usuario a la partida.
+                //UPDATE `dungeonsdragonsdb`.`Usuario` SET `partida` = '1234' WHERE (`nombre` = 'micho');
+                System.out.println("Las contrasenas coinciden, lo anado.");
+                System.out.println("---------------Sentencia:");
+                System.out.println("UPDATE `dungeonsdragonsdb`.`Usuario` SET `partida` = '" + idpartida + "' WHERE (`nombre` = '"+ nombre + "');");
+                String sqlConsulta = "UPDATE `dungeonsdragonsdb`.`Usuario` SET `partida` = '" + idpartida + "' WHERE (`nombre` = '"+ nombre + "');";
+                stmt.executeUpdate(sqlConsulta);
+                System.out.println("Sentencia ejecutada.");
+
+            }else{
+                System.out.println("Las contrasenas no coinciden");
+            }
+
+            System.out.println("El if se ha hecho y ya debería estar unido. No errors me vuelvo al main");
+
+        } catch (SQLException e){
+            System.err.println("Error de conexion a la base de datos");
+        } catch (Exception e){
+            System.err.println(e.getMessage());
+        }
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         String comando = e.getActionCommand();
@@ -282,9 +332,14 @@ public class ControladorMetodosDM implements ActionListener {
             int id = estaJugadorEnPartida(usuario);
 
             if (id >= 0) { //to do bien
-                vistaDM_usuario.setMensajeError("Todo gucci");
+                //TODO: Mandar a la partida
             } else if (id == -1) { //no tiene partida
-                vistaDM_usuario.setMensajeError("No tiene partida");
+
+                vistaBuscarPartida = new VistaBuscarPartida();
+                vistaBuscarPartida.controlador(this);
+                Principal.frame.setContentPane(vistaBuscarPartida.BuscarPartida);
+                Principal.frame.setVisible(true);
+
             } else { //tiene partida pero es DM
                 vistaDM_usuario.setMensajeError("Tiene partida pero es DM");
             }
@@ -311,7 +366,20 @@ public class ControladorMetodosDM implements ActionListener {
                 vistaCrearPartida.setPasswordLabel("Error");
             }
         } else if (comando.equals(VistaCrearPartida.ATRAS)) {
+
             Principal.frame.setContentPane(vistaConfirCreacionPartida.confirmarPartida);
+            Principal.frame.setVisible(true);
+
+        } else if (comando.equals(VistaBuscarPartida.UNIRMEPARTIDA)) {
+            //TODO: Que la contraseña pueda ser un string
+            //TODO: devuelva un numero para saber si todo ha ido bien o no se ha encontrado la partida
+            //TODO: Abajo da error por pasar una letra a un numero
+            this.UnirseAPartida(usuario, Integer.parseInt(vistaBuscarPartida.getIdPartida()), Integer.parseInt(vistaBuscarPartida.getPasswordField()));
+            Principal.frame.setContentPane(new VistaPersonajeAuto_Manual().pantalla);
+            Principal.frame.setVisible(true);
+
+        } else if (comando.equals(VistaBuscarPartida.ATRAS2)) {
+            Principal.frame.setContentPane(new VistaDM_Usuario(this).DM_Usuario);
             Principal.frame.setVisible(true);
         }
     }
