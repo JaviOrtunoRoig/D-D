@@ -30,6 +30,7 @@ public class ControladorMetodosDM implements ActionListener {
     private String usuario;
 
     VistaDM_Usuario vistaDM_usuario;
+    VistaCrearPartida vistaCrearPartida;
 
     public ControladorMetodosDM(String usuario, VistaDM_Usuario vistaDM_usuario) {
         this.usuario = usuario;
@@ -133,8 +134,7 @@ public class ControladorMetodosDM implements ActionListener {
 
             boolean seguir = true;
 
-            while(seguir)
-            {
+            while(seguir) {
 
                 int idPartida = r.nextInt(10000);
 
@@ -152,8 +152,7 @@ public class ControladorMetodosDM implements ActionListener {
                     }
                 }
 
-                if(!encontrado)
-                {
+                if(!encontrado) {
                     seguir = false;
                     id = idPartida;
                     String insert1 = "INSERT INTO `dungeonsdragonsdb`.`Partida` (`idPartida`, `contrasena`, `fechaCreacion`, `numeroJugadores`, `DM`) " +
@@ -166,25 +165,19 @@ public class ControladorMetodosDM implements ActionListener {
                     String insert2 = "UPDATE `dungeonsdragonsdb`.`Usuario` SET `partida` = '" + id + "' WHERE (`nombre` = '" + nombreusuario + "')";
 
                     stmt.executeUpdate(insert2);
-
-
                 }
             }
 
 
 
 
-        }catch(SQLException e)
-        {
+        }catch(SQLException e) {
             System.err.println("Error en la base de Datos");
         }
-        catch(Exception e)
-        {
+        catch(Exception e) {
             System.err.println(e.getMessage());
         }
-
         return id;
-
     }
 
 
@@ -216,8 +209,21 @@ public class ControladorMetodosDM implements ActionListener {
             Principal.frame.setVisible(true);
 
         } else if (comando.equals(VistaConfirCreacionPartida.SI)) {
-            Principal.frame.setContentPane(new VistaCrearPartida().crear);
+
+            vistaCrearPartida = new VistaCrearPartida();
+            vistaCrearPartida.controlador(this);
+
+            Principal.frame.setContentPane(vistaCrearPartida.crear);
             Principal.frame.setVisible(true);
+
+        } else if (comando.equals(VistaCrearPartida.CREAR)) {
+            int estado = crearPartida(usuario, vistaCrearPartida.getPassword());
+            if (estado >= 0) {
+                vistaCrearPartida.setPasswordLabel("Partida creada");
+            }
+            else {
+                vistaCrearPartida.setPasswordLabel("Error");
+            }
         }
     }
 }
