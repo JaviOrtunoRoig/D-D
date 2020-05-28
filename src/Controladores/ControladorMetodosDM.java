@@ -31,6 +31,7 @@ public class ControladorMetodosDM implements ActionListener {
 
     VistaDM_Usuario vistaDM_usuario;
     VistaCrearPartida vistaCrearPartida;
+    VistaConfirCreacionPartida vistaConfirCreacionPartida;
 
     public ControladorMetodosDM(String usuario, VistaDM_Usuario vistaDM_usuario) {
         this.usuario = usuario;
@@ -192,7 +193,7 @@ public class ControladorMetodosDM implements ActionListener {
             if (idPartida >= 0) { //Se ha encontrado partida
                 //TODO: Redirigir a la partida.
             } else if (idPartida == -1) { //No tiene ninguna partida asociada.
-                VistaConfirCreacionPartida vistaConfirCreacionPartida = new VistaConfirCreacionPartida();
+                vistaConfirCreacionPartida = new VistaConfirCreacionPartida();
                 vistaConfirCreacionPartida.controlador(this);
 
                 Principal.frame.setContentPane(vistaConfirCreacionPartida.confirmarPartida);
@@ -224,6 +225,9 @@ public class ControladorMetodosDM implements ActionListener {
             else {
                 vistaCrearPartida.setPasswordLabel("Error");
             }
+        } else if (comando.equals(VistaCrearPartida.ATRAS)) {
+            Principal.frame.setContentPane(vistaConfirCreacionPartida.confirmarPartida);
+            Principal.frame.setVisible(true);
         }
     }
 }
