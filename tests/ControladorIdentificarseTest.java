@@ -1,12 +1,11 @@
 import Controladores.ControladorIdentificarse;
-import Vistas.*;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class ControladorIdentificarseTest {
 
-    ControladorIdentificarse ci = new ControladorIdentificarse(new VistaRegistrarse(), new VistaIniciarSesion(), new VistaDM_Usuario(null));
+    ControladorIdentificarse ci = new ControladorIdentificarse(new Vistas.VistaRegistrarse(), new Vistas.VistaIniciarSesion(), new Vistas.VistaDM_Usuario(null));
 
     @Test
     void registrarseSuccess() {
