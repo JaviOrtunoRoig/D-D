@@ -1,0 +1,12 @@
+Controladores\ControladorIdentificarse.class
+Vistas\VistaCrearPartida.class
+Vistas\VistaIniciarSesion.class
+Vistas\VistaPG.class
+Modelos\Principal.class
+Vistas\VistaBuscarPartida.class
+Controladores\ControladorMetodosDM.class
+Modelos\Principal$1.class
+Vistas\VistaDM_Usuario.class
+Vistas\VistaConfirCreacionPartida.class
+Vistas\VistaRegistrarse.class
+Modelos\Partida.class
