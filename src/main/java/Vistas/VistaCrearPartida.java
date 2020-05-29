@@ -1,6 +1,6 @@
 package Vistas;
 
-import javax.smartcardio.ATR;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;

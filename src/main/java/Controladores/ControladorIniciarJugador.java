@@ -44,12 +44,17 @@ public class ControladorIniciarJugador implements ActionListener {
      @param nombre: nombre usuario (jugador)
      idPartida.
      pass: contrasena partida
+     @return:
+     -1:si to do ha ido bien
+     -2:si no se ha encontrado la partida con ese id (SQLException en general)
+     -3: Exception pero no SQLException. Otro tipo de error.
+     -4:no era la contraseña de la partida
      */
 
-    public void UnirseAPartida (String nombre, int idpartida, int password) {
-        System.out.println("ESTO DEBERIA APARECER SOLO UNA VEZ");
+    public int UnirseAPartida (String nombre, int idpartida, String password) {
+        int res;
 
-        try {
+        try{
             Class.forName(JDBC_DRIVER);
             conn = DriverManager.getConnection(DB_URL + "/" + DB_SCHEMA, USER, PASS);
             stmt = conn.createStatement();
@@ -58,31 +63,32 @@ public class ControladorIniciarJugador implements ActionListener {
             stmt.executeQuery(sqlConsultapartida);
             ResultSet resultado = stmt.executeQuery(sqlConsultapartida);
             resultado.next();
-            int pass = resultado.getInt("contrasena");
+            String pass = resultado.getString("contrasena");
 
 
-            System.out.println("Voy a comprobar si las contrasenas coinciden. He obtenido que de la partida: "
-                    + idpartida + " la pass= " + pass + ". La password dada ha sido: " + password);
-            if (pass==password){
+            if (pass.equals(password)){
                 //vamos a realizar la inclusion del usuario a la partida.
                 //UPDATE `dungeonsdragonsdb`.`Usuario` SET `partida` = '1234' WHERE (`nombre` = 'micho');
-                System.out.println("Las contrasenas coinciden, lo anado.");
-                System.out.println("---------------Sentencia:");
-                System.out.println("UPDATE `dungeonsdragonsdb`.`Usuario` SET `partida` = '" + idpartida + "' WHERE (`nombre` = '"+ nombre + "');");
                 String sqlConsulta = "UPDATE `dungeonsdragonsdb`.`Usuario` SET `partida` = '" + idpartida + "' WHERE (`nombre` = '"+ nombre + "');";
                 stmt.executeUpdate(sqlConsulta);
-                System.out.println("Sentencia ejecutada.");
+                res=1;
 
-            } else{
-                System.out.println("Las contrasenas no coinciden");
+
+            }else{
+                //todo: crear metodo contrasenas iguales error.
+                res=4;
+
             }
 
-            System.out.println("El if se ha hecho y ya debería estar unido. No errors me vuelvo al main");
-
+            return res;
         } catch (SQLException e){
-            System.err.println("Error de conexion a la base de datos");
+            //System.err.println("Error de conexion a la base de datos");
+            //todo: este error salta cuando la partida no existe, crear este mensaje de error.
+            res=2;
+            return res;
         } catch (Exception e){
-            System.err.println(e.getMessage());
+            res=3;
+            return res;
         }
     }
 
@@ -90,7 +96,7 @@ public class ControladorIniciarJugador implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         String comando = e.getActionCommand();
         if (comando.equals(VistaBuscarPartida.UNIRMEPARTIDA)) {
-            this.UnirseAPartida(usuario, Integer.parseInt(vistaBuscarPartida.getIdPartida()), Integer.parseInt(vistaBuscarPartida.getPasswordField()));
+            this.UnirseAPartida(usuario, Integer.parseInt(vistaBuscarPartida.getIdPartida()),vistaBuscarPartida.getPasswordField());
 
             vistaPersonajeAuto_manual = new VistaPersonajeAuto_Manual();
             Principal.frame.setContentPane(vistaPersonajeAuto_manual.pantalla);
