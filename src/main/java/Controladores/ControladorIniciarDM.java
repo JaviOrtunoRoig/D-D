@@ -10,7 +10,7 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Random;
 
-public class ControladorMetodosDM implements ActionListener {
+public class ControladorIniciarDM implements ActionListener {
 
 
 
@@ -32,7 +32,7 @@ public class ControladorMetodosDM implements ActionListener {
     VistaConfirCreacionPartida vistaConfirCreacionPartida;
     VistaBuscarPartida vistaBuscarPartida;
 
-    public ControladorMetodosDM(String usuario, VistaDM_Usuario vistaDM_usuario) {
+    public ControladorIniciarDM(String usuario, VistaDM_Usuario vistaDM_usuario) {
         this.usuario = usuario;
         this.vistaDM_usuario = vistaDM_usuario;
     }
@@ -337,6 +337,10 @@ public class ControladorMetodosDM implements ActionListener {
 
                 vistaBuscarPartida = new VistaBuscarPartida();
                 vistaBuscarPartida.controlador(this);
+
+                ActionListener controladorIniciarJugador = new ControladorIniciarJugador(usuario, vistaBuscarPartida);
+                vistaBuscarPartida.controlador(controladorIniciarJugador);
+
                 Principal.frame.setContentPane(vistaBuscarPartida.BuscarPartida);
                 Principal.frame.setVisible(true);
 
@@ -370,7 +374,7 @@ public class ControladorMetodosDM implements ActionListener {
             Principal.frame.setContentPane(vistaConfirCreacionPartida.confirmarPartida);
             Principal.frame.setVisible(true);
 
-        } else if (comando.equals(VistaBuscarPartida.UNIRMEPARTIDA)) {
+        } /*else if (comando.equals(VistaBuscarPartida.UNIRMEPARTIDA)) {
             //TODO: Que la contraseña pueda ser un string
             //TODO: devuelva un numero para saber si todo ha ido bien o no se ha encontrado la partida
             //TODO: Abajo da error por pasar una letra a un numero
@@ -378,7 +382,7 @@ public class ControladorMetodosDM implements ActionListener {
             Principal.frame.setContentPane(new VistaPersonajeAuto_Manual().pantalla);
             Principal.frame.setVisible(true);
 
-        } else if (comando.equals(VistaBuscarPartida.ATRAS2)) {
+        } */else if (comando.equals(VistaBuscarPartida.ATRAS2)) {
             Principal.frame.setContentPane(new VistaDM_Usuario(this).DM_Usuario);
             Principal.frame.setVisible(true);
         }

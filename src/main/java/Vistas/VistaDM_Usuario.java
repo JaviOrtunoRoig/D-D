@@ -1,9 +1,9 @@
 package Vistas;
 
-import Controladores.ControladorIdentificarse;
-import Controladores.ControladorMetodosDM;
+import Controladores.ControladorIniciarDM;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionListener;
 
 
@@ -17,7 +17,7 @@ public class VistaDM_Usuario {
     private JButton botonJugador;
     private JLabel mensajeError;
 
-    public VistaDM_Usuario(ControladorMetodosDM control) {
+    public VistaDM_Usuario(ControladorIniciarDM control) {
         this.controlador(control);
     }
 
@@ -34,6 +34,7 @@ public class VistaDM_Usuario {
      * @param mensaje mensaje de error que se quiere mostrar
      */
     public void setMensajeError(String mensaje) {
+        this.mensajeError.setForeground(Color.red);
         mensajeError.setText(mensaje);
     }
 

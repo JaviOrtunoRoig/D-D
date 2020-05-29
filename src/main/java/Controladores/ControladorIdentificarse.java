@@ -205,8 +205,8 @@ public class ControladorIdentificarse implements ActionListener {
 			correcto = this.iniciarSesion(user, passw);
 
 			if (correcto) {
-				ActionListener ControladorMetodosDM = new ControladorMetodosDM(user, vistaDM_Usuario);
-				vistaDM_Usuario.controlador(ControladorMetodosDM);
+				ActionListener ControladorIniciarDM = new ControladorIniciarDM(user, vistaDM_Usuario);
+				vistaDM_Usuario.controlador(ControladorIniciarDM);
 
 				Principal.frame.setContentPane(vistaDM_Usuario.DM_Usuario);
 				Principal.frame.setVisible(true);

@@ -2,6 +2,7 @@ package Vistas;
 
 import javax.smartcardio.ATR;
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionListener;
 
 public class VistaCrearPartida {
@@ -28,6 +29,7 @@ public class VistaCrearPartida {
     }
 
     public void setPasswordLabel(String mensaje) {
+        this.passwordLabel.setForeground(Color.red);
         passwordLabel.setText(mensaje);
     }
 }

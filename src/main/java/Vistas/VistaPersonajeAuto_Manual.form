@@ -10,7 +10,7 @@
       <component id="4ee6b" class="javax.swing.JButton" binding="botonManual">
         <constraints>
           <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-          <gridbag weightx="0.0" weighty="0.0" ipadx="200"/>
+          <gridbag weightx="0.0" weighty="0.0" ipadx="200" ipady="50"/>
         </constraints>
         <properties>
           <text value="Manual"/>
@@ -31,7 +31,7 @@
       <component id="3bf87" class="javax.swing.JButton" binding="botonAutomatico">
         <constraints>
           <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-          <gridbag weightx="0.0" weighty="0.0"/>
+          <gridbag weightx="0.0" weighty="0.0" ipady="50"/>
         </constraints>
         <properties>
           <text value="Automatico"/>

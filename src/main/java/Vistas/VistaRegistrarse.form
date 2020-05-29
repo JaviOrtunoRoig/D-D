@@ -76,7 +76,7 @@
           <gridbag weightx="0.0" weighty="0.0"/>
         </constraints>
         <properties>
-          <text value="Confir.Password"/>
+          <text value="Confir.Password  "/>
         </properties>
       </component>
       <component id="3ef7" class="javax.swing.JLabel" binding="errorMessage">

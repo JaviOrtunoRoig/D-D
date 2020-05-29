@@ -1,6 +1,7 @@
 package Vistas;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionListener;
 
 public class VistaRegistrarse {
@@ -32,6 +33,7 @@ public class VistaRegistrarse {
      * @param errorMessage Mesnaje de error que se quiere mostrar.
      */
     public void setErrorMessageValue(String errorMessage) {
+        this.errorMessage.setForeground(Color.red);
         this.errorMessage.setText(errorMessage);
     }
 

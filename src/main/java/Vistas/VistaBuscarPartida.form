@@ -63,7 +63,7 @@
           <gridbag weightx="0.0" weighty="0.0"/>
         </constraints>
         <properties>
-          <text value="Password"/>
+          <text value="Password  "/>
         </properties>
       </component>
       <component id="f06cf" class="javax.swing.JButton" binding="botonBuscar">

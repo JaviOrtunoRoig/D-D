@@ -1,6 +1,7 @@
 package Vistas;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionListener;
 
 public class VistaIniciarSesion {
@@ -54,8 +55,8 @@ public class VistaIniciarSesion {
      *
      * @param text Mesnaje de error que se quiere mostrar.
      */
-    public void setErrorMessage(String text)
-    {
+    public void setErrorMessage(String text) {
+        this.errorMessage.setForeground(Color.red);
         errorMessage.setText(text);
     }
 
