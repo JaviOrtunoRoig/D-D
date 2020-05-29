@@ -12,7 +12,7 @@ public class VistaIniciarSesion {
     private JTextField username;
     private JPasswordField password;
     private JButton buttonIniciarSesion;
-    private JLabel errorMessage; //TODO Aqui se mostrará un mensaje de error cuando tenga q mostrarse
+    private JLabel errorMessage;
     private JLabel passwordLabel;
     private JButton buttonAtrasInicioSesion;
     private JLabel usuarioLabel;

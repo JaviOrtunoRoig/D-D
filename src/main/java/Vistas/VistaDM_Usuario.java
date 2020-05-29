@@ -41,7 +41,6 @@ public class VistaDM_Usuario {
         botonDM.addActionListener(ctr);
         botonDM.setActionCommand(DM);
 
-        //TODO: Aun no hace nada
         botonJugador.addActionListener(ctr);
         botonJugador.setActionCommand(JUGADOR);
     }
