@@ -1,7 +1,10 @@
 package Controladores;
 
 import Modelos.Principal;
-import Vistas.*;
+import Vistas.IniciarDM.VistaConfirCreacionPartida;
+import Vistas.IniciarDM.VistaCrearPartida;
+import Vistas.IniciarJugador.VistaBuscarPartida;
+import Vistas.Inicio.VistaDM_Usuario;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -362,6 +365,7 @@ public class ControladorIniciarDM implements ActionListener {
             Principal.frame.setVisible(true);
 
         } else if (comando.equals(VistaCrearPartida.CREAR)) {
+
             int estado = crearPartida(usuario, vistaCrearPartida.getPassword());
             if (estado >= 0) {
                 vistaCrearPartida.setPasswordLabel("Partida creada");
@@ -369,20 +373,13 @@ public class ControladorIniciarDM implements ActionListener {
             else {
                 vistaCrearPartida.setPasswordLabel("Error");
             }
+
         } else if (comando.equals(VistaCrearPartida.ATRAS)) {
 
             Principal.frame.setContentPane(vistaConfirCreacionPartida.confirmarPartida);
             Principal.frame.setVisible(true);
 
-        } /*else if (comando.equals(VistaBuscarPartida.UNIRMEPARTIDA)) {
-            //TODO: Que la contraseña pueda ser un string
-            //TODO: devuelva un numero para saber si todo ha ido bien o no se ha encontrado la partida
-            //TODO: Abajo da error por pasar una letra a un numero
-            this.UnirseAPartida(usuario, Integer.parseInt(vistaBuscarPartida.getIdPartida()), Integer.parseInt(vistaBuscarPartida.getPasswordField()));
-            Principal.frame.setContentPane(new VistaPersonajeAuto_Manual().pantalla);
-            Principal.frame.setVisible(true);
-
-        } */else if (comando.equals(VistaBuscarPartida.ATRAS2)) {
+        } else if (comando.equals(VistaBuscarPartida.ATRAS2)) {
             Principal.frame.setContentPane(new VistaDM_Usuario(this).DM_Usuario);
             Principal.frame.setVisible(true);
         }

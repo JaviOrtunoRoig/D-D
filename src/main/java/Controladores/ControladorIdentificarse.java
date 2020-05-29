@@ -1,10 +1,10 @@
 package Controladores;
 
 import Modelos.Principal;
-import Vistas.VistaDM_Usuario;
-import Vistas.VistaIniciarSesion;
-import Vistas.VistaPG;
-import Vistas.VistaRegistrarse;
+import Vistas.Inicio.VistaDM_Usuario;
+import Vistas.Inicio.VistaIniciarSesion;
+import Vistas.Inicio.VistaPG;
+import Vistas.Inicio.VistaRegistrarse;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

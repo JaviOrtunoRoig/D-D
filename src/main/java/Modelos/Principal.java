@@ -2,7 +2,8 @@ package Modelos;
 
 import javax.swing.*;
 import java.awt.*;
-import Vistas.*;
+
+import Vistas.Inicio.VistaPG;
 
 public class Principal {
 
