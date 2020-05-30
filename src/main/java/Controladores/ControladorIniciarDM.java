@@ -341,7 +341,7 @@ public class ControladorIniciarDM implements ActionListener {
                 vistaBuscarPartida = new VistaBuscarPartida();
                 vistaBuscarPartida.controlador(this);
 
-                ActionListener controladorIniciarJugador = new ControladorIniciarJugador(usuario, vistaBuscarPartida);
+                ActionListener controladorIniciarJugador = new ControladorIniciarJugador(usuario, vistaBuscarPartida, vistaDM_usuario);
                 vistaBuscarPartida.controlador(controladorIniciarJugador);
 
                 Principal.frame.setContentPane(vistaBuscarPartida.BuscarPartida);

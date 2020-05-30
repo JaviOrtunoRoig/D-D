@@ -2,6 +2,7 @@ package Controladores;
 
 import Modelos.Principal;
 import Vistas.IniciarJugador.*;
+import Vistas.Inicio.VistaDM_Usuario;
 import metodosBDD.*;
 
 import java.awt.event.ActionEvent;
@@ -30,12 +31,14 @@ public class ControladorIniciarJugador implements ActionListener {
     int raza = 0;
     int idPartida = 0;
 
+    VistaDM_Usuario vistaDM_usuario;
     VistaBuscarPartida vistaBuscarPartida;
     VistaPersonajeAuto_Manual vistaPersonajeAuto_manual;
     VistaEleccionManual vistaEleccionManual;
     VistaMostrarEstadisticas vistaMostrarEstadisticas;
     VistaElegirRaza vistaElegirRaza;
     VistaFinAutomatico vistaFinAutomatico;
+    VistaFinManual vistaFinManual;
 
     CreacionPersonaje creacionPersonajeMetodos;
 
@@ -44,9 +47,10 @@ public class ControladorIniciarJugador implements ActionListener {
     Map<String,Integer> caracteristicasMapa;
     boolean[] razasDisponibles;
 
-    public ControladorIniciarJugador(String usuario, VistaBuscarPartida vistaBuscarPartida) {
+    public ControladorIniciarJugador(String usuario, VistaBuscarPartida vistaBuscarPartida, VistaDM_Usuario vistaDM_usuario) {
         this.usuario = usuario;
         this.vistaBuscarPartida = vistaBuscarPartida;
+        this.vistaDM_usuario = vistaDM_usuario;
     }
 
     /**
@@ -173,13 +177,15 @@ public class ControladorIniciarJugador implements ActionListener {
 
     public void newBranch() {
         if (manual) {
-
+            vistaFinManual = new VistaFinManual();
+            vistaFinManual.controlador(this);
+            Principal.frame.setContentPane(vistaFinManual.getPanel());
         } else {
             vistaFinAutomatico = new VistaFinAutomatico();
             vistaFinAutomatico.controlador(this);
             Principal.frame.setContentPane(vistaFinAutomatico.getPanel());
-            Principal.frame.setVisible(true);
         }
+        Principal.frame.setVisible(true);
     }
 
     @Override
@@ -189,9 +195,9 @@ public class ControladorIniciarJugador implements ActionListener {
 
             int estado = this.UnirseAPartida(usuario, Integer.parseInt(vistaBuscarPartida.getIdPartida()),vistaBuscarPartida.getPasswordField());
 
+            vistaPersonajeAuto_manual = new VistaPersonajeAuto_Manual();
+            vistaPersonajeAuto_manual.controlador(this);
             if (estado == 1) {
-                vistaPersonajeAuto_manual = new VistaPersonajeAuto_Manual();
-                vistaPersonajeAuto_manual.controlador(this);
                 Principal.frame.setContentPane(vistaPersonajeAuto_manual.pantalla);
                 Principal.frame.setVisible(true);
             } else if (estado == 2) {
@@ -231,8 +237,13 @@ public class ControladorIniciarJugador implements ActionListener {
 
         } else if (comando.equals(VistaMostrarEstadisticas.ATRAS)) {
 
-            Principal.frame.setContentPane(vistaPersonajeAuto_manual.pantalla);
-            Principal.frame.setVisible(true);
+            if (manual) {
+                Principal.frame.setContentPane(vistaEleccionManual.getPanel());
+                Principal.frame.setVisible(true);
+            } else {
+                Principal.frame.setContentPane(vistaPersonajeAuto_manual.pantalla);
+                Principal.frame.setVisible(true);
+            }
 
         } else if (comando.equals(VistaMostrarEstadisticas.ELEGIRRAZA)) {
 
@@ -267,7 +278,7 @@ public class ControladorIniciarJugador implements ActionListener {
 
         } else if (comando.equals(VistaEleccionManual.ATRAS2)) {
 
-            Principal.frame.setContentPane(vistaPersonajeAuto_manual.pantalla);
+            Principal.frame.setContentPane(vistaDM_usuario.DM_Usuario);
             Principal.frame.setVisible(true);
 
         } else if (comando.equals(VistaElegirRaza.ATRAS4)) {
@@ -311,19 +322,59 @@ public class ControladorIniciarJugador implements ActionListener {
             Principal.frame.setContentPane(vistaElegirRaza.getPanel());
             Principal.frame.setVisible(true);
 
-        } else if (comando.equals(VistaFinAutomatico.ENTRARPARTIDA)) {
+        } else if (comando.equals(VistaFinAutomatico.ENTRARPARTIDAAUTOMATICO)) {
 
             try {
-                creacionPersonajeMetodos = new CreacionPersonaje(vistaFinAutomatico.getNombrePersonaje(),
-                        vistaFinAutomatico.getRasgosPersonaje(), caracteristicas, raza, usuario, caracteristicasMapa, idPartida);
+                String nombre = vistaFinAutomatico.getNombrePersonaje();
+                String rasgos = vistaFinAutomatico.getRasgosPersonaje();
 
-                //TODO: Meter en partida
+                if (nombre.equals("") || rasgos.equals("")) {
+                    vistaFinAutomatico.setMensajeError("Hay datos sin introducir");
+                } else if (rasgos.length() > 100) {
+                    vistaFinAutomatico.setMensajeError("Longitud maxima superada");
+                } else {
+                    creacionPersonajeMetodos = new CreacionPersonaje(vistaFinAutomatico.getNombrePersonaje(),
+                            vistaFinAutomatico.getRasgosPersonaje(), caracteristicas, raza, usuario, caracteristicasMapa, idPartida);
 
+                    //TODO: Meter en partida
+                }
             } catch (ClassNotFoundException | SQLException ex) {
                 vistaFinAutomatico.setMensajeError("Error inesperado");
             }
 
-        }
+        } else if (comando.equals(VistaFinManual.ATRAS4)) {
 
+            Principal.frame.setContentPane(vistaMostrarEstadisticas.getPanel());
+            Principal.frame.setVisible(true);
+
+        } else if (comando.equals(VistaFinManual.ENTRARPARTIDAMANUAL)) {
+            String nombre = vistaFinManual.getNombre();
+            String comportamiento = vistaFinManual.getComportamiento();
+            String idiomas = vistaFinManual.getIdioma();
+            String moneda = vistaFinManual.getMoneda();
+            String rasgos = vistaFinManual.getRasgo();
+            String vida = vistaFinManual.getVidaDado();
+
+            System.out.println(caracteristicasMapa);
+
+            if (nombre.equals("") || comportamiento.equals("") || idiomas.equals("") || moneda.equals("") || rasgos.equals("") || vida.equals("")) {
+                vistaFinManual.setErrorMessage("Longitud maxima superada");
+            } else if (!comportamiento.equals("Legal") && !comportamiento.equals("Neutro") && !comportamiento.equals("Caotico")) {
+                vistaFinManual.setErrorMessage("Comportamineto no permitido");
+
+            } else {
+                try {
+                    creacionPersonajeMetodos = new CreacionPersonaje(caracteristicas, nombre, rasgos, idiomas, Integer.parseInt(vida),
+                            comportamiento, Integer.parseInt(moneda), usuario, idPartida, caracteristicasMapa, raza);
+
+                    //TODO: Meter en partida
+
+                } catch (NumberFormatException ex) {
+                    vistaFinManual.setErrorMessage("No ha introducido un formato valido para la vida o las monedas");
+                } catch (SQLException | ClassNotFoundException ex) {
+                    vistaFinManual.setErrorMessage("Error inesperado");
+                }
+            }
+        }
     }
 }

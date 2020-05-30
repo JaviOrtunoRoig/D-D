@@ -229,7 +229,7 @@ public class CreacionPersonaje {
     }
 
     public CreacionPersonaje(int [] car, String nom, String rsg, String idioms, int resVida, String comp, int resMon,
-                             int usr, int idPartida, Map<String,Integer> cars, int raza) throws ClassNotFoundException, SQLException {
+                             String usr, int idPartida, Map<String,Integer> cars, int raza) throws ClassNotFoundException, SQLException {
 
         Class.forName(JDBC_DRIVER);
         conn = DriverManager.getConnection(DB_URL + "/" + DB_SCHEMA, USER, PASS);
@@ -240,6 +240,7 @@ public class CreacionPersonaje {
         this.caracteristicas = cars;
         this.raza = raza;
 
+        modificadores = new int[6];
         id = asignacionID("Personaje");
         nombre = nom;
         rasgos = rsg;
@@ -251,10 +252,9 @@ public class CreacionPersonaje {
 
         caracteristicasValores = car;
 
+        asignacionModificadores(caracteristicasValores);
         insertarPersonaje();
         insertarModificadores();
         asignacionMonedas(resMon);
-
-
     }
 }

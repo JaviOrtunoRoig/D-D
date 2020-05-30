@@ -1,7 +1,5 @@
 package Vistas.IniciarJugador;
 
-import Modelos.Principal;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
@@ -9,7 +7,7 @@ import java.awt.event.ActionListener;
 public class VistaFinAutomatico {
 
     public static String ATRAS3 = "ATRAS3";
-    public static String ENTRARPARTIDA = "ENTRARPARTIDA";
+    public static String ENTRARPARTIDAAUTOMATICO = "ENTRARPARTIDAAUTOMATICO";
 
     private JPanel nombreYRasgos;
     private JTextField nombreDato;
@@ -42,7 +40,7 @@ public class VistaFinAutomatico {
         botonAtras.setActionCommand(ATRAS3);
 
         botonEntrar.addActionListener(ctr);
-        botonEntrar.setActionCommand(ENTRARPARTIDA);
+        botonEntrar.setActionCommand(ENTRARPARTIDAAUTOMATICO);
     }
 }
 
