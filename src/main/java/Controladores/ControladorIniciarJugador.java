@@ -2,11 +2,11 @@ package Controladores;
 
 import Modelos.Principal;
 import Vistas.IniciarJugador.*;
+import metodosBDD.*;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.*;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
@@ -27,12 +27,17 @@ public class ControladorIniciarJugador implements ActionListener {
 
     String usuario;
     boolean manual;
+    int raza = 0;
+    int idPartida = 0;
 
     VistaBuscarPartida vistaBuscarPartida;
     VistaPersonajeAuto_Manual vistaPersonajeAuto_manual;
     VistaEleccionManual vistaEleccionManual;
     VistaMostrarEstadisticas vistaMostrarEstadisticas;
     VistaElegirRaza vistaElegirRaza;
+    VistaFinAutomatico vistaFinAutomatico;
+
+    CreacionPersonaje creacionPersonajeMetodos;
 
 
     int[] caracteristicas;
@@ -68,7 +73,7 @@ public class ControladorIniciarJugador implements ActionListener {
             return res;
         }
 
-        try{
+        try {
             Class.forName(JDBC_DRIVER);
             conn = DriverManager.getConnection(DB_URL + "/" + DB_SCHEMA, USER, PASS);
             stmt = conn.createStatement();
@@ -87,6 +92,7 @@ public class ControladorIniciarJugador implements ActionListener {
                 stmt.executeUpdate(sqlConsulta);
                 res=1;
 
+                this.idPartida = idpartida;
 
             }else{
                 vistaBuscarPartida.setMensajeError("Las password no coinciden");
@@ -163,6 +169,17 @@ public class ControladorIniciarJugador implements ActionListener {
             System.out.println("erorr BDD");
         }
         return disponible;
+    }
+
+    public void newBranch() {
+        if (manual) {
+
+        } else {
+            vistaFinAutomatico = new VistaFinAutomatico();
+            vistaFinAutomatico.controlador(this);
+            Principal.frame.setContentPane(vistaFinAutomatico.getPanel());
+            Principal.frame.setVisible(true);
+        }
     }
 
     @Override
@@ -257,6 +274,54 @@ public class ControladorIniciarJugador implements ActionListener {
 
             Principal.frame.setContentPane(vistaMostrarEstadisticas.getPanel());
             Principal.frame.setVisible(true);
+
+        } else if (comando.equals(VistaElegirRaza.GUERRERO)) {
+
+            raza = 1;
+            newBranch();
+
+        } else if (comando.equals(VistaElegirRaza.ELFO)) {
+
+            raza = 2;
+            newBranch();
+
+        } else if (comando.equals(VistaElegirRaza.ENANO)) {
+
+            raza = 3;
+            newBranch();
+
+        } else if (comando.equals(VistaElegirRaza.LADRON)) {
+            raza = 4;
+            newBranch();
+
+        } else if (comando.equals(VistaElegirRaza.HOBBIT)) {
+            raza = 5;
+            newBranch();
+
+        } else if (comando.equals(VistaElegirRaza.CLERIGO)) {
+            raza = 6;
+            newBranch();
+
+        } else if (comando.equals(VistaElegirRaza.MAGO)) {
+            raza = 7;
+            newBranch();
+
+        } else if (comando.equals(VistaFinAutomatico.ATRAS3)) {
+
+            Principal.frame.setContentPane(vistaElegirRaza.getPanel());
+            Principal.frame.setVisible(true);
+
+        } else if (comando.equals(VistaFinAutomatico.ENTRARPARTIDA)) {
+
+            try {
+                creacionPersonajeMetodos = new CreacionPersonaje(vistaFinAutomatico.getNombrePersonaje(),
+                        vistaFinAutomatico.getRasgosPersonaje(), caracteristicas, raza, usuario, caracteristicasMapa, idPartida);
+
+                //TODO: Meter en partida
+
+            } catch (ClassNotFoundException | SQLException ex) {
+                vistaFinAutomatico.setMensajeError("Error inesperado");
+            }
 
         }
 

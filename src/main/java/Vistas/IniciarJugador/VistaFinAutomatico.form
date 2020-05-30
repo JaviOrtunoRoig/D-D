@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="Vistas.IniciarJugador.VistaNombre">
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="Vistas.IniciarJugador.VistaFinAutomatico">
   <grid id="27dc6" binding="nombreYRasgos" layout-manager="GridBagLayout">
     <constraints>
       <xy x="20" y="20" width="500" height="400"/>
@@ -13,7 +13,7 @@
           <gridbag weightx="0.0" weighty="0.0"/>
         </constraints>
         <properties>
-          <text value="Nombre del personaje"/>
+          <text value="Nombre del personaje  "/>
         </properties>
       </component>
       <hspacer id="ee04f">
@@ -46,15 +46,6 @@
         </constraints>
         <properties/>
       </component>
-      <component id="620ee" class="javax.swing.JTextField" binding="rasgosDatos">
-        <constraints>
-          <grid row="2" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-            <preferred-size width="150" height="-1"/>
-          </grid>
-          <gridbag weightx="0.0" weighty="0.0"/>
-        </constraints>
-        <properties/>
-      </component>
       <component id="43c91" class="javax.swing.JButton" binding="botonAtras">
         <constraints>
           <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
@@ -77,6 +68,40 @@
         </constraints>
         <properties>
           <text value="Entrar"/>
+        </properties>
+      </component>
+      <component id="f9ca" class="javax.swing.JLabel" binding="mensajeError">
+        <constraints>
+          <grid row="5" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+          <gridbag weightx="0.0" weighty="0.0"/>
+        </constraints>
+        <properties>
+          <text value=""/>
+        </properties>
+      </component>
+      <component id="c193d" class="javax.swing.JLabel">
+        <constraints>
+          <grid row="2" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+          <gridbag weightx="0.0" weighty="0.0"/>
+        </constraints>
+        <properties>
+          <text value="100 letras maximo"/>
+        </properties>
+      </component>
+      <component id="ef5b5" class="javax.swing.JTextArea" binding="textArea1" default-binding="true">
+        <constraints>
+          <grid row="2" column="2" row-span="1" col-span="1" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
+            <preferred-size width="150" height="50"/>
+          </grid>
+          <gridbag weightx="0.0" weighty="0.0"/>
+        </constraints>
+        <properties>
+          <lineWrap value="true"/>
+          <maximumSize width="120" height="70"/>
+          <minimumSize width="120" height="70"/>
+          <name value="Introduzca tus rasgoas aqui."/>
+          <preferredSize width="120" height="70"/>
+          <wrapStyleWord value="true"/>
         </properties>
       </component>
     </children>
