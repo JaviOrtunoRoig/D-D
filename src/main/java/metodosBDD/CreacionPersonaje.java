@@ -91,7 +91,8 @@ public class CreacionPersonaje {
             idiomas + "', " +
             TP + ", " +
             VidaCalculada + ", '" +
-            comportamiento + "')";
+            comportamiento + "', " +
+            VidaCalculada + ")";
         stmt.executeUpdate(sqlPersonaje);
     }
 

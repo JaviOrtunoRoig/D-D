@@ -349,7 +349,8 @@ public class ControladorIniciarJugador implements ActionListener {
 
         } else if (comando.equals(VistaFinManual.ENTRARPARTIDAMANUAL)) {
             String nombre = vistaFinManual.getNombre();
-            String comportamiento = vistaFinManual.getComportamiento();
+            int comportamientoIndex = vistaFinManual.getComportamientoIndex();
+            String comportamiento;
             String idiomas = vistaFinManual.getIdioma();
             String moneda = vistaFinManual.getMoneda();
             String rasgos = vistaFinManual.getRasgo();
@@ -357,12 +358,16 @@ public class ControladorIniciarJugador implements ActionListener {
 
             System.out.println(caracteristicasMapa);
 
-            if (nombre.equals("") || comportamiento.equals("") || idiomas.equals("") || moneda.equals("") || rasgos.equals("") || vida.equals("")) {
+            if (nombre.equals("") || idiomas.equals("") || moneda.equals("") || rasgos.equals("") || vida.equals("")) {
                 vistaFinManual.setErrorMessage("Longitud maxima superada");
-            } else if (!comportamiento.equals("Legal") && !comportamiento.equals("Neutro") && !comportamiento.equals("Caotico")) {
-                vistaFinManual.setErrorMessage("Comportamineto no permitido");
-
             } else {
+                if (comportamientoIndex == 0) {
+                    comportamiento = "Legal";
+                } else if (comportamientoIndex == 1) {
+                    comportamiento = "Neutral";
+                } else {
+                    comportamiento = "Caotico";
+                }
                 try {
                     creacionPersonajeMetodos = new CreacionPersonaje(caracteristicas, nombre, rasgos, idiomas, Integer.parseInt(vida),
                             comportamiento, Integer.parseInt(moneda), usuario, idPartida, caracteristicasMapa, raza);

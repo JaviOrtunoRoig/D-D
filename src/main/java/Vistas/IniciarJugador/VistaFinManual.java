@@ -19,6 +19,7 @@ public class VistaFinManual {
     private JButton botonAtras;
     private JButton botonEntrarPartidaManual;
     private JLabel errorMessage;
+    private JComboBox comportaminetoCombo;
 
 
     public JPanel getPanel() {
@@ -38,8 +39,8 @@ public class VistaFinManual {
         return monedaDato.getText();
     }
 
-    public String getComportamiento() {
-        return comportamientoDato.getText();
+    public int getComportamientoIndex() {
+        return comportaminetoCombo.getSelectedIndex();
     }
 
     public String getIdioma() {
