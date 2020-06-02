@@ -5,6 +5,7 @@ import Vistas.IniciarDM.VistaConfirCreacionPartida;
 import Vistas.IniciarDM.VistaCrearPartida;
 import Vistas.IniciarJugador.VistaBuscarPartida;
 import Vistas.Inicio.VistaDM_Usuario;
+import Vistas.Jugador.VistaJugador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -34,6 +35,7 @@ public class ControladorIniciarDM implements ActionListener {
     VistaCrearPartida vistaCrearPartida;
     VistaConfirCreacionPartida vistaConfirCreacionPartida;
     VistaBuscarPartida vistaBuscarPartida;
+    VistaJugador vistaJugador;
 
     public ControladorIniciarDM(String usuario, VistaDM_Usuario vistaDM_usuario) {
         this.usuario = usuario;
@@ -319,7 +321,9 @@ public class ControladorIniciarDM implements ActionListener {
             System.out.println(idPartida);
 
             if (idPartida >= 0) { //Se ha encontrado partida
-                //TODO: Redirigir a la partida.
+
+                Principal.frame.setContentPane(vistaConfirCreacionPartida.confirmarPartida);
+                Principal.frame.setVisible(true);
             } else if (idPartida == -1) { //No tiene ninguna partida asociada.
                 vistaConfirCreacionPartida = new VistaConfirCreacionPartida();
                 vistaConfirCreacionPartida.controlador(this);
@@ -335,7 +339,11 @@ public class ControladorIniciarDM implements ActionListener {
             int id = estaJugadorEnPartida(usuario);
 
             if (id >= 0) { //to do bien
-                //TODO: Mandar a la partida
+
+                vistaJugador = new VistaJugador();
+                Principal.frame.setContentPane(vistaJugador.getPanel());
+                Principal.frame.setVisible(true);
+
             } else if (id == -1) { //no tiene partida
 
                 vistaBuscarPartida = new VistaBuscarPartida();
