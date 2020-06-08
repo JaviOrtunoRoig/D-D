@@ -337,7 +337,9 @@ public class ControladorIniciarJugador implements ActionListener {
                     creacionPersonajeMetodos = new CreacionPersonaje(vistaFinAutomatico.getNombrePersonaje(),
                             vistaFinAutomatico.getRasgosPersonaje(), caracteristicas, raza, usuario, caracteristicasMapa, idPartida);
 
-                    //TODO: Meter en partida
+                    VistaJugador vistaJugador = new VistaJugador();
+                    Principal.frame.setContentPane(vistaJugador.getPanel());
+                    Principal.frame.setVisible(true);
                 }
             } catch (ClassNotFoundException | SQLException ex) {
                 vistaFinAutomatico.setMensajeError("Error inesperado");
@@ -373,7 +375,9 @@ public class ControladorIniciarJugador implements ActionListener {
                     creacionPersonajeMetodos = new CreacionPersonaje(caracteristicas, nombre, rasgos, idiomas, Integer.parseInt(vida),
                             comportamiento, Integer.parseInt(moneda), usuario, idPartida, caracteristicasMapa, raza);
 
-                    //TODO: Meter en partida
+                    VistaJugador vistaJugador = new VistaJugador();
+                    Principal.frame.setContentPane(vistaJugador.getPanel());
+                    Principal.frame.setVisible(true);
 
                 } catch (NumberFormatException ex) {
                     vistaFinManual.setErrorMessage("No ha introducido un formato valido para la vida o las monedas");

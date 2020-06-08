@@ -221,10 +221,7 @@ public class CreacionPersonaje {
 
         resMon = resMon * 10;
 
-        int mon = asignacionID("Moneda");
-
-        String sqlInsert = "INSERT INTO Moneda VALUES( " +
-                mon + ", " + id + ", " + 0 + ", " + 0 + ", " + 0 + ", " + resMon + ", " + 0 + ")";
+        String sqlInsert = "INSERT INTO Moneda VALUES( " + id + ", " + 0 + ", " + 0 + ", " + 0 + ", " + resMon + ", " + 0 + ")";
 
         stmt.executeUpdate(sqlInsert);
     }
