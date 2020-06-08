@@ -6,6 +6,7 @@ import Vistas.IniciarDM.VistaCrearPartida;
 import Vistas.IniciarJugador.VistaBuscarPartida;
 import Vistas.Inicio.VistaDM_Usuario;
 import Vistas.Jugador.VistaJugador;
+import metodosBDD.CreacionPersonaje;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -340,7 +341,14 @@ public class ControladorIniciarDM implements ActionListener {
 
             if (id >= 0) { //to do bien
 
-                vistaJugador = new VistaJugador();
+
+                try {
+                VistaJugador vistaJugador = new VistaJugador();
+                CreacionPersonaje creacionPersonaje = new CreacionPersonaje();
+                    ControladorJugador controladorJugador = new ControladorJugador(vistaJugador, creacionPersonaje.getCaracteristicas(usuario));
+                } catch (SQLException | ClassNotFoundException ex) {
+                    vistaDM_usuario.setMensajeError("Error inesperado al recuperar la información del personake de la bdd");
+                }
                 Principal.frame.setContentPane(vistaJugador.getPanel());
                 Principal.frame.setVisible(true);
 

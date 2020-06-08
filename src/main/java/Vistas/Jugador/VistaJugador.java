@@ -1,6 +1,10 @@
 package Vistas.Jugador;
 
+import Controladores.ControladorJugador;
+
 import javax.swing.*;
+import java.awt.event.ActionListener;
+import java.util.Arrays;
 
 public class VistaJugador {
     private JTabbedPane tabbedPanel;
@@ -42,4 +46,11 @@ public class VistaJugador {
         return panelJugador;
     }
 
+    public void setEstadisticas(int[] estadisticas) {
+
+    }
+
+    public void controlador(ActionListener act) {
+
+    }
 }

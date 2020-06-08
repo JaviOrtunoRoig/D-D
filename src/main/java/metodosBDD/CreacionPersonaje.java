@@ -33,6 +33,11 @@ public class CreacionPersonaje {
     private int raza;
     private Map<String, Integer> caracteristicas;
 
+    public CreacionPersonaje() throws ClassNotFoundException, SQLException {
+        Class.forName(JDBC_DRIVER);
+        conn = DriverManager.getConnection(DB_URL + "/" + DB_SCHEMA, USER, PASS);
+    }
+
     public CreacionPersonaje(String nom, String rsg, int[] caracteristicasArray, int raza, String usuario, Map<String, Integer> caracteristicas, int idPartida) throws SQLException, ClassNotFoundException {
         Class.forName(JDBC_DRIVER);
         conn = DriverManager.getConnection(DB_URL + "/" + DB_SCHEMA, USER, PASS);
@@ -94,6 +99,48 @@ public class CreacionPersonaje {
             comportamiento + "', " +
             VidaCalculada + ")";
         stmt.executeUpdate(sqlPersonaje);
+    }
+
+    public int getId(String nom) throws SQLException {
+        String sqlUs = "SELECT idPersonaje, usuario FROM Personaje";
+        ResultSet rsUs = stmt.executeQuery(sqlUs);
+
+        int idPer = 0;
+
+        while (rsUs.next()) {
+            if (nom.equals(rsUs.getString("usuario"))) {
+                idPer = rsUs.getInt("idPersonaje");
+            }
+        }
+
+        return idPer;
+    }
+
+    public int [] getCaracteristicas(String nom) throws SQLException {
+
+        int [] sol;
+        sol = new int [6];
+
+        Statement stmt2 = null;
+        stmt2 = conn.createStatement();
+
+        String sql = "SELECT idPersonaje, Fuerza, Inteligencia, Sabiduria, Destreza, Constitución, Carisma FROM Características";
+        ResultSet rsc = stmt2.executeQuery(sql);
+
+        while(rsc.next()){
+            if(rsc.getInt("idPersonaje") == getId(nom)){
+                sol[0] = rsc.getInt("Fuerza");
+                sol[1] = rsc.getInt("Inteligencia");
+                sol[2] = rsc.getInt("Sabiduria");
+                sol[3] = rsc.getInt("Destreza");
+                sol[4] = rsc.getInt("Constitución");
+                sol[5] = rsc.getInt("Carisma");
+            }
+        }
+
+        rsc.close();
+
+        return sol;
     }
 
 

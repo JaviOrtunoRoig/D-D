@@ -1,4 +1,4 @@
-package metodosBDD;
+/*package metodosBDD;
 
 import Modelos.Stats;
 
@@ -36,4 +36,4 @@ public class QueriesPersonaje {
         return stats;
     }
 
-}
+}*/

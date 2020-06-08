@@ -338,8 +338,10 @@ public class ControladorIniciarJugador implements ActionListener {
                             vistaFinAutomatico.getRasgosPersonaje(), caracteristicas, raza, usuario, caracteristicasMapa, idPartida);
 
                     VistaJugador vistaJugador = new VistaJugador();
+                    ControladorJugador controladorJugador = new ControladorJugador(vistaJugador, caracteristicas);
                     Principal.frame.setContentPane(vistaJugador.getPanel());
                     Principal.frame.setVisible(true);
+
                 }
             } catch (ClassNotFoundException | SQLException ex) {
                 vistaFinAutomatico.setMensajeError("Error inesperado");
@@ -375,7 +377,9 @@ public class ControladorIniciarJugador implements ActionListener {
                     creacionPersonajeMetodos = new CreacionPersonaje(caracteristicas, nombre, rasgos, idiomas, Integer.parseInt(vida),
                             comportamiento, Integer.parseInt(moneda), usuario, idPartida, caracteristicasMapa, raza);
 
+
                     VistaJugador vistaJugador = new VistaJugador();
+                    ControladorJugador controladorJugador = new ControladorJugador(vistaJugador, caracteristicas);
                     Principal.frame.setContentPane(vistaJugador.getPanel());
                     Principal.frame.setVisible(true);
 
