@@ -7,10 +7,23 @@ public class VistaJugador {
     private JPanel panel1;
     private JPanel Stats;
     private JPanel Inventario;
-    private JButton button1;
-    private JButton asButton;
+    private JLabel fuerzaLabel;
+    private JLabel inteligenciaLabel;
+    private JLabel sabiduriaLabel;
+    private JLabel destrezaLabel;
+    private JLabel constitucionLabel;
+    private JLabel carismaLabel;
+    private JLabel nombreUsuarioLabel;
+    private JLabel comportamientoLabel;
+    private JLabel razaLabel;
+    private JLabel TPLabel;
+    private JLabel vidaLabel;
+    private JLabel expLabel;
+    private JLabel dadoVidaLabel;
+    private JList<String> List;
 
     public JPanel getPanel() {
         return panel1;
     }
+
 }

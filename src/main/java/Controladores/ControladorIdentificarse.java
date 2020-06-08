@@ -5,6 +5,7 @@ import Vistas.Inicio.VistaDM_Usuario;
 import Vistas.Inicio.VistaIniciarSesion;
 import Vistas.Inicio.VistaPG;
 import Vistas.Inicio.VistaRegistrarse;
+import Vistas.Jugador.VistaJugador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

@@ -3,6 +3,7 @@ package Controladores;
 import Modelos.Principal;
 import Vistas.IniciarJugador.*;
 import Vistas.Inicio.VistaDM_Usuario;
+import Vistas.Jugador.VistaJugador;
 import metodosBDD.*;
 
 import java.awt.event.ActionEvent;
