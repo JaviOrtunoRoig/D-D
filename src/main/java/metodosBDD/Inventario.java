@@ -1,58 +1,33 @@
+package metodosBDD;
+
 import java.sql.*;
 import java.util.*;
 
 
 public class Inventario {
-    private static Connection conn;
-    private static Statement stmt = null;
+    private Connection conn;
+    private Statement stmt = null;
 
-    static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-    static final String DB_URL = "jdbc:mysql://database-iis.cobadwnzalab.eu-central-1.rds.amazonaws.com";
-    static final String DB_SCHEMA = "dungeonsdragonsdb";
+    final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
+    final String DB_URL = "jdbc:mysql://database-iis.cobadwnzalab.eu-central-1.rds.amazonaws.com";
+    final String DB_SCHEMA = "dungeonsdragonsdb";
 
     //  Database credentials
-    static final String USER = "dundragons";
-    static final String PASS = "VengerHank";
+    final String USER = "dundragons";
+    final String PASS = "VengerHank";
 
-    private static int idPersonaje;
-    private static int idItem;
-    private static String tipoItem;
-    private static int precio;
+    private int idPersonaje;
+    private int idItem;
+    private String tipoItem;
+    private int precio;
 
-    public static void main(String[] args) throws SQLException, ClassNotFoundException {
-        try{
-            Scanner sc = new Scanner(System.in);
-            System.out.println("¿El precio va a ser modificado, o el original? (Introduce SI o NO en mayuscula)");
-            String res = sc.next();
-
-            if (res.equals("NO")) {
-                añadirItem("ya?", "Armas", "daga", 0);
-
-            } else if (res.equals("SI")) {
-                Scanner scCant = new Scanner(System.in);
-                System.out.println("Intrduce la cantidad deseada: ");
-                int cant = scCant.nextInt();
-
-                añadirItem("ya?", "Armas", "ballesta", cant);
-
-            } else {
-                System.err.println("ha introducido un respuesta incorrecta");
-            }
-
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-
-
-    }
-
-    public static void añadirItem(String personaje, String tipo, String nombre, int cant) throws ClassNotFoundException, SQLException {
+    public Inventario() throws ClassNotFoundException, SQLException {
         Class.forName(JDBC_DRIVER);
         conn = DriverManager.getConnection(DB_URL + "/" + DB_SCHEMA, USER, PASS);
         stmt = conn.createStatement();
+    }
 
+    public void aniadirItem(String personaje, String tipo, String nombre, int cant) throws SQLException {
         idPersonaje = obtenrIDPersonaje(personaje);
 
 
@@ -75,11 +50,11 @@ public class Inventario {
             System.err.println("No puede permitirse este item");
 
         } else {
-            añadir();
+            aniadir();
             quitarDinero(idPersonaje, precio);
             System.out.println("El item ha sido introducido");
 
-           añadirPeso(idPersonaje, idItem, tipoItem);
+           aniadirPeso(idPersonaje, idItem, tipoItem);
 
 
         }
@@ -87,7 +62,7 @@ public class Inventario {
 
     }
 
-    public static int obeternIDItem(String nombre, String tipo) throws SQLException {
+    public int obeternIDItem(String nombre, String tipo) throws SQLException {
         String sql = "SELECT nombre, id" + tipo + " FROM " + tipo;
         ResultSet rs = stmt.executeQuery(sql);
 
@@ -104,7 +79,7 @@ public class Inventario {
 
     }
 
-    public static void modificarTP(String nombre) throws SQLException {
+    public void modificarTP(String nombre) throws SQLException {
         int mod = 0;
 
         String sqlArmadura = "SELECT nombre, TP FROM Armaduras";
@@ -134,7 +109,7 @@ public class Inventario {
         stmt.executeUpdate(sqlMod);
     }
 
-    public static int obtenrIDPersonaje(String nom) throws SQLException {
+    public int obtenrIDPersonaje(String nom) throws SQLException {
         int res = 0;
 
         String sql = "SELECT idPersonaje, Nombre FROM Personaje";
@@ -151,13 +126,13 @@ public class Inventario {
         return res;
     }
 
-    public static void añadir() throws SQLException {
+    public void aniadir() throws SQLException {
         String sql = "INSERT INTO Inventario VALUES (" + idPersonaje + ", '" +
                 tipoItem + "', " + idItem + ", " + precio + ")";
         stmt.executeUpdate(sql);
     }
 
-    public static int obtenerPrecio(String tipo, String nombre) throws SQLException {
+    public int obtenerPrecio(String tipo, String nombre) throws SQLException {
         int sol = 0;
 
         String sqlPrecio = "SELECT nombre, precio FROM " + tipo;
@@ -172,7 +147,7 @@ public class Inventario {
         return sol;
     }
 
-    public static boolean permitido(int idPer, int cant) throws SQLException {
+    public boolean permitido(int idPer, int cant) throws SQLException {
         String sqlPosible = "SELECT idPersonaje, CantidadOro FROM Moneda";
         ResultSet rsPosible = stmt.executeQuery(sqlPosible);
 
@@ -190,7 +165,7 @@ public class Inventario {
 
     }
 
-    public static void quitarDinero(int idPer, int cant) throws SQLException {
+    public void quitarDinero(int idPer, int cant) throws SQLException {
         String sql = "SELECT idPersonaje, CantidadOro FROM Moneda";
         ResultSet rs = stmt.executeQuery(sql);
 
@@ -212,7 +187,7 @@ public class Inventario {
         stmt.executeUpdate(sqlMod);
     }
 
-    public static void añadirPeso(int idPer, int idIt, String tipo) throws SQLException {
+    public void aniadirPeso(int idPer, int idIt, String tipo) throws SQLException {
         String sql = "SELECT peso, id" + tipo + " FROM " + tipo;
         ResultSet rs = stmt.executeQuery(sql);
 
@@ -246,12 +221,12 @@ public class Inventario {
 
     }
 
-    public static void eliminarItem(int idPer, int idIt) throws SQLException {
+    public void eliminarItem(int idPer, int idIt) throws SQLException {
         String sql = "DELETE FROM Inventario WHERE idPersonaje = " + idPer + " AND idItem = " + idIt;
         stmt.executeUpdate(sql);
     }
 
-    public static int getId(String nom) throws SQLException {
+    public int getId(String nom) throws SQLException {
         String sqlUs = "SELECT idPersonaje, usuario FROM Personaje";
         ResultSet rsUs = stmt.executeQuery(sqlUs);
 
@@ -266,21 +241,23 @@ public class Inventario {
         return idPer;
     }
 
-    public static List<String> mostrarInventario(String nom) throws SQLException {
+    public List<String> mostrarInventario(String nomb) throws SQLException {
+
+        Statement stmt3 = null;
+        stmt3 = conn.createStatement();
+
         String sql = "SELECT idPersonaje, idItem, tipo FROM Inventario";
-        ResultSet rs = stmt.executeQuery(sql);
+        ResultSet rs = stmt3.executeQuery(sql);
 
         Map<String,Set<Integer>> obj = new HashMap<>();
-
-
 
         Set<Integer> ar = new HashSet<>();
         Set<Integer> arm = new HashSet<>();
         Set<Integer> ut = new HashSet<>();
 
         while(rs.next()){
-            if(getId(nom)== rs.getInt("idPersonaje")){
-                if(rs.getString("tipo").equals("Armas")){
+            if(getId(nomb)== rs.getInt("idPersonaje")){
+                if (rs.getString("tipo").equals("Armas")){
                     ar.add(rs.getInt("idItem"));
                 } else if(rs.getString("tipo").equals("Armaduras")){
                     arm.add(rs.getInt("idItem"));
@@ -313,14 +290,10 @@ public class Inventario {
                        System.out.println(rsInv.getString("nombre"));
                    }
                }
-
             }
-
-
         }
 
         return sol;
-
     }
 
 

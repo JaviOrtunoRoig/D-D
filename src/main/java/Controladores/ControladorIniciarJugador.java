@@ -338,7 +338,7 @@ public class ControladorIniciarJugador implements ActionListener {
                             vistaFinAutomatico.getRasgosPersonaje(), caracteristicas, raza, usuario, caracteristicasMapa, idPartida);
 
                     VistaJugador vistaJugador = new VistaJugador();
-                    ControladorJugador controladorJugador = new ControladorJugador(vistaJugador, caracteristicas);
+                    ControladorJugador controladorJugador = new ControladorJugador(vistaJugador, caracteristicas, usuario);
                     Principal.frame.setContentPane(vistaJugador.getPanel());
                     Principal.frame.setVisible(true);
 
@@ -379,7 +379,7 @@ public class ControladorIniciarJugador implements ActionListener {
 
 
                     VistaJugador vistaJugador = new VistaJugador();
-                    ControladorJugador controladorJugador = new ControladorJugador(vistaJugador, caracteristicas);
+                    ControladorJugador controladorJugador = new ControladorJugador(vistaJugador, caracteristicas, usuario);
                     Principal.frame.setContentPane(vistaJugador.getPanel());
                     Principal.frame.setVisible(true);
 
