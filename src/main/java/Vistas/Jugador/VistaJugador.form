@@ -10,7 +10,7 @@
       <tabbedpane id="28d37" binding="tabbedPanel">
         <constraints border-constraint="Center"/>
         <properties/>
-        <border type="none"/>
+        <border type="empty"/>
         <children>
           <grid id="68355" binding="Stats" layout-manager="GridBagLayout">
             <constraints>
@@ -404,22 +404,39 @@
                   <text value="Label"/>
                 </properties>
               </component>
-              <component id="3a472" class="javax.swing.JLabel">
+              <scrollpane id="4d3bd">
                 <constraints>
-                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
                 </constraints>
-                <properties>
-                  <text value="Label"/>
-                </properties>
-              </component>
-              <component id="4b4f9" class="javax.swing.JLabel">
+                <properties/>
+                <border type="bevel-lowered"/>
+                <children>
+                  <component id="feddb" class="javax.swing.JTextArea" binding="TextArea">
+                    <constraints/>
+                    <properties>
+                      <lineWrap value="true"/>
+                      <text value=""/>
+                      <wrapStyleWord value="true"/>
+                    </properties>
+                  </component>
+                </children>
+              </scrollpane>
+              <scrollpane id="a89e6">
                 <constraints>
-                  <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                  <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
                 </constraints>
-                <properties>
-                  <text value="Label"/>
-                </properties>
-              </component>
+                <properties/>
+                <border type="none"/>
+                <children>
+                  <component id="c6499" class="javax.swing.JTextArea" binding="textArea1" default-binding="true">
+                    <constraints/>
+                    <properties>
+                      <lineWrap value="true"/>
+                      <wrapStyleWord value="true"/>
+                    </properties>
+                  </component>
+                </children>
+              </scrollpane>
             </children>
           </grid>
         </children>

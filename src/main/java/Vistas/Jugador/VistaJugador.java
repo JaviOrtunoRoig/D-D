@@ -41,6 +41,8 @@ public class VistaJugador {
     private JLabel carismaValue;
     private JPanel informacionPanel;
     private JLabel idiomaLabel;
+    private JTextArea TextArea;
+    private JTextArea textArea1;
 
     public JPanel getPanel() {
         return panelJugador;
