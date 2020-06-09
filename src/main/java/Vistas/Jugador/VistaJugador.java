@@ -49,7 +49,12 @@ public class VistaJugador {
     }
 
     public void setEstadisticas(int[] estadisticas) {
-
+        fuerzaValue.setText(String.valueOf(estadisticas[0]));
+        inteligenciaValue.setText(String.valueOf(estadisticas[1]));
+        sabiduriaValue.setText(String.valueOf(estadisticas[2]));
+        destrezaValue.setText(String.valueOf(estadisticas[3]));
+        constitucionValue.setText(String.valueOf(estadisticas[4]));
+        carismaValue.setText(String.valueOf(estadisticas[5]));
     }
 
     public void controlador(ActionListener act) {

@@ -341,9 +341,8 @@ public class ControladorIniciarDM implements ActionListener {
 
             if (id >= 0) { //to do bien
 
-
-                try {
                 VistaJugador vistaJugador = new VistaJugador();
+                try {
                 CreacionPersonaje creacionPersonaje = new CreacionPersonaje();
                     ControladorJugador controladorJugador = new ControladorJugador(vistaJugador, creacionPersonaje.getCaracteristicas(usuario));
                 } catch (SQLException | ClassNotFoundException ex) {

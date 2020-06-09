@@ -102,8 +102,13 @@ public class CreacionPersonaje {
     }
 
     public int getId(String nom) throws SQLException {
-        String sqlUs = "SELECT idPersonaje, usuario FROM Personaje";
-        ResultSet rsUs = stmt.executeQuery(sqlUs);
+
+        Statement stmt3 = null;
+        stmt3 = conn.createStatement();
+
+        String sqlUs = "SELECT idPersonaje, Usuario FROM Personaje";
+        ResultSet rsUs = stmt3.executeQuery(sqlUs);
+
 
         int idPer = 0;
 
