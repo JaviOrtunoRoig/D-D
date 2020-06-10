@@ -5,6 +5,7 @@ import Controladores.ControladorJugador;
 import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.util.Arrays;
+import java.util.List;
 
 public class VistaJugador {
     private JTabbedPane tabbedPanel;
@@ -55,6 +56,16 @@ public class VistaJugador {
         destrezaValue.setText(String.valueOf(estadisticas[3]));
         constitucionValue.setText(String.valueOf(estadisticas[4]));
         carismaValue.setText(String.valueOf(estadisticas[5]));
+    }
+
+    public void setInventario(List<String> inventario) {
+        DefaultListModel<String> model = new DefaultListModel<>();
+
+        for (String item : inventario) {
+            model.addElement(item);
+        }
+
+        List.setModel(model);
     }
 
     public void controlador(ActionListener act) {

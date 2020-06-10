@@ -395,7 +395,7 @@ public class CreacionPersonaje {
         return sol;
     }
 
-    public Map<Integer, String[]> getHabilidades (String nom) throws SQLException {
+    public Map<Integer, List<String>> getHabilidades (String nom) throws SQLException {
 
         Map<Integer, List<String>> sol = new HashMap<>();
 
@@ -423,6 +423,29 @@ public class CreacionPersonaje {
             }
         }
 
+
+        return sol;
+    }
+
+    public String[] habilidadEspecial(String nom) throws SQLException {
+        String [] sol = null;
+
+        int cont = 0;
+
+        Map<Integer, List<String>> HE = getHabilidades(nom);
+
+        for(List<String> aux : HE.values()){
+            String habilidad = "";
+
+            for(String dato : aux){
+                habilidad += dato + "\t";
+            }
+
+            sol[cont] = habilidad;
+            cont++;
+        }
+
+        System.out.println(sol);
 
         return sol;
     }

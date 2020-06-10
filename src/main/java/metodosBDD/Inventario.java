@@ -5,28 +5,31 @@ import java.util.*;
 
 
 public class Inventario {
-    private static Connection conn;
-    private static Statement stmt = null;
+    private Connection conn;
+    private Statement stmt = null;
 
-    static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-    static final String DB_URL = "jdbc:mysql://database-iis.cobadwnzalab.eu-central-1.rds.amazonaws.com";
-    static final String DB_SCHEMA = "dungeonsdragonsdb";
+    final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
+    final String DB_URL = "jdbc:mysql://database-iis.cobadwnzalab.eu-central-1.rds.amazonaws.com";
+    final String DB_SCHEMA = "dungeonsdragonsdb";
 
     //  Database credentials
-    static final String USER = "dundragons";
-    static final String PASS = "VengerHank";
-
-    private static int idPersonaje;
-    private static int idItem;
-    private static String tipoItem;
-    private static int precio;
 
 
-    public void añadirItem(String personaje, String tipo, String nombre, int cant) throws ClassNotFoundException, SQLException {
+    final String USER = "dundragons";
+    final String PASS = "VengerHank";
+
+    private int idPersonaje;
+    private int idItem;
+    private String tipoItem;
+    private int precio;
+
+    public Inventario() throws ClassNotFoundException, SQLException {
         Class.forName(JDBC_DRIVER);
         conn = DriverManager.getConnection(DB_URL + "/" + DB_SCHEMA, USER, PASS);
         stmt = conn.createStatement();
+    }
 
+    public void aniadirItem(String personaje, String tipo, String nombre, int cant) throws SQLException {
         idPersonaje = obtenrIDPersonaje(personaje);
 
 
@@ -49,11 +52,11 @@ public class Inventario {
             System.err.println("No puede permitirse este item");
 
         } else {
-            añadir();
+            aniadir();
             quitarDinero(idPersonaje, precio);
             System.out.println("El item ha sido introducido");
 
-           añadirPeso(idPersonaje, idItem, tipoItem);
+           aniadirPeso(idPersonaje, idItem, tipoItem);
 
 
         }
@@ -125,7 +128,8 @@ public class Inventario {
         return res;
     }
 
-    public void añadir() throws SQLException {
+
+    public void aniadir() throws SQLException {
         String sql = "INSERT INTO Inventario VALUES (" + idPersonaje + ", '" +
                 tipoItem + "', " + idItem + ", " + precio + ")";
         stmt.executeUpdate(sql);
@@ -186,7 +190,8 @@ public class Inventario {
         stmt.executeUpdate(sqlMod);
     }
 
-    public void añadirPeso(int idPer, int idIt, String tipo) throws SQLException {
+
+    public void aniadirPeso(int idPer, int idIt, String tipo) throws SQLException {
         String sql = "SELECT peso, id" + tipo + " FROM " + tipo;
         ResultSet rs = stmt.executeQuery(sql);
 
@@ -225,7 +230,7 @@ public class Inventario {
         stmt.executeUpdate(sql);
     }
 
-    public static int getId(String nom) throws SQLException {
+    public int getId(String nom) throws SQLException {
         String sqlUs = "SELECT idPersonaje, usuario FROM Personaje";
         ResultSet rsUs = stmt.executeQuery(sqlUs);
 
@@ -241,12 +246,13 @@ public class Inventario {
     }
 
     public List<String> mostrarInventario(String nomb) throws SQLException {
+        Statement stmt3 = null;
+        stmt3 = conn.createStatement();
+
         String sql = "SELECT idPersonaje, idItem, tipo FROM Inventario";
-        ResultSet rs = stmt.executeQuery(sql);
+        ResultSet rs = stmt3.executeQuery(sql);
 
         Map<String,Set<Integer>> obj = new HashMap<>();
-
-
 
         Set<Integer> ar = new HashSet<>();
         Set<Integer> arm = new HashSet<>();
@@ -254,7 +260,8 @@ public class Inventario {
 
         while(rs.next()){
             if(getId(nomb)== rs.getInt("idPersonaje")){
-                if(rs.getString("tipo").equals("Armas")){
+                if (rs.getString("tipo").equals("Armas")){
+
                     ar.add(rs.getInt("idItem"));
                 } else if(rs.getString("tipo").equals("Armaduras")){
                     arm.add(rs.getInt("idItem"));
@@ -287,18 +294,10 @@ public class Inventario {
                        System.out.println(rsInv.getString("nombre"));
                    }
                }
-
             }
-
-
         }
 
         return sol;
-
     }
-
-
-
-
 
 }
