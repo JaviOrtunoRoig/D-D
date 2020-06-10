@@ -307,4 +307,130 @@ public class CreacionPersonaje {
         insertarModificadores();
         asignacionMonedas(resMon);
     }
+
+    public int getIdUs(String nom) throws SQLException {
+        String sqlUs = "SELECT idPersonaje, Usuario FROM Personaje";
+        ResultSet rsUs = stmt.executeQuery(sqlUs);
+
+        int idPer = 0;
+
+        while (rsUs.next()) {
+            if (nom.equals(rsUs.getString("usuario"))) {
+                idPer = rsUs.getInt("idPersonaje");
+            }
+        }
+
+        return idPer;
+    }
+
+    //Para Tp, Vida, Experiencia, idRaza
+
+    public int getStatInteger(String nom, String stat) throws SQLException {
+        Statement stmtAux = null;
+        stmtAux = conn.createStatement();
+
+        String sql = "SELECT idPersonaje, " + stat + " FROM Personaje";
+        ResultSet rs = stmtAux.executeQuery(sql);
+
+        int sol = 0;
+        boolean encontrado = false;
+
+        while(rs.next() && !encontrado){
+            if(rs.getInt("idPersonaje") == getIdUs(nom)){
+                sol = rs.getInt(stat);
+                encontrado = true;
+            }
+        }
+
+        return sol;
+    }
+
+    //Para Comportamiento, Nombre
+
+    public String getStatVarchar(String nom, String stat) throws SQLException {
+        Statement stmtAux = null;
+        stmtAux = conn.createStatement();
+
+        String sql = "SELECT idPersonaje, " + stat + " FROM Personaje";
+        ResultSet rs = stmtAux.executeQuery(sql);
+
+        String sol = null;
+        boolean encontrado = false;
+
+        while(rs.next() && !encontrado){
+            if(rs.getInt("idPersonaje") == getIdUs(nom)){
+                sol = rs.getString(stat);
+                encontrado = true;
+            }
+        }
+
+        return sol;
+    }
+
+    //Para DadoVida, Raza
+
+    public String getStatRazas(String nom, String stat) throws SQLException {
+        Statement stmtAux = null;
+        stmtAux = conn.createStatement();
+
+        String sql = "SELECT idRazas, " + stat + " FROM Personaje";
+        ResultSet rs = stmtAux.executeQuery(sql);
+
+        String sol = null;
+        boolean encontrado = false;
+
+        while(rs.next() && !encontrado){
+            if(rs.getInt("idRazas") == getStatInteger(nom,"raza")){
+
+                if(stat.equals("DadoVida")){
+                    sol = "1d" + rs.getInt(stat);
+                } else {
+                    sol = rs.getString(stat);
+                    encontrado = true;
+                }
+
+            }
+        }
+
+        return sol;
+    }
+
+    public Map<Integer, String[]> getHabilidades (String nom) throws SQLException {
+
+        Map<Integer, List<String>> sol = new HashMap<>();
+
+        int raz = getStatInteger(nom, "raza");
+
+        Statement stmtAux = null;
+        stmtAux = conn.createStatement();
+
+        String sql = "SELECT idHabilidad, nombre, idRaza, descripcion, dadoHabilidad, requisitoDado " +
+                "FROM Habilidad Especial";
+        ResultSet rs = stmtAux.executeQuery(sql);
+
+        while(rs.next()){
+            if(raz == rs.getInt("idRaza")){
+                List<String> hab = new ArrayList<>();
+
+                hab.add(rs.getString("nombre"));
+                hab.add(rs.getString("descripcion"));
+                hab.add(rs.getString("dadoHabilidad"));
+                hab.add(rs.getString("requisitoDado"));
+
+                sol.put(rs.getInt("idHablidiad"), hab);
+
+
+            }
+        }
+
+
+        return sol;
+    }
+
+
+
+
+
+
+
 }
