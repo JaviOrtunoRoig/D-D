@@ -323,21 +323,60 @@ public class CreacionPersonaje {
         return idPer;
     }
 
-    //Para Tp, Vida, Experiencia, idRaza
+    public String [] getStats(String nom) throws SQLException, ClassNotFoundException {
+        String [] sol = new String[8];
+        sol[0] = nom;
 
-    public int getStatInteger(String nom, String stat) throws SQLException {
+        Class.forName(JDBC_DRIVER);
+        conn = DriverManager.getConnection(DB_URL + "/" + DB_SCHEMA, USER, PASS);
+
         Statement stmtAux = null;
         stmtAux = conn.createStatement();
 
-        String sql = "SELECT idPersonaje, " + stat + " FROM Personaje";
+        String sql = "SELECT Nombre, Usuario, comportamiento, raza, TP, VidaCalculada, experiencia FROM Personaje";
         ResultSet rs = stmtAux.executeQuery(sql);
 
-        int sol = 0;
         boolean encontrado = false;
 
         while(rs.next() && !encontrado){
-            if(rs.getInt("idPersonaje") == getIdUs(nom)){
-                sol = rs.getInt(stat);
+            if(sol[0].equals(rs.getString("Usuario"))){
+
+                sol[1] = rs.getString("Nombre");
+                sol[2] = rs.getString("comportamiento");
+                sol[3] = getRaza(nom, rs.getInt("raza"))[0];
+                sol[4] = Integer.toString(rs.getInt("TP")) ;
+                sol[5] = Integer.toString(rs.getInt("VidaCalculada"));
+                sol[6] = Integer.toString(rs.getInt("experiencia"));
+                sol[7] = getRaza(nom, rs.getInt("raza"))[1];
+
+                encontrado = true;
+            }
+        }
+
+
+
+        return sol;
+    }
+
+    public String[] getRaza(String nom, int idRaz) throws SQLException, ClassNotFoundException {
+        String sol[] = new String[2];
+
+        Class.forName(JDBC_DRIVER);
+        conn = DriverManager.getConnection(DB_URL + "/" + DB_SCHEMA, USER, PASS);
+
+        Statement stmtAux = null;
+        stmtAux = conn.createStatement();
+
+        String sqlAux = "SELECT idRazas, DadoVida, NombreRaza FROM Razas";
+        ResultSet rsAux = stmtAux.executeQuery(sqlAux);
+
+        boolean encontrado = false;
+
+        while(rsAux.next() && !encontrado){
+            if(idRaz == rsAux.getInt("idRazas")){
+                sol[0] = rsAux.getString("NombreRaza");
+                sol[1] = rsAux.getString("DadoVida");
+
                 encontrado = true;
             }
         }
@@ -345,67 +384,22 @@ public class CreacionPersonaje {
         return sol;
     }
 
-    //Para Comportamiento, Nombre
 
-    public String getStatVarchar(String nom, String stat) throws SQLException {
-        Statement stmtAux = null;
-        stmtAux = conn.createStatement();
 
-        String sql = "SELECT idPersonaje, " + stat + " FROM Personaje";
-        ResultSet rs = stmtAux.executeQuery(sql);
-
-        String sol = null;
-        boolean encontrado = false;
-
-        while(rs.next() && !encontrado){
-            if(rs.getInt("idPersonaje") == getIdUs(nom)){
-                sol = rs.getString(stat);
-                encontrado = true;
-            }
-        }
-
-        return sol;
-    }
-
-    //Para DadoVida, Raza
-
-    public String getStatRazas(String nom, String stat) throws SQLException {
-        Statement stmtAux = null;
-        stmtAux = conn.createStatement();
-
-        String sql = "SELECT idRazas, " + stat + " FROM Personaje";
-        ResultSet rs = stmtAux.executeQuery(sql);
-
-        String sol = null;
-        boolean encontrado = false;
-
-        while(rs.next() && !encontrado){
-            if(rs.getInt("idRazas") == getStatInteger(nom,"raza")){
-
-                if(stat.equals("DadoVida")){
-                    sol = "1d" + rs.getInt(stat);
-                } else {
-                    sol = rs.getString(stat);
-                    encontrado = true;
-                }
-
-            }
-        }
-
-        return sol;
-    }
-
-    public Map<Integer, List<String>> getHabilidades (String nom) throws SQLException {
+    public Map<Integer, List<String>> getHabilidades (String nom) throws SQLException, ClassNotFoundException {
 
         Map<Integer, List<String>> sol = new HashMap<>();
 
-        int raz = getStatInteger(nom, "raza");
+        int raz = 4;
+
+        Class.forName(JDBC_DRIVER);
+        conn = DriverManager.getConnection(DB_URL + "/" + DB_SCHEMA, USER, PASS);
 
         Statement stmtAux = null;
         stmtAux = conn.createStatement();
 
         String sql = "SELECT idHabilidad, nombre, idRaza, descripcion, dadoHabilidad, requisitoDado " +
-                "FROM Habilidad Especial";
+                "FROM HabilidadEspecial";
         ResultSet rs = stmtAux.executeQuery(sql);
 
         while(rs.next()){
@@ -417,18 +411,21 @@ public class CreacionPersonaje {
                 hab.add(rs.getString("dadoHabilidad"));
                 hab.add(rs.getString("requisitoDado"));
 
-                sol.put(rs.getInt("idHablidiad"), hab);
+
+                sol.put(rs.getInt("idHabilidad"), hab);
 
 
             }
         }
 
+        System.out.println(sol);
+
 
         return sol;
     }
 
-    public String[] habilidadEspecial(String nom) throws SQLException {
-        String [] sol = null;
+    public String[] habilidadEspecial(String nom) throws SQLException, ClassNotFoundException {
+        String [] sol = new String[20];
 
         int cont = 0;
 
@@ -442,14 +439,15 @@ public class CreacionPersonaje {
             }
 
             sol[cont] = habilidad;
+            System.out.println(sol[cont]);
             cont++;
-        }
 
-        System.out.println(sol);
+
+        }
 
         return sol;
 
-        //
+
     }
 
 
