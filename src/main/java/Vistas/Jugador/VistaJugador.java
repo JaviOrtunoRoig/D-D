@@ -42,7 +42,7 @@ public class VistaJugador {
     private JLabel carismaValue;
     private JPanel informacionPanel;
     private JLabel idiomaLabel;
-    private JTextArea TextArea;
+    private JTextArea textArea;
     private JTextArea textArea1;
     private JList <String> listHabilidades;
 
@@ -51,6 +51,7 @@ public class VistaJugador {
     }
 
     public void setEstadisticas(int[] estadisticas) {
+
         fuerzaValue.setText(String.valueOf(estadisticas[0]));
         inteligenciaValue.setText(String.valueOf(estadisticas[1]));
         sabiduriaValue.setText(String.valueOf(estadisticas[2]));
@@ -60,6 +61,7 @@ public class VistaJugador {
     }
 
     public void setInventario(List<String> inventario) {
+
         DefaultListModel<String> model = new DefaultListModel<>();
 
         for (String item : inventario) {
@@ -70,6 +72,7 @@ public class VistaJugador {
     }
 
     public void setDatos(String[] stats) {
+
         usuarioNameValue.setText(stats[0]);
         personajeNameValue.setText(stats[1]);
         comportamientoValue.setText(stats[2]);
@@ -95,4 +98,13 @@ public class VistaJugador {
 
     }
 
+    public void setRasgos(String rasgos) {
+        textArea1.setText(rasgos);
+
+    }
+
+    public void setIdiomas(String idioma) {
+        textArea.setText(idioma);
+
+    }
 }

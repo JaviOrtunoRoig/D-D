@@ -355,11 +355,8 @@ public class CreacionPersonaje {
         return sol;
     }
 
-    public String[] getStatsRaza(String nom, int idRaz) throws SQLException, ClassNotFoundException {
+    public String[] getStatsRaza(String nom, int idRaz) throws SQLException {
         String sol[] = new String[2];
-
-        Class.forName(JDBC_DRIVER);
-        conn = DriverManager.getConnection(DB_URL + "/" + DB_SCHEMA, USER, PASS);
 
         Statement stmtAux = null;
         stmtAux = conn.createStatement();
@@ -382,13 +379,11 @@ public class CreacionPersonaje {
     }
 
     public int getRaza(String nom) throws SQLException, ClassNotFoundException {
-        Class.forName(JDBC_DRIVER);
-        conn = DriverManager.getConnection(DB_URL + "/" + DB_SCHEMA, USER, PASS);
 
         Statement stmtAux = null;
         stmtAux = conn.createStatement();
 
-        String sql = "SELECT raza FROM Personaje";
+        String sql = "SELECT raza, Usuario FROM Personaje";
         ResultSet rs = stmtAux.executeQuery(sql);
 
         boolean encontrado = false;
@@ -397,7 +392,8 @@ public class CreacionPersonaje {
 
         while(rs.next() && !encontrado) {
             if (nom.equals(rs.getString("Usuario"))) {
-                raz = rs.getInt("idRaza");
+                raz = rs.getInt("raza");
+                encontrado = true;
             }
         }
 
@@ -410,9 +406,6 @@ public class CreacionPersonaje {
         Map<Integer, List<String>> sol = new HashMap<>();
 
         int raz = getRaza(nom);
-
-        Class.forName(JDBC_DRIVER);
-        conn = DriverManager.getConnection(DB_URL + "/" + DB_SCHEMA, USER, PASS);
 
         Statement stmtAux = null;
         stmtAux = conn.createStatement();
@@ -430,10 +423,7 @@ public class CreacionPersonaje {
                 hab.add(rs.getString("dadoHabilidad"));
                 hab.add(rs.getString("requisitoDado"));
 
-
                 sol.put(rs.getInt("idHabilidad"), hab);
-
-
             }
         }
 
@@ -444,8 +434,6 @@ public class CreacionPersonaje {
     }
 
     public String[] habilidadEspecial(String nom) throws SQLException, ClassNotFoundException {
-
-
         String [] sol = new String[20];
         sol[0] = "Nombre  |  Descripcion  |  Dado  |  Requisito";
 
@@ -468,11 +456,8 @@ public class CreacionPersonaje {
         return sol;
     }
 
-    public String getRasgos(String nom) throws SQLException, ClassNotFoundException {
+    public String getRasgos(String nom) throws SQLException {
         String sol = null;
-
-        Class.forName(JDBC_DRIVER);
-        conn = DriverManager.getConnection(DB_URL + "/" + DB_SCHEMA, USER, PASS);
 
         Statement stmtAux = null;
         stmtAux = conn.createStatement();
@@ -491,11 +476,8 @@ public class CreacionPersonaje {
         return sol;
     }
 
-    public String getIdioma(String nom) throws SQLException, ClassNotFoundException {
+    public String getIdioma(String nom) throws SQLException {
         String sol = null;
-
-        Class.forName(JDBC_DRIVER);
-        conn = DriverManager.getConnection(DB_URL + "/" + DB_SCHEMA, USER, PASS);
 
         Statement stmtAux = null;
         stmtAux = conn.createStatement();
@@ -505,9 +487,10 @@ public class CreacionPersonaje {
 
         boolean encontrado = false;
 
-        while(rs.next() && ! encontrado){
-            if(nom.equals(rs.getString("Usuario"))){
+        while (rs.next() && !encontrado){
+            if (nom.equals(rs.getString("Usuario"))){
                 sol = rs.getString("idiomas");
+                encontrado = true;
             }
         }
 

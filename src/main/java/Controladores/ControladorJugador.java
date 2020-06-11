@@ -32,6 +32,8 @@ public class ControladorJugador implements ActionListener  {
         this.vistaJugador.setInventario(inventarioList);
         this.vistaJugador.setDatos(creacionPersonaje.getStats(usuario));
         this.vistaJugador.setHabilidades(creacionPersonaje.habilidadEspecial(usuario));
+        this.vistaJugador.setRasgos(creacionPersonaje.getRasgos(usuario));
+        this.vistaJugador.setIdiomas(creacionPersonaje.getIdioma(usuario));
     }
 
     @Override

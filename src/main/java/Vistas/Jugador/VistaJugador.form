@@ -414,7 +414,7 @@
                 <properties/>
                 <border type="bevel-lowered"/>
                 <children>
-                  <component id="feddb" class="javax.swing.JTextArea" binding="TextArea">
+                  <component id="feddb" class="javax.swing.JTextArea" binding="textArea">
                     <constraints/>
                     <properties>
                       <lineWrap value="true"/>
