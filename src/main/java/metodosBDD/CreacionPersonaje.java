@@ -342,11 +342,11 @@ public class CreacionPersonaje {
 
                 sol[1] = rs.getString("Nombre");
                 sol[2] = rs.getString("comportamiento");
-                sol[3] = getRaza(nom, rs.getInt("raza"))[0];
+                sol[3] = getStatsRaza(nom, rs.getInt("raza"))[0];
                 sol[4] = Integer.toString(rs.getInt("TP")) ;
                 sol[5] = Integer.toString(rs.getInt("VidaCalculada"));
                 sol[6] = Integer.toString(rs.getInt("experiencia"));
-                sol[7] = getRaza(nom, rs.getInt("raza"))[1];
+                sol[7] = getStatsRaza(nom, rs.getInt("raza"))[1];
 
                 encontrado = true;
             }
@@ -355,7 +355,7 @@ public class CreacionPersonaje {
         return sol;
     }
 
-    public String[] getRaza(String nom, int idRaz) throws SQLException, ClassNotFoundException {
+    public String[] getStatsRaza(String nom, int idRaz) throws SQLException, ClassNotFoundException {
         String sol[] = new String[2];
 
         Class.forName(JDBC_DRIVER);
@@ -381,11 +381,35 @@ public class CreacionPersonaje {
         return sol;
     }
 
+    public int getRaza(String nom) throws SQLException, ClassNotFoundException {
+        Class.forName(JDBC_DRIVER);
+        conn = DriverManager.getConnection(DB_URL + "/" + DB_SCHEMA, USER, PASS);
+
+        Statement stmtAux = null;
+        stmtAux = conn.createStatement();
+
+        String sql = "SELECT raza FROM Personaje";
+        ResultSet rs = stmtAux.executeQuery(sql);
+
+        boolean encontrado = false;
+
+        int raz = 0;
+
+        while(rs.next() && !encontrado) {
+            if (nom.equals(rs.getString("Usuario"))) {
+                raz = rs.getInt("idRaza");
+            }
+        }
+
+        return raz;
+    }
+
+
     public Map<Integer, List<String>> getHabilidades (String nom) throws SQLException, ClassNotFoundException {
 
         Map<Integer, List<String>> sol = new HashMap<>();
 
-        int raz = 4;
+        int raz = getRaza(nom);
 
         Class.forName(JDBC_DRIVER);
         conn = DriverManager.getConnection(DB_URL + "/" + DB_SCHEMA, USER, PASS);
@@ -439,6 +463,52 @@ public class CreacionPersonaje {
             sol[cont] = habilidad;
             System.out.println(sol[cont]);
             cont++;
+        }
+
+        return sol;
+    }
+
+    public String getRasgos(String nom) throws SQLException, ClassNotFoundException {
+        String sol = null;
+
+        Class.forName(JDBC_DRIVER);
+        conn = DriverManager.getConnection(DB_URL + "/" + DB_SCHEMA, USER, PASS);
+
+        Statement stmtAux = null;
+        stmtAux = conn.createStatement();
+
+        String sql = "SELECT rasgos, Usuario FROM Personaje";
+        ResultSet rs = stmtAux.executeQuery(sql);
+
+        boolean encontrado = false;
+
+        while(rs.next() && ! encontrado){
+            if(nom.equals(rs.getString("Usuario"))){
+                sol = rs.getString("rasgos");
+            }
+        }
+
+        return sol;
+    }
+
+    public String getIdioma(String nom) throws SQLException, ClassNotFoundException {
+        String sol = null;
+
+        Class.forName(JDBC_DRIVER);
+        conn = DriverManager.getConnection(DB_URL + "/" + DB_SCHEMA, USER, PASS);
+
+        Statement stmtAux = null;
+        stmtAux = conn.createStatement();
+
+        String sql = "SELECT idiomas, Usuario FROM Personaje";
+        ResultSet rs = stmtAux.executeQuery(sql);
+
+        boolean encontrado = false;
+
+        while(rs.next() && ! encontrado){
+            if(nom.equals(rs.getString("Usuario"))){
+                sol = rs.getString("idiomas");
+            }
         }
 
         return sol;
