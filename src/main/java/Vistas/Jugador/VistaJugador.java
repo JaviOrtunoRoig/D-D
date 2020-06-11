@@ -8,6 +8,9 @@ import java.util.Arrays;
 import java.util.List;
 
 public class VistaJugador {
+
+    public static String ACTUALIZAR = "ACTUALIZAR";
+
     private JTabbedPane tabbedPanel;
     private JPanel panelJugador;
     private JPanel Stats;
@@ -45,6 +48,7 @@ public class VistaJugador {
     private JTextArea textArea;
     private JTextArea textArea1;
     private JList <String> listHabilidades;
+    private JButton actualizarDatosButton;
 
     public JPanel getPanel() {
         return panelJugador;
@@ -94,10 +98,6 @@ public class VistaJugador {
         listHabilidades.setModel(model);
     }
 
-    public void controlador(ActionListener act) {
-
-    }
-
     public void setRasgos(String rasgos) {
         textArea1.setText(rasgos);
 
@@ -106,5 +106,10 @@ public class VistaJugador {
     public void setIdiomas(String idioma) {
         textArea.setText(idioma);
 
+    }
+
+    public void controlador(ActionListener ctr) {
+        actualizarDatosButton.addActionListener(ctr);
+        actualizarDatosButton.setActionCommand(ACTUALIZAR);
     }
 }

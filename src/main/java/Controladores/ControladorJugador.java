@@ -19,14 +19,17 @@ public class ControladorJugador implements ActionListener  {
 
     public ControladorJugador(VistaJugador vistaJugador, int[] estadisticas, String usuario) throws SQLException, ClassNotFoundException {
         this.usuario = usuario;
-
-        Inventario inventario = new Inventario();
-
-        List<String> inventarioList = inventario.mostrarInventario(usuario);
-
         this.estadisticas = estadisticas;
         this.vistaJugador = vistaJugador;
         this.vistaJugador.controlador(this);
+
+        obtenerdatos();
+    }
+
+    private void obtenerdatos() throws SQLException, ClassNotFoundException {
+
+        Inventario inventario = new Inventario();
+        List<String> inventarioList = inventario.mostrarInventario(usuario);
 
         this.vistaJugador.setEstadisticas(estadisticas);
         this.vistaJugador.setInventario(inventarioList);
@@ -38,6 +41,12 @@ public class ControladorJugador implements ActionListener  {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
+        if (e.getActionCommand().equals(VistaJugador.ACTUALIZAR)) {
+            try {
+                obtenerdatos();
+            } catch (SQLException | ClassNotFoundException ex) {
+                ex.printStackTrace();
+            }
+        }
     }
 }

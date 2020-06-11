@@ -2,7 +2,7 @@
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="Vistas.Jugador.VistaJugador">
   <grid id="27dc6" binding="panelJugador" layout-manager="BorderLayout" hgap="0" vgap="0">
     <constraints>
-      <xy x="20" y="20" width="500" height="480"/>
+      <xy x="20" y="20" width="500" height="524"/>
     </constraints>
     <properties/>
     <border type="none"/>
@@ -349,6 +349,21 @@
                   <text value=""/>
                 </properties>
               </component>
+              <component id="d1902" class="javax.swing.JButton" binding="actualizarDatosButton" default-binding="true">
+                <constraints>
+                  <grid row="28" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                  <gridbag weightx="0.0" weighty="0.0"/>
+                </constraints>
+                <properties>
+                  <text value="Actualizar datos"/>
+                </properties>
+              </component>
+              <vspacer id="fa7bb">
+                <constraints>
+                  <grid row="27" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+                  <gridbag weightx="0.0" weighty="0.0"/>
+                </constraints>
+              </vspacer>
             </children>
           </grid>
           <grid id="6aa56" binding="Inventario" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
