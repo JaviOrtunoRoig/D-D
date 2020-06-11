@@ -344,7 +344,9 @@ public class ControladorIniciarDM implements ActionListener {
                 VistaJugador vistaJugador = new VistaJugador();
                 try {
                 CreacionPersonaje creacionPersonaje = new CreacionPersonaje();
-                    ControladorJugador controladorJugador = new ControladorJugador(vistaJugador, creacionPersonaje.getCaracteristicas(usuario), usuario);
+                ControladorJugador controladorJugador = new ControladorJugador(vistaJugador, creacionPersonaje.getCaracteristicas(usuario), usuario);
+                vistaJugador.controlador(controladorJugador);
+
                 } catch (SQLException | ClassNotFoundException ex) {
                     vistaDM_usuario.setMensajeError("Error inesperado al recuperar la información del personake de la bdd");
                 }

@@ -44,6 +44,7 @@ public class VistaJugador {
     private JLabel idiomaLabel;
     private JTextArea TextArea;
     private JTextArea textArea1;
+    private JList <String> listHabilidades;
 
     public JPanel getPanel() {
         return panelJugador;
@@ -68,7 +69,30 @@ public class VistaJugador {
         List.setModel(model);
     }
 
+    public void setDatos(String[] stats) {
+        usuarioNameValue.setText(stats[0]);
+        personajeNameValue.setText(stats[1]);
+        comportamientoValue.setText(stats[2]);
+        razaValue.setText(stats[3]);
+        TPValue.setText(stats[4]);
+        vidaValue.setText(stats[5]);
+        expValue.setText(stats[6]);
+        dadoVidaValue.setText(stats[7]);
+    }
+
+    public void setHabilidades(String[] habilidades) {
+        DefaultListModel<String> model = new DefaultListModel<>();
+
+        for (int i = 0; i < habilidades.length; i++) {
+            model.addElement(habilidades[i]);
+            model.addElement(" \n");
+        }
+
+        listHabilidades.setModel(model);
+    }
+
     public void controlador(ActionListener act) {
 
     }
+
 }

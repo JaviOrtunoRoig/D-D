@@ -148,7 +148,6 @@ public class CreacionPersonaje {
         return sol;
     }
 
-
     private int asignacionID(String nom) throws SQLException {
 
         String sql = "SELECT id" + nom + " FROM " + nom;
@@ -353,8 +352,6 @@ public class CreacionPersonaje {
             }
         }
 
-
-
         return sol;
     }
 
@@ -383,8 +380,6 @@ public class CreacionPersonaje {
 
         return sol;
     }
-
-
 
     public Map<Integer, List<String>> getHabilidades (String nom) throws SQLException, ClassNotFoundException {
 
@@ -425,9 +420,12 @@ public class CreacionPersonaje {
     }
 
     public String[] habilidadEspecial(String nom) throws SQLException, ClassNotFoundException {
-        String [] sol = new String[20];
 
-        int cont = 0;
+
+        String [] sol = new String[20];
+        sol[0] = "Nombre  |  Descripcion  |  Dado  |  Requisito";
+
+        int cont = 1;
 
         Map<Integer, List<String>> HE = getHabilidades(nom);
 
@@ -435,25 +433,14 @@ public class CreacionPersonaje {
             String habilidad = "";
 
             for(String dato : aux){
-                habilidad += dato + "\t";
+                habilidad += dato;
             }
 
             sol[cont] = habilidad;
             System.out.println(sol[cont]);
             cont++;
-
-
         }
 
         return sol;
-
-
     }
-
-
-
-
-
-
-
 }

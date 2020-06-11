@@ -1,6 +1,7 @@
 package Controladores;
 
 import Vistas.Jugador.VistaJugador;
+import metodosBDD.CreacionPersonaje;
 import metodosBDD.Inventario;
 
 import java.awt.event.ActionEvent;
@@ -14,6 +15,7 @@ public class ControladorJugador implements ActionListener  {
     String usuario;
 
     VistaJugador vistaJugador;
+    CreacionPersonaje creacionPersonaje = new CreacionPersonaje();
 
     public ControladorJugador(VistaJugador vistaJugador, int[] estadisticas, String usuario) throws SQLException, ClassNotFoundException {
         this.usuario = usuario;
@@ -28,6 +30,8 @@ public class ControladorJugador implements ActionListener  {
 
         this.vistaJugador.setEstadisticas(estadisticas);
         this.vistaJugador.setInventario(inventarioList);
+        this.vistaJugador.setDatos(creacionPersonaje.getStats(usuario));
+        this.vistaJugador.setHabilidades(creacionPersonaje.habilidadEspecial(usuario));
     }
 
     @Override

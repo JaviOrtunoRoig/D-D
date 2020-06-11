@@ -339,6 +339,8 @@ public class ControladorIniciarJugador implements ActionListener {
 
                     VistaJugador vistaJugador = new VistaJugador();
                     ControladorJugador controladorJugador = new ControladorJugador(vistaJugador, caracteristicas, usuario);
+                    vistaJugador.controlador(controladorJugador);
+
                     Principal.frame.setContentPane(vistaJugador.getPanel());
                     Principal.frame.setVisible(true);
 
@@ -380,6 +382,8 @@ public class ControladorIniciarJugador implements ActionListener {
 
                     VistaJugador vistaJugador = new VistaJugador();
                     ControladorJugador controladorJugador = new ControladorJugador(vistaJugador, caracteristicas, usuario);
+                    vistaJugador.controlador(controladorJugador);
+
                     Principal.frame.setContentPane(vistaJugador.getPanel());
                     Principal.frame.setVisible(true);
 
