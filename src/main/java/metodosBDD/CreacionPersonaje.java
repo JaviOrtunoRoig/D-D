@@ -450,10 +450,49 @@ public class CreacionPersonaje {
 
     }
 
+    public String getRasgos(String nom) throws SQLException, ClassNotFoundException {
+        String sol = null;
 
+        Class.forName(JDBC_DRIVER);
+        conn = DriverManager.getConnection(DB_URL + "/" + DB_SCHEMA, USER, PASS);
 
+        Statement stmtAux = null;
+        stmtAux = conn.createStatement();
 
+        String sql = "SELECT rasgos, Usuario FROM Personaje";
+        ResultSet rs = stmtAux.executeQuery(sql);
 
+        boolean encontrado = false;
 
+        while(rs.next() && ! encontrado){
+            if(nom.equals(rs.getString("Usuario"))){
+                sol = rs.getString("rasgos");
+            }
+        }
 
+        return sol;
+    }
+
+    public String getIdioma(String nom) throws SQLException, ClassNotFoundException {
+        String sol = null;
+
+        Class.forName(JDBC_DRIVER);
+        conn = DriverManager.getConnection(DB_URL + "/" + DB_SCHEMA, USER, PASS);
+
+        Statement stmtAux = null;
+        stmtAux = conn.createStatement();
+
+        String sql = "SELECT idiomas, Usuario FROM Personaje";
+        ResultSet rs = stmtAux.executeQuery(sql);
+
+        boolean encontrado = false;
+
+        while(rs.next() && ! encontrado){
+            if(nom.equals(rs.getString("Usuario"))){
+                sol = rs.getString("idiomas");
+            }
+        }
+
+        return sol;
+    }
 }
