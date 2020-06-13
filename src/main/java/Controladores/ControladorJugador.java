@@ -45,6 +45,7 @@ public class ControladorJugador implements ActionListener  {
             try {
                 obtenerdatos();
             } catch (SQLException | ClassNotFoundException ex) {
+                //TODO: Mostrar error en GUI
                 ex.printStackTrace();
             }
         }

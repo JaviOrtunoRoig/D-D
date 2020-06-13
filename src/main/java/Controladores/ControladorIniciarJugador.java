@@ -72,12 +72,6 @@ public class ControladorIniciarJugador implements ActionListener {
     public int UnirseAPartida (String nombre, int idpartida, String password) {
         int res;
 
-        //TODO: quitar esto, lo pongo ahora para no tener que crear cuentas todo el rato
-        if (nombre.equals("d")) {
-            res = 1;
-            return res;
-        }
-
         try {
             Class.forName(JDBC_DRIVER);
             conn = DriverManager.getConnection(DB_URL + "/" + DB_SCHEMA, USER, PASS);
