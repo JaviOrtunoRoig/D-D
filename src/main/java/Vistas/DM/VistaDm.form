@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="Vistas.DM.VistaDm">
+  <grid id="27dc6" binding="VistaDm" layout-manager="BorderLayout" hgap="0" vgap="0">
+    <constraints>
+      <xy x="20" y="20" width="500" height="400"/>
+    </constraints>
+    <properties/>
+    <border type="none"/>
+    <children>
+      <tabbedpane id="b777" binding="tabbedPane1" default-binding="true">
+        <constraints border-constraint="Center"/>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <grid id="fd480" binding="Jugadores" layout-manager="BorderLayout" hgap="0" vgap="0">
+            <constraints>
+              <tabbedpane title="Jugadores"/>
+            </constraints>
+            <properties/>
+            <border type="none"/>
+            <children>
+              <component id="d151c" class="javax.swing.JButton" binding="Cerrar1">
+                <constraints border-constraint="South"/>
+                <properties>
+                  <text value="Cerrar"/>
+                </properties>
+              </component>
+              <scrollpane id="f90e4">
+                <constraints border-constraint="Center"/>
+                <properties>
+                  <autoscrolls value="true"/>
+                </properties>
+                <border type="none"/>
+                <children>
+                  <component id="de8bb" class="javax.swing.JList" binding="list1" default-binding="true">
+                    <constraints/>
+                    <properties>
+                      <model/>
+                    </properties>
+                  </component>
+                </children>
+              </scrollpane>
+            </children>
+          </grid>
+          <grid id="5add5" binding="Mercado" layout-manager="BorderLayout" hgap="0" vgap="0">
+            <constraints>
+              <tabbedpane title="Mercado"/>
+            </constraints>
+            <properties/>
+            <border type="none"/>
+            <children>
+              <component id="78163" class="javax.swing.JButton" binding="Cerrar">
+                <constraints border-constraint="South"/>
+                <properties>
+                  <text value="Cerrar"/>
+                </properties>
+              </component>
+              <tabbedpane id="52ba9" binding="tabbedPane2" default-binding="true">
+                <constraints border-constraint="Center"/>
+                <properties/>
+                <border type="none"/>
+                <children>
+                  <grid id="af56e" layout-manager="BorderLayout" hgap="0" vgap="0">
+                    <constraints>
+                      <tabbedpane title="Untitled"/>
+                    </constraints>
+                    <properties/>
+                    <border type="none"/>
+                    <children/>
+                  </grid>
+                </children>
+              </tabbedpane>
+            </children>
+          </grid>
+          <grid id="d716d" layout-manager="BorderLayout" hgap="0" vgap="0">
+            <constraints>
+              <tabbedpane title="Untitled"/>
+            </constraints>
+            <properties/>
+            <border type="none"/>
+            <children/>
+          </grid>
+        </children>
+      </tabbedpane>
+    </children>
+  </grid>
+</form>

@@ -1,6 +1,7 @@
 package Controladores;
 
 import Modelos.Principal;
+import Vistas.DM.VistaDm;
 import Vistas.IniciarDM.VistaConfirCreacionPartida;
 import Vistas.IniciarDM.VistaCrearPartida;
 import Vistas.IniciarJugador.VistaBuscarPartida;
@@ -323,7 +324,12 @@ public class ControladorIniciarDM implements ActionListener {
 
             if (idPartida >= 0) { //Se ha encontrado partida
 
-                Principal.frame.setContentPane(vistaConfirCreacionPartida.confirmarPartida);
+                ControladorDM controladorDM = new ControladorDM(usuario);
+
+                VistaDm vistaDm = new VistaDm();
+                vistaDm.controlador(controladorDM);
+
+                Principal.frame.setContentPane(vistaDm.getPanel());
                 Principal.frame.setVisible(true);
             } else if (idPartida == -1) { //No tiene ninguna partida asociada.
                 vistaConfirCreacionPartida = new VistaConfirCreacionPartida();
@@ -386,6 +392,14 @@ public class ControladorIniciarDM implements ActionListener {
             int estado = crearPartida(usuario, vistaCrearPartida.getPassword());
             if (estado >= 0) {
                 vistaCrearPartida.setPasswordLabel("Partida creada");
+
+                ControladorDM controladorDM = new ControladorDM(usuario);
+
+                VistaDm vistaDm = new VistaDm();
+                vistaDm.controlador(controladorDM);
+
+                Principal.frame.setContentPane(vistaDm.getPanel());
+                Principal.frame.setVisible(true);
             }
             else {
                 vistaCrearPartida.setPasswordLabel("Error");
