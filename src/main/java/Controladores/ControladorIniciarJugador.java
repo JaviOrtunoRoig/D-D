@@ -273,7 +273,7 @@ public class ControladorIniciarJugador implements ActionListener {
 
         } else if (comando.equals(VistaEleccionManual.ATRAS2)) {
 
-            Principal.frame.setContentPane(vistaDM_usuario.DM_Usuario);
+            Principal.frame.setContentPane(vistaPersonajeAuto_manual.pantalla);
             Principal.frame.setVisible(true);
 
         } else if (comando.equals(VistaElegirRaza.ATRAS4)) {
