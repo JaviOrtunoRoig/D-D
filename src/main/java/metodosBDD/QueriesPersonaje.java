@@ -36,4 +36,46 @@ public class QueriesPersonaje {
         return stats;
     }
 
+
+
+    /**
+     *
+     * @param nombrePJ del personaje que se quiere borrar.
+     * @return true si el usuario ha sido eliminado satisfactoriamnete de la base de datos.
+     */
+    public boolean borrarPersonaje(String nombrePJ)
+    {
+        boolean res = true;
+
+        try {
+
+
+
+            conn = DriverManager.getConnection(DB_URL + "/" + DB_SCHEMA, USER, PASS);
+            stmt = conn.createStatement();
+            String sqlDelete = "DELETE from Personaje where Nombre = '"+nombrePJ+"'";
+
+            System.out.println(sqlDelete);
+
+            stmt.executeUpdate(sqlDelete);
+
+
+
+
+        } catch (SQLException e) {
+           System.err.println("Error en la base de datos ");
+           res = false;
+        }
+          catch (Exception e)
+          {
+              System.err.println("Error: " + e.getMessage());
+          }
+
+        return res;
+
+    }
+
+
+
+
 }

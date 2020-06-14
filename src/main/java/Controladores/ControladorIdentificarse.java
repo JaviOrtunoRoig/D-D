@@ -105,7 +105,7 @@ public class ControladorIdentificarse implements ActionListener {
 	/**
 	 *
 	 * @param nombre del usuario que se quiere borrar.
-	 * @return true si el usuario ha sido eliminado satisfactoriamnete de la base de datos.
+	 * @return true si el usuario ha sido eliminado satisfactoriamente de la base de datos.
 	 */
 	public boolean borrarUsuario(String nombre) {
 		boolean res = false;
@@ -168,7 +168,7 @@ public class ControladorIdentificarse implements ActionListener {
 					this.vistaIniciarSesion.setErrorMessage("La contrasena es correcta. Bienvenido " + nombre);
 
 				} else {
-					this.vistaIniciarSesion.setErrorMessage("Error. Las contrasena introducida no coincide con la del usuario");
+					this.vistaIniciarSesion.setErrorMessage("Error. La contrasena introducida no coincide con la del usuario");
 				}
 
 			} else {
