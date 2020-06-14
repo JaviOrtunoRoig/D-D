@@ -340,7 +340,8 @@ public class ControladorIniciarJugador implements ActionListener {
 
                 }
             } catch (ClassNotFoundException | SQLException ex) {
-                vistaFinAutomatico.setMensajeError("Error inesperado");
+                ex.printStackTrace();
+                //vistaFinAutomatico.setMensajeError("Error inesperado");
             }
 
         } else if (comando.equals(VistaFinManual.ATRAS4)) {
@@ -384,7 +385,8 @@ public class ControladorIniciarJugador implements ActionListener {
                 } catch (NumberFormatException ex) {
                     vistaFinManual.setErrorMessage("No ha introducido un formato valido para la vida o las monedas");
                 } catch (SQLException | ClassNotFoundException ex) {
-                    vistaFinManual.setErrorMessage("Error inesperado");
+                    ex.printStackTrace();
+                    //vistaFinManual.setErrorMessage("Error inesperado");
                 }
             }
         }

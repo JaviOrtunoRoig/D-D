@@ -20,8 +20,6 @@ public class VistaFinManual {
     private JButton botonEntrarPartidaManual;
     private JLabel errorMessage;
     private JComboBox comportaminetoCombo;
-    private JTextArea idiomasTextArea;
-    private JTextArea maximo100LetrasTextArea;
 
 
     public JPanel getPanel() {

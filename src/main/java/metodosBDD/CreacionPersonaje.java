@@ -84,20 +84,12 @@ public class CreacionPersonaje {
     }
 
     public void insertarPersonaje() throws SQLException {
-        String sqlPersonaje = "INSERT INTO Personaje VALUES (" +
-            id + ", '" +
-            nombre + "', '" +
-            usuario + "', " +
-            idPartida + ", " +
-            raza +  ", " +
-            experiencia + ", '" +
-            rasgos + "', " +
-            pesocalculado + ", '" +
-            idiomas + "', " +
-            TP + ", " +
-            VidaCalculada + ", '" +
-            comportamiento + "', " +
-            VidaCalculada + ")";
+
+       String sqlPersonaje = String.format("INSERT INTO dungeonsdragonsdb.Personaje " +
+                       "(idPersonaje, Nombre, Usuario, idPartida, raza, experiencia, rasgos, PesoCalculado, " +
+               "idiomas, TP, VidaCalculada, comportamiento, vida) VALUES ('%d', '%s', '%s', '%d', '%d', '%d', '%s', '%d', '%s', '%d', '%d', '%s', '%d');",
+               id, nombre, usuario, idPartida, raza, experiencia, rasgos, pesocalculado, idiomas, TP, VidaCalculada, comportamiento, VidaCalculada);
+
         stmt.executeUpdate(sqlPersonaje);
     }
 
