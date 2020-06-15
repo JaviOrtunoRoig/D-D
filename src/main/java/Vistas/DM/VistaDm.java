@@ -13,6 +13,12 @@ public class VistaDm {
 
     public static String CERRAR = "CERRAR";
     public static String EDITAR_PERSONAJE = "EDITAR_PERSONAJE";
+    public static String ADD_HERRERO = "ADD_HERRERO";
+    public static String ADD_ARMERO = "ADD_ARMERO";
+    public static String ADD_TENDERO = "ADD_TENDERO";
+    public static String DELETE_HERRERO = "DELETE_HERRERO";
+    public static String DELETE_ARMERO = "DELETE_ARMERO";
+    public static String DELETE_TENDERO = "DELETE_TENDERO";
 
     private JPanel VistaDm;
     private JPanel Jugadores;
@@ -29,13 +35,16 @@ public class VistaDm {
     private JComboBox<String> comboBoxHerrero;
     private JComboBox<String> comboBoxArmero;
     private JComboBox<String> comboBoxElegirPersonaje;
+    private JComboBox<String> comboBoxHerreroObjeto;
+    private JComboBox<String> comboBoxArmeroObjeto;
+    private JComboBox<String> comboBoxTenderoObjeto;
     private JList<String> listJugadores;
     private JList<String> listHerrero;
     private JList<String> listArmero;
     private JList<String> listTendero;
-    private JComboBox comboBoxHerreroObjeto;
-    private JComboBox comboBoxArmeroObjeto;
-    private JComboBox comboBoxTenderoObjeto;
+    private JButton deleteButtonArmero;
+    private JButton deleteButtonHerrero;
+    private JButton deleteButtonTendero;
 
     public JPanel getPanel() {
         return VistaDm;
@@ -86,6 +95,8 @@ public class VistaDm {
     public void setListaHerrero(List<Arma> objetos) {
         DefaultListModel<String> model = new DefaultListModel<>();
         for (Arma arma : objetos) {
+            comboBoxHerreroObjeto.addItem(arma.getNombre());
+
            model.addElement("Nombre: " + arma.getNombre());
            model.addElement("Precio: " + arma.getPrecio());
            model.addElement("Peso: " + arma.getPeso());
@@ -99,6 +110,8 @@ public class VistaDm {
     public void setListaArmero(List<Armadura> objetos) {
         DefaultListModel<String> model = new DefaultListModel<>();
         for (Armadura armadura : objetos) {
+            comboBoxArmeroObjeto.addItem(armadura.getNombre());
+
             model.addElement("Nombre: " + armadura.getNombre());
             model.addElement("Precio: " + armadura.getPrecio());
             model.addElement("Peso: " + armadura.getPeso());
@@ -112,6 +125,8 @@ public class VistaDm {
     public void setListaTendero(List<Utensilio> objetos) {
         DefaultListModel<String> model = new DefaultListModel<>();
         for (Utensilio utensilio : objetos) {
+            comboBoxTenderoObjeto.addItem(utensilio.getNombre());
+
             model.addElement("Nombre: " + utensilio.getNombre());
             model.addElement("Precio: " + utensilio.getPrecio());
             model.addElement("Peso: " + utensilio.getPeso());
@@ -121,6 +136,29 @@ public class VistaDm {
         listTendero.setModel(model);
     }
 
+    public String getPersonajeHerrero() {
+        return comboBoxHerrero.getItemAt(comboBoxHerrero.getSelectedIndex());
+    }
+
+    public String getPersonajeArmero() {
+        return comboBoxArmero.getItemAt(comboBoxArmero.getSelectedIndex());
+    }
+
+    public String getPersonajeTendero() {
+        return comboBoxTendero.getItemAt(comboBoxTendero.getSelectedIndex());
+    }
+
+    public String getObjetoHerrero() {
+        return comboBoxHerreroObjeto.getItemAt(comboBoxHerreroObjeto.getSelectedIndex());
+    }
+
+    public String getObjetoArmero() {
+        return comboBoxArmeroObjeto.getItemAt(comboBoxArmeroObjeto.getSelectedIndex());
+    }
+
+    public String getObjetoTendero() {
+        return comboBoxTenderoObjeto.getItemAt(comboBoxTenderoObjeto.getSelectedIndex());
+    }
 
     public void controlador (ActionListener ctr) {
         Cerrar.addActionListener(ctr);
@@ -128,6 +166,24 @@ public class VistaDm {
 
         editarPersonajeButton.addActionListener(ctr);
         editarPersonajeButton.setActionCommand(EDITAR_PERSONAJE);
+
+        addButtonHerrero.addActionListener(ctr);
+        addButtonHerrero.setActionCommand(ADD_HERRERO);
+
+        deleteButtonHerrero.addActionListener(ctr);
+        deleteButtonHerrero.setActionCommand(DELETE_HERRERO);
+
+        addButtonArmero.addActionListener(ctr);
+        addButtonArmero.setActionCommand(ADD_ARMERO);
+
+        deleteButtonArmero.addActionListener(ctr);
+        deleteButtonArmero.setActionCommand(DELETE_ARMERO);
+
+        addButtonTendero.addActionListener(ctr);
+        addButtonTendero.setActionCommand(ADD_TENDERO);
+
+        deleteButtonTendero.addActionListener(ctr);
+        deleteButtonTendero.setActionCommand(DELETE_TENDERO);
     }
 
 }

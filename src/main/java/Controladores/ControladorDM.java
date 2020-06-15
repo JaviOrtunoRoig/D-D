@@ -5,6 +5,7 @@ import Modelos.Principal;
 import Vistas.DM.VistaDm;
 import Vistas.DM.VistaModificarJugador;
 import metodosBDD.CreacionPersonaje;
+import metodosBDD.Inventario;
 import metodosBDD.ObtenerDatosBDD;
 
 import java.awt.event.ActionEvent;
@@ -20,8 +21,10 @@ public class ControladorDM implements ActionListener {
 
     List<Jugador> jugadores;
     ObtenerDatosBDD obtenerDatosBDD;
+    Inventario inventario;
 
     public ControladorDM(String usuario, VistaDm dm) {
+        //TODO: tratar bien
         this.usuario = usuario;
 
         vistaDm = dm;
@@ -35,6 +38,13 @@ public class ControladorDM implements ActionListener {
         vistaDm.setListaHerrero(obtenerDatosBDD.getArmas());
         vistaDm.setListaArmero(obtenerDatosBDD.getArmaduras());
         vistaDm.setListaTendero(obtenerDatosBDD.getUtensilios());
+
+        try {
+            inventario = new Inventario();
+        } catch (ClassNotFoundException | SQLException e) {
+            //TODO tratar bien
+            e.printStackTrace();
+        }
 
     }
 
@@ -61,6 +71,52 @@ public class ControladorDM implements ActionListener {
 
             Principal.frame.setContentPane(vistaModificarJugador.getPanel());
             Principal.frame.setVisible(true);
+
+        } else if (comando.equals(VistaDm.ADD_HERRERO)) {
+            try {
+                inventario.aniadirItem(vistaDm.getPersonajeHerrero(), "Herrero", vistaDm.getObjetoHerrero());
+            } catch (SQLException ex) {
+                //TODO: tratar bien
+                ex.printStackTrace();
+            }
+
+        } else if (comando.equals(VistaDm.ADD_ARMERO)) {
+            try {
+                inventario.aniadirItem(vistaDm.getPersonajeArmero(), "Armero", vistaDm.getObjetoArmero());
+            } catch (SQLException ex) {
+                //TODO: tratar bien
+                ex.printStackTrace();
+            }
+
+        } else if (comando.equals(VistaDm.ADD_TENDERO)) {
+            try {
+                inventario.aniadirItem(vistaDm.getPersonajeTendero(), "Tendero", vistaDm.getObjetoTendero());
+            } catch (SQLException ex) {
+                //TODO: tratar bien
+                ex.printStackTrace();
+            }
+        } else if (comando.equals(VistaDm.DELETE_HERRERO)) {
+            try {
+                //TODO: tratar bien
+                inventario.eliminarItem(vistaDm.getPersonajeHerrero(), vistaDm.getObjetoHerrero(), "Armas");
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        } else if (comando.equals(VistaDm.DELETE_ARMERO)) {
+            try {
+                //TODO: tratar bien
+                inventario.eliminarItem(vistaDm.getPersonajeArmero(), vistaDm.getObjetoArmero(), "Armaduras");
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+
+        } else if (comando.equals(VistaDm.DELETE_TENDERO)) {
+            try {
+                //TODO: tratar bien
+                inventario.eliminarItem(vistaDm.getPersonajeTendero(), vistaDm.getObjetoTendero(), "Utensilios");
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
         }
     }
 }

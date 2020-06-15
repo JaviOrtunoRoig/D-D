@@ -64,7 +64,7 @@ public class Inventario {
 
     }
 
-    public int obeternIDItem(String nombre, String tipo) throws SQLException {
+    private int obeternIDItem(String nombre, String tipo) throws SQLException {
         String sql = "SELECT nombre, id" + tipo + " FROM " + tipo;
         ResultSet rs = stmt.executeQuery(sql);
 
@@ -81,7 +81,7 @@ public class Inventario {
 
     }
 
-    public void modificarTP(String nombre) throws SQLException {
+    private void modificarTP(String nombre) throws SQLException {
         int mod = 0;
 
         String sqlArmadura = "SELECT nombre, TP FROM Armaduras";
@@ -111,7 +111,7 @@ public class Inventario {
         stmt.executeUpdate(sqlMod);
     }
 
-    public int obtenrIDPersonaje(String nom) throws SQLException {
+    private int obtenrIDPersonaje(String nom) throws SQLException {
         int res = 0;
 
         String sql = "SELECT idPersonaje, Nombre FROM Personaje";
@@ -128,14 +128,13 @@ public class Inventario {
         return res;
     }
 
-
-    public void aniadir() throws SQLException {
+    private void aniadir() throws SQLException {
         String sql = "INSERT INTO Inventario VALUES (" + idPersonaje + ", '" +
                 tipoItem + "', " + idItem + ", " + precio + ")";
         stmt.executeUpdate(sql);
     }
 
-    public int obtenerPrecio(String tipo, String nombre) throws SQLException {
+    private int obtenerPrecio(String tipo, String nombre) throws SQLException {
         int sol = 0;
 
         String sqlPrecio = "SELECT nombre, precio FROM " + tipo;
@@ -150,7 +149,7 @@ public class Inventario {
         return sol;
     }
 
-    public boolean permitido(int idPer, int cant) throws SQLException {
+    private boolean permitido(int idPer, int cant) throws SQLException {
         String sqlPosible = "SELECT idPersonaje, CantidadOro FROM Moneda";
         ResultSet rsPosible = stmt.executeQuery(sqlPosible);
 
@@ -168,7 +167,7 @@ public class Inventario {
 
     }
 
-    public void quitarDinero(int idPer, int cant) throws SQLException {
+    private void quitarDinero(int idPer, int cant) throws SQLException {
         String sql = "SELECT idPersonaje, CantidadOro FROM Moneda";
         ResultSet rs = stmt.executeQuery(sql);
 
@@ -190,8 +189,7 @@ public class Inventario {
         stmt.executeUpdate(sqlMod);
     }
 
-
-    public void aniadirPeso(int idPer, int idIt, String tipo) throws SQLException {
+    private void aniadirPeso(int idPer, int idIt, String tipo) throws SQLException {
         String sql = "SELECT peso, id" + tipo + " FROM " + tipo;
         ResultSet rs = stmt.executeQuery(sql);
 
@@ -225,12 +223,14 @@ public class Inventario {
 
     }
 
-    public void eliminarItem(int idPer, int idIt) throws SQLException {
+    public void eliminarItem(String nombrePersonaje, String nombreObjeto, String tipo) throws SQLException {
+        int idPer = obtenrIDPersonaje(nombrePersonaje);
+        int idIt = obeternIDItem(nombreObjeto, tipo);
         String sql = "DELETE FROM Inventario WHERE idPersonaje = " + idPer + " AND idItem = " + idIt;
         stmt.executeUpdate(sql);
     }
 
-    public int getId(String nom) throws SQLException {
+    private int getId(String nom) throws SQLException {
         String sqlUs = "SELECT idPersonaje, usuario FROM Personaje";
         ResultSet rsUs = stmt.executeQuery(sqlUs);
 

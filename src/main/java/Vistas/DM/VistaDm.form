@@ -106,6 +106,12 @@
                               <text value="Add"/>
                             </properties>
                           </component>
+                          <component id="b0c7d" class="javax.swing.JButton" binding="deleteButtonHerrero">
+                            <constraints/>
+                            <properties>
+                              <text value="Delete"/>
+                            </properties>
+                          </component>
                         </children>
                       </grid>
                       <vspacer id="2b40b">
@@ -164,6 +170,12 @@
                             <constraints/>
                             <properties>
                               <text value="Add"/>
+                            </properties>
+                          </component>
+                          <component id="3d542" class="javax.swing.JButton" binding="deleteButtonArmero">
+                            <constraints/>
+                            <properties>
+                              <text value="Delete"/>
                             </properties>
                           </component>
                         </children>
@@ -231,6 +243,12 @@
                                 <constraints/>
                                 <properties>
                                   <text value="Add"/>
+                                </properties>
+                              </component>
+                              <component id="62ab2" class="javax.swing.JButton" binding="deleteButtonTendero">
+                                <constraints/>
+                                <properties>
+                                  <text value="Delete"/>
                                 </properties>
                               </component>
                             </children>
