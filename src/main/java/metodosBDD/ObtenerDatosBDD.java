@@ -1,12 +1,14 @@
 package metodosBDD;
 
+import Modelos.Jugador;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 // Clase auxiliar para obtener objetos de la bbdd
 
-public class ObtenerObjetos {
+public class ObtenerDatosBDD {
 
     private Connection conn = null;
     private Statement stmt = null;
@@ -143,6 +145,72 @@ public class ObtenerObjetos {
     }
 
 
+    public List<Jugador> getJugadores (String nombreDM)
+    {
+        List<Jugador> lista = new ArrayList<>();
+
+        try {
+            conn = DriverManager.getConnection(DB_URL + "/" + DB_SCHEMA, USER, PASS);
+            stmt = conn.createStatement();
+
+            String sqlConsultaId = "SELECT idPartida, DM FROM dungeonsdragonsdb.Partida";
+
+            ResultSet rs = stmt.executeQuery(sqlConsultaId);
+
+            boolean encontrado = false;
+
+            int idPartida = -1;
+            String DM;
+
+            while(rs.next() && !encontrado)
+            {
+                idPartida = rs.getInt("idPartida");
+                DM = rs.getString("DM");
+
+                if(DM.equals(nombreDM))
+                {
+                    encontrado = true;
+                }
+
+            }
+
+
+            String sqlConsultaJugadores = "SELECT Usuario, Nombre, vida, idPartida FROM dungeonsdragonsdb.Personaje";
+
+            stmt = conn.createStatement();
+
+            rs = stmt.executeQuery(sqlConsultaJugadores);
+
+            while(rs.next())
+            {
+                int id = rs.getInt("idPartida");
+
+                if(id == idPartida)
+                {
+                    Jugador j = new Jugador(rs.getString("Usuario"), rs.getString("Nombre"), rs.getInt("vida"));
+
+                    lista.add(j);
+
+                }
+
+            }
+
+
+        }catch(SQLException e)
+        {
+            System.err.println("Error en la base de datos");
+        }
+        catch (Exception e)
+        {
+            System.err.println("Error: " + e.getMessage());
+        }
+
+
+
+
+
+        return lista;
+    }
 
 
 
