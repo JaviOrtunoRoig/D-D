@@ -324,10 +324,8 @@ public class ControladorIniciarDM implements ActionListener {
 
             if (idPartida >= 0) { //Se ha encontrado partida
 
-                ControladorDM controladorDM = new ControladorDM(usuario);
-
                 VistaDm vistaDm = new VistaDm();
-                vistaDm.controlador(controladorDM);
+                ControladorDM controladorDM = new ControladorDM(usuario, vistaDm);
 
                 Principal.frame.setContentPane(vistaDm.getPanel());
                 Principal.frame.setVisible(true);
@@ -393,10 +391,9 @@ public class ControladorIniciarDM implements ActionListener {
             if (estado >= 0) {
                 vistaCrearPartida.setPasswordLabel("Partida creada");
 
-                ControladorDM controladorDM = new ControladorDM(usuario);
-
                 VistaDm vistaDm = new VistaDm();
-                vistaDm.controlador(controladorDM);
+
+                ControladorDM controladorDM = new ControladorDM(usuario, vistaDm);
 
                 Principal.frame.setContentPane(vistaDm.getPanel());
                 Principal.frame.setVisible(true);

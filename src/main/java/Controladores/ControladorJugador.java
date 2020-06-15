@@ -1,5 +1,8 @@
 package Controladores;
 
+import Modelos.Principal;
+import Vistas.DM.VistaDm;
+import Vistas.DM.VistaModificarJugador;
 import Vistas.Jugador.VistaJugador;
 import metodosBDD.CreacionPersonaje;
 import metodosBDD.Inventario;
@@ -16,6 +19,8 @@ public class ControladorJugador implements ActionListener  {
     String usuario;
 
     VistaJugador vistaJugador;
+    VistaDm vistaDm;
+    VistaModificarJugador vistaModificarJugador;
     JugadorBDD jugadorBDD = new JugadorBDD();
 
     public ControladorJugador(VistaJugador vistaJugador, int[] estadisticas, String usuario) throws SQLException, ClassNotFoundException {
@@ -25,6 +30,20 @@ public class ControladorJugador implements ActionListener  {
         this.vistaJugador.controlador(this);
 
         obtenerdatos();
+    }
+
+    public ControladorJugador(int[] estadisticas, String usuario, VistaDm vistaDm, VistaModificarJugador vistaModificarJugador) throws SQLException, ClassNotFoundException {
+
+        this.vistaDm = vistaDm;
+        this.vistaDm.controlador(this);
+
+        this.vistaModificarJugador = vistaModificarJugador;
+        this.vistaModificarJugador.controlador(this);
+
+        this.usuario = usuario;
+        this.estadisticas = estadisticas;
+
+        obtenerdatosModificacion();
     }
 
     private void obtenerdatos() throws SQLException, ClassNotFoundException {
@@ -40,6 +59,20 @@ public class ControladorJugador implements ActionListener  {
         this.vistaJugador.setIdiomas(jugadorBDD.getIdioma(usuario));
     }
 
+
+    private void obtenerdatosModificacion() throws SQLException, ClassNotFoundException {
+
+        Inventario inventario = new Inventario();
+        List<String> inventarioList = inventario.mostrarInventario(usuario);
+
+        this.vistaModificarJugador.setEstadisticas(estadisticas);
+        this.vistaModificarJugador.setInventario(inventarioList);
+        this.vistaModificarJugador.setDatos(jugadorBDD.getStats(usuario));
+        this.vistaModificarJugador.setHabilidades(jugadorBDD.habilidadEspecial(usuario));
+        this.vistaModificarJugador.setRasgos(jugadorBDD.getRasgos(usuario));
+        this.vistaModificarJugador.setIdiomas(jugadorBDD.getIdioma(usuario));
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals(VistaJugador.ACTUALIZAR)) {
@@ -49,6 +82,9 @@ public class ControladorJugador implements ActionListener  {
                 //TODO: Mostrar error en GUI
                 ex.printStackTrace();
             }
+        } else if (e.getActionCommand().equals(VistaModificarJugador.VOLVER)) {
+            Principal.frame.setContentPane(vistaDm.getPanel());
+            Principal.frame.setVisible(true);
         }
     }
 }
