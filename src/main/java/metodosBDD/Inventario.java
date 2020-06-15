@@ -29,10 +29,10 @@ public class Inventario {
         stmt = conn.createStatement();
     }
 
-    public void aniadirItem(String personaje, String tipo, String nombre, int cant) throws SQLException {
+    public void aniadirItem(String personaje, String tipo, String nombre) throws SQLException {
         idPersonaje = obtenrIDPersonaje(personaje);
 
-        if(tipo.equals("Herrero")){ 
+        if(tipo.equals("Herrero")){
             tipoItem = "Armas";
         } else if(tipo.equals("Armero")){
             tipoItem = "Armaduras";
@@ -48,11 +48,8 @@ public class Inventario {
 
         idItem = obeternIDItem(nombre, tipoItem);
 
-        if (cant == 0) {
-            precio = obtenerPrecio(tipoItem, nombre);
-        } else {
-            precio = cant;
-        }
+
+        precio = obtenerPrecio(tipoItem, nombre);
 
         if (!permitido(idPersonaje, precio)) {
             System.err.println("No puede permitirse este item");
@@ -63,10 +60,7 @@ public class Inventario {
             System.out.println("El item ha sido introducido");
 
            aniadirPeso(idPersonaje, idItem, tipoItem);
-
-
         }
-
 
     }
 
