@@ -64,6 +64,7 @@ public class QueriesPersonaje {
             borrarMoneda(idPer);
 
 
+
             String sqlUpdate = "UPDATE `dungeonsdragonsdb`.`Usuario` SET `partida` = NULL WHERE (`nombre` = '"+ nombreUsuario +"')";
 
             stmt.executeUpdate(sqlUpdate);
@@ -106,6 +107,8 @@ public class QueriesPersonaje {
 
         String sqlUs = "DELETE FROM Características WHERE idPersonaje = " + idP;
         stmtAux.executeUpdate(sqlUs);
+
+        System.out.println("hola");
     }
 
     public void borrarMoneda(int idP) throws SQLException {
@@ -114,6 +117,7 @@ public class QueriesPersonaje {
 
         String sqlUs = "DELETE FROM Moneda WHERE idPersonaje = " + idP;
         stmtAux.executeUpdate(sqlUs);
+        System.out.println("hola");
     }
 
     public void borrarInventario(int idP) throws SQLException {
@@ -122,6 +126,8 @@ public class QueriesPersonaje {
 
         String sqlUs = "DELETE FROM Inventario WHERE idPersonaje = " + idP;
         stmtAux.executeUpdate(sqlUs);
+
+        System.out.println("hola");
     }
 
 

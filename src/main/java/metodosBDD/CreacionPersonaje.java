@@ -269,8 +269,10 @@ public class CreacionPersonaje {
 
     public void insertarModificadores() throws SQLException {
 
+        int idC = asignacionID("Características");
+
         stmt = conn.createStatement();
-        String sqlInsert = "INSERT INTO Características " + "VALUES (" + id + "," + id + ", " +
+        String sqlInsert = "INSERT INTO Características " + "VALUES (" + idC + "," + id + ", " +
                 caracteristicasValores[0] + "," + modificadores[0] + "," +
                 caracteristicasValores[1] + "," + modificadores[1] + "," +
                 caracteristicasValores[2] + "," + modificadores[2] + "," +
