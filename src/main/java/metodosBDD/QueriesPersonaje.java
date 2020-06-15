@@ -102,30 +102,25 @@ public class QueriesPersonaje {
     }
 
     public void borrarCaracteristicas(int idP) throws SQLException {
-        Statement stmtAux = null;
-        stmtAux = conn.createStatement();
-
         String sqlUs = "DELETE FROM Características WHERE idPersonaje = " + idP;
-        stmtAux.executeUpdate(sqlUs);
+        stmt.executeUpdate(sqlUs);
 
         System.out.println("hola");
     }
 
     public void borrarMoneda(int idP) throws SQLException {
-        Statement stmtAux = null;
-        stmtAux = conn.createStatement();
-
         String sqlUs = "DELETE FROM Moneda WHERE idPersonaje = " + idP;
-        stmtAux.executeUpdate(sqlUs);
+        stmt.executeUpdate(sqlUs);
+
         System.out.println("hola");
     }
 
     public void borrarInventario(int idP) throws SQLException {
         Statement stmtAux = null;
-        stmtAux = conn.createStatement();
+        stmt = conn.createStatement();
 
         String sqlUs = "DELETE FROM Inventario WHERE idPersonaje = " + idP;
-        stmtAux.executeUpdate(sqlUs);
+        stmt.executeUpdate(sqlUs);
 
         System.out.println("hola");
     }
