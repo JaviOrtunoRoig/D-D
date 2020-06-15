@@ -1,6 +1,9 @@
 package Vistas.DM;
 
 import Modelos.Jugador;
+import metodosBDD.Arma;
+import metodosBDD.Armadura;
+import metodosBDD.Utensilio;
 
 import javax.swing.*;
 import java.awt.event.ActionListener;
@@ -30,6 +33,9 @@ public class VistaDm {
     private JList<String> listHerrero;
     private JList<String> listArmero;
     private JList<String> listTendero;
+    private JComboBox comboBoxHerreroObjeto;
+    private JComboBox comboBoxArmeroObjeto;
+    private JComboBox comboBoxTenderoObjeto;
 
     public JPanel getPanel() {
         return VistaDm;
@@ -76,6 +82,45 @@ public class VistaDm {
         }
         return jugadorAEditar;
     }
+
+    public void setListaHerrero(List<Arma> objetos) {
+        DefaultListModel<String> model = new DefaultListModel<>();
+        for (Arma arma : objetos) {
+           model.addElement("Nombre: " + arma.getNombre());
+           model.addElement("Precio: " + arma.getPrecio());
+           model.addElement("Peso: " + arma.getPeso());
+           model.addElement("Tipo Dado: " + arma.getTipoDado());
+           model.addElement("\n");
+        }
+
+        listHerrero.setModel(model);
+    }
+
+    public void setListaArmero(List<Armadura> objetos) {
+        DefaultListModel<String> model = new DefaultListModel<>();
+        for (Armadura armadura : objetos) {
+            model.addElement("Nombre: " + armadura.getNombre());
+            model.addElement("Precio: " + armadura.getPrecio());
+            model.addElement("Peso: " + armadura.getPeso());
+            model.addElement("TP: " + armadura.getTP());
+            model.addElement("\n");
+        }
+
+        listArmero.setModel(model);
+    }
+
+    public void setListaTendero(List<Utensilio> objetos) {
+        DefaultListModel<String> model = new DefaultListModel<>();
+        for (Utensilio utensilio : objetos) {
+            model.addElement("Nombre: " + utensilio.getNombre());
+            model.addElement("Precio: " + utensilio.getPrecio());
+            model.addElement("Peso: " + utensilio.getPeso());
+            model.addElement("\n");
+        }
+
+        listTendero.setModel(model);
+    }
+
 
     public void controlador (ActionListener ctr) {
         Cerrar.addActionListener(ctr);

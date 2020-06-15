@@ -157,10 +157,6 @@ public class JugadorBDD {
 
             }
         }
-
-        System.out.println(sol);
-
-
         return sol;
     }
 
@@ -179,15 +175,10 @@ public class JugadorBDD {
             }
 
             sol[cont] = habilidad;
-            System.out.println(sol[cont]);
             cont++;
-
-
         }
 
         return sol;
-
-
     }
 
     public String getRasgos(String nom) throws SQLException, ClassNotFoundException {

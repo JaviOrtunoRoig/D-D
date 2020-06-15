@@ -2,6 +2,7 @@ package Vistas.DM;
 
 import javax.swing.*;
 import java.awt.event.ActionListener;
+import java.util.Arrays;
 import java.util.List;
 
 public class VistaModificarJugador {
@@ -115,9 +116,16 @@ public class VistaModificarJugador {
     public void setHabilidades(String[] habilidades) {
         DefaultListModel<String> model = new DefaultListModel<>();
 
+        System.out.println("Habilidades: " + Arrays.toString(habilidades));
         for (int i = 0; i < habilidades.length; i++) {
-            model.addElement(habilidades[i]);
-            model.addElement(" \n");
+            if (habilidades[i] != null) {
+                String[] corte = habilidades[i].split(",");
+                model.addElement("Nombre de habilidad: " + corte[0]);
+                model.addElement("Descripcion " + corte[1]);
+                model.addElement("Dado de habilidad: " + corte[2]);
+                model.addElement("Requisitos: " + corte[3]);
+                model.addElement(" \n");
+            }
         }
 
         listHabilidades.setModel(model);

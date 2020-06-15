@@ -31,6 +31,11 @@ public class ControladorDM implements ActionListener {
         jugadores = obtenerDatosBDD.getJugadores(usuario);
         vistaDm.setComboBoxs(jugadores);
         vistaDm.setListaJugadores(jugadores);
+
+        vistaDm.setListaHerrero(obtenerDatosBDD.getArmas());
+        vistaDm.setListaArmero(obtenerDatosBDD.getArmaduras());
+        vistaDm.setListaTendero(obtenerDatosBDD.getUtensilios());
+
     }
 
     @Override

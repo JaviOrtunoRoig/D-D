@@ -165,7 +165,6 @@ public class ControladorIniciarJugador implements ActionListener {
             }
         } catch (SQLException e) {
             //TODO: Mostrar error en la GUI
-            System.out.println("erorr BDD");
         }
         return disponible;
     }
@@ -357,8 +356,6 @@ public class ControladorIniciarJugador implements ActionListener {
             String moneda = vistaFinManual.getMoneda();
             String rasgos = vistaFinManual.getRasgo();
             String vida = vistaFinManual.getVidaDado();
-
-            System.out.println(caracteristicasMapa);
 
             if (nombre.equals("") || idiomas.equals("") || moneda.equals("") || rasgos.equals("") || vida.equals("")) {
                 vistaFinManual.setErrorMessage("Longitud maxima superada");

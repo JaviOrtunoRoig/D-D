@@ -100,10 +100,13 @@ public class ControladorIniciarDM implements ActionListener {
                 }
             }
 
-        } catch(
-                SQLException e) {
+        } catch (SQLException e) {
+            //TODO: Cambiar a error
+            //TODO: Cambiar a error
             System.err.println("Error en la conexion a la base de datos");
-        } catch(Exception e) {
+        } catch (Exception e) {
+            //TODO: Cambiar a error
+            //TODO: Cambiar a error
             System.err.println("Error : " + e.getMessage());
         }
 
@@ -165,8 +168,6 @@ public class ControladorIniciarDM implements ActionListener {
                     String insert1 = "INSERT INTO `dungeonsdragonsdb`.`Partida` (`idPartida`, `contrasena`, `fechaCreacion`, `numeroJugadores`, `DM`) " +
                             "VALUES ('" + id + "','" + contrasena + "','" + fechasistema + "','" + 0 + "','" + nombreusuario + "')";
 
-                    System.out.println(insert1);
-
                     stmt.executeUpdate(insert1);
 
                     String insert2 = "UPDATE `dungeonsdragonsdb`.`Usuario` SET `partida` = '" + id + "' WHERE (`nombre` = '" + nombreusuario + "')";
@@ -179,9 +180,11 @@ public class ControladorIniciarDM implements ActionListener {
 
 
         }catch(SQLException e) {
+            //TODO: Cambiar a error
             System.err.println("Error en la base de Datos");
         }
         catch(Exception e) {
+            //TODO: Cambiar a error
             System.err.println(e.getMessage());
         }
         return id;
@@ -222,8 +225,10 @@ public class ControladorIniciarDM implements ActionListener {
                 }
             }
         } catch (SQLException e){
+            //TODO: Cambiar a error
             System.err.println("Error de conexion a la base de datos.");
         } catch (Exception e){
+            //TODO: Cambiar a error
             System.err.println(e.getMessage());
         }
         return res;
@@ -256,8 +261,10 @@ public class ControladorIniciarDM implements ActionListener {
                 esDM = true;
             }
         }catch (SQLException e){
+            //TODO: Cambiar a error
             System.err.println("Error conexion a la base de datos");
         } catch (Exception e){
+            //TODO: Cambiar a error
             System.err.println(e.getMessage());
         }
         return esDM;
@@ -275,8 +282,6 @@ public class ControladorIniciarDM implements ActionListener {
      */
 
     public void UnirseAPartida (String nombre, int idpartida, int password) {
-        System.out.println("ESTO DEBERIA APARECER SOLO UNA VEZ");
-
         try{
             Class.forName(JDBC_DRIVER);
             conn = DriverManager.getConnection(DB_URL + "/" + DB_SCHEMA, USER, PASS);
@@ -289,27 +294,22 @@ public class ControladorIniciarDM implements ActionListener {
             int pass = resultado.getInt("contrasena");
 
 
-            System.out.println("Voy a comprobar si las contrasenas coinciden. He obtenido que de la partida: "
-                    + idpartida + " la pass= " + pass + ". La password dada ha sido: " + password);
             if (pass==password){
                 //vamos a realizar la inclusion del usuario a la partida.
                 //UPDATE `dungeonsdragonsdb`.`Usuario` SET `partida` = '1234' WHERE (`nombre` = 'micho');
-                System.out.println("Las contrasenas coinciden, lo anado.");
-                System.out.println("---------------Sentencia:");
-                System.out.println("UPDATE `dungeonsdragonsdb`.`Usuario` SET `partida` = '" + idpartida + "' WHERE (`nombre` = '"+ nombre + "');");
                 String sqlConsulta = "UPDATE `dungeonsdragonsdb`.`Usuario` SET `partida` = '" + idpartida + "' WHERE (`nombre` = '"+ nombre + "');";
                 stmt.executeUpdate(sqlConsulta);
-                System.out.println("Sentencia ejecutada.");
 
-            }else{
+            }else {
+                //TODO: Cambiar a error
                 System.out.println("Las contrasenas no coinciden");
             }
 
-            System.out.println("El if se ha hecho y ya debería estar unido. No errors me vuelvo al main");
-
         } catch (SQLException e){
+            //TODO: Cambiar a error
             System.err.println("Error de conexion a la base de datos");
         } catch (Exception e){
+            //TODO: Cambiar a error
             System.err.println(e.getMessage());
         }
     }
@@ -319,8 +319,6 @@ public class ControladorIniciarDM implements ActionListener {
         String comando = e.getActionCommand();
         if (comando.equals(VistaDM_Usuario.DM)) {
             int idPartida = estaDMEnPartida(usuario);
-
-            System.out.println(idPartida);
 
             if (idPartida >= 0) { //Se ha encontrado partida
 

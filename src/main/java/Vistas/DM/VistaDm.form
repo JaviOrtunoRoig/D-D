@@ -85,7 +85,7 @@
                     <properties/>
                     <border type="none"/>
                     <children>
-                      <grid id="99d81" layout-manager="BorderLayout" hgap="0" vgap="0">
+                      <grid id="99d81" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
                         <constraints>
                           <grid row="1" column="0" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
                         </constraints>
@@ -93,11 +93,15 @@
                         <border type="none"/>
                         <children>
                           <component id="5dc71" class="javax.swing.JComboBox" binding="comboBoxHerrero">
-                            <constraints border-constraint="West"/>
+                            <constraints/>
+                            <properties/>
+                          </component>
+                          <component id="899bf" class="javax.swing.JComboBox" binding="comboBoxHerreroObjeto">
+                            <constraints/>
                             <properties/>
                           </component>
                           <component id="c7f9" class="javax.swing.JButton" binding="addButtonHerrero">
-                            <constraints border-constraint="Center"/>
+                            <constraints/>
                             <properties>
                               <text value="Add"/>
                             </properties>
@@ -141,7 +145,7 @@
                     <properties/>
                     <border type="none"/>
                     <children>
-                      <grid id="a3cd1" layout-manager="BorderLayout" hgap="0" vgap="0">
+                      <grid id="a3cd1" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
                         <constraints>
                           <grid row="1" column="0" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
                         </constraints>
@@ -149,11 +153,15 @@
                         <border type="none"/>
                         <children>
                           <component id="f1bc0" class="javax.swing.JComboBox" binding="comboBoxArmero">
-                            <constraints border-constraint="West"/>
+                            <constraints/>
+                            <properties/>
+                          </component>
+                          <component id="c003b" class="javax.swing.JComboBox" binding="comboBoxArmeroObjeto">
+                            <constraints/>
                             <properties/>
                           </component>
                           <component id="708ab" class="javax.swing.JButton" binding="addButtonArmero">
-                            <constraints border-constraint="Center"/>
+                            <constraints/>
                             <properties>
                               <text value="Add"/>
                             </properties>
@@ -204,22 +212,26 @@
                         <properties/>
                         <border type="none"/>
                         <children>
-                          <grid id="d1a4d" layout-manager="BorderLayout" hgap="0" vgap="0">
+                          <grid id="d1a4d" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
                             <constraints>
                               <grid row="1" column="0" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
                             </constraints>
                             <properties/>
                             <border type="none"/>
                             <children>
+                              <component id="4a78a" class="javax.swing.JComboBox" binding="comboBoxTendero">
+                                <constraints/>
+                                <properties/>
+                              </component>
+                              <component id="fbe79" class="javax.swing.JComboBox" binding="comboBoxTenderoObjeto">
+                                <constraints/>
+                                <properties/>
+                              </component>
                               <component id="2b40e" class="javax.swing.JButton" binding="addButtonTendero">
-                                <constraints border-constraint="Center"/>
+                                <constraints/>
                                 <properties>
                                   <text value="Add"/>
                                 </properties>
-                              </component>
-                              <component id="4a78a" class="javax.swing.JComboBox" binding="comboBoxTendero">
-                                <constraints border-constraint="West"/>
-                                <properties/>
                               </component>
                             </children>
                           </grid>
