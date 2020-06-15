@@ -256,7 +256,7 @@ public class CreacionPersonaje {
                 caracteristicasValores[2] + "," + modificadores[2] + "," +
                 caracteristicasValores[3] + "," + modificadores[3] + "," +
                 caracteristicasValores[4] + "," + modificadores[4] + "," +
-                caracteristicasValores[5] + "," + modificadores[5] + ")";
+                caracteristicasValores[5] + "," + modificadores[5] + ");";
         stmt.executeUpdate(sqlInsert);
     }
 
