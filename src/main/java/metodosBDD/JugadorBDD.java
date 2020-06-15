@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Jugador {
+public class JugadorBDD {
     private static Connection conn;
     private static Statement stmt = null;
 
@@ -19,7 +19,7 @@ public class Jugador {
     static final String PASS = "VengerHank";
 
 
-    public Jugador() throws ClassNotFoundException, SQLException {
+    public JugadorBDD() throws ClassNotFoundException, SQLException {
         Class.forName(JDBC_DRIVER);
         conn = DriverManager.getConnection(DB_URL + "/" + DB_SCHEMA, USER, PASS);
         stmt = conn.createStatement();
