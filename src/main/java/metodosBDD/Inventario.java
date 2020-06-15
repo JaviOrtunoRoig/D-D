@@ -42,7 +42,7 @@ public class Inventario {
 
 
         if (tipoItem.equals("Armaduras")) {
-            modificarTP(nombre);
+            modificarTP(nombre, getTP(nombre));
         }
 
 
@@ -81,7 +81,10 @@ public class Inventario {
 
     }
 
-    private void modificarTP(String nombre) throws SQLException {
+    private int getTP(String nombre) throws SQLException {
+        Statement stmtAux = null;
+        stmtAux = conn.createStatement();
+
         int mod = 0;
 
         String sqlArmadura = "SELECT nombre, TP FROM Armaduras";
@@ -94,22 +97,31 @@ public class Inventario {
             }
         }
 
-        String sqlTP = "SELECT idPersonaje, TP FROM Personaje";
-        ResultSet rsTP = stmt.executeQuery(sqlTP);
-
-        int TP = 0;
-
-        while (rsTP.next()) {
-
-            if (rsTP.getInt("idPersonaje") == idPersonaje) {
-                TP = rsTP.getInt("TP");
-            }
-        }
 
 
-        String sqlMod = "UPDATE Personaje SET TP = " + (TP - mod) + " WHERE idPersonaje = " + idPersonaje;
-        stmt.executeUpdate(sqlMod);
+        return mod;
     }
+
+    private void modificarTP(String nombre, int mod) throws SQLException {
+             Statement stmtAux = null;
+             stmtAux = conn.createStatement();
+
+            String sqlTP = "SELECT idPersonaje, TP FROM Personaje";
+            ResultSet rsTP = stmtAux.executeQuery(sqlTP);
+
+            int TP = 0;
+
+            while (rsTP.next()) {
+
+                if (rsTP.getInt("idPersonaje") == obtenrIDPersonaje(nombre)) {
+                    TP = rsTP.getInt("TP");
+                }
+            }
+
+            String sqlMod = "UPDATE Personaje SET TP = " + (TP - mod) + " WHERE idPersonaje = " + idPersonaje;
+            stmt.executeUpdate(sqlMod);
+    }
+
 
     private int obtenrIDPersonaje(String nom) throws SQLException {
         int res = 0;
@@ -223,11 +235,46 @@ public class Inventario {
 
     }
 
+    private boolean posible(String nombrePersonaje, String nombreObjeto, String tipo) throws SQLException {
+        Statement stmtAux = null;
+        stmtAux = conn.createStatement();
+
+        String sql = "SELECT idPersonaje, idItem, tipo FROM Inventario";
+        ResultSet rs = stmtAux.executeQuery(sql);
+
+        boolean sol = false;
+
+        while(rs.next() && !sol) {
+            if(rs.getInt("idPersonaje") == obtenrIDPersonaje(nombrePersonaje) &&
+               rs.getInt("idItem") == obeternIDItem(nombreObjeto,tipo) &&
+               tipo.equals(rs.getString("tipo"))){
+
+                sol = true;
+
+            }
+        }
+
+        return sol;
+    }
+
     public void eliminarItem(String nombrePersonaje, String nombreObjeto, String tipo) throws SQLException {
+        Statement stmtAux = null;
+        stmtAux = conn.createStatement();
+
         int idPer = obtenrIDPersonaje(nombrePersonaje);
         int idIt = obeternIDItem(nombreObjeto, tipo);
-        String sql = "DELETE FROM Inventario WHERE idPersonaje = " + idPer + " AND idItem = " + idIt;
-        stmt.executeUpdate(sql);
+
+        if(tipo.equals("Armaduras")){
+            modificarTP(nombrePersonaje, getTP(nombreObjeto) * (-1));
+        }
+
+        if(posible(nombrePersonaje, nombreObjeto, tipo)) {
+            String sql = "DELETE FROM Inventario WHERE idPersonaje = " + idPer + " AND idItem = " + idIt;
+            stmtAux.executeUpdate(sql);
+        } else {
+            System.err.println("No tiene este Item en su inventario");
+        }
+
     }
 
     private int getId(String nom) throws SQLException {
@@ -276,22 +323,22 @@ public class Inventario {
         obj.put("Utensilios", ut);
 
         List<String> sol = new ArrayList<>();
-        boolean encontrado;
 
         for(String tip : obj.keySet()) {
             Statement stmtAux = null;
             stmtAux = conn.createStatement();
 
-            String sqlInv = "SELECT nombre, id" + tip + " FROM " + tip;
+            String sqlInv = "SELECT peso, nombre, id" + tip + " FROM " + tip;
             ResultSet rsInv = stmtAux.executeQuery(sqlInv);
 
-            encontrado = false;
+            sol.add(tip + ": \n");
 
             while(rsInv.next()){
                for(Integer nom : obj.get(tip)){
                    if(nom == rsInv.getInt("id" + tip)){
-                       sol.add(rsInv.getString("nombre"));
-                       System.out.println(rsInv.getString("nombre"));
+                       sol.add("Nombre: " + rsInv.getString("nombre") +
+                               " | Peso: " +Integer.toString(rsInv.getInt("peso")));
+
                    }
                }
             }
