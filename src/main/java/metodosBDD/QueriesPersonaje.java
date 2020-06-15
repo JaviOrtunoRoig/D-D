@@ -40,27 +40,26 @@ public class QueriesPersonaje {
 
     /**
      *
-     * @param nombrePJ del personaje que se quiere borrar.
-     * @return true si el usuario ha sido eliminado satisfactoriamnete de la base de datos.
+     * @param nombreUsuario nombre del usuario que se quiere borrar.
+     * @return true si el personaje ha sido eliminado satisfactoriamnete de la base de datos.
      */
-    public boolean borrarPersonaje(String nombrePJ)
+    public boolean borrarPersonaje(String nombreUsuario)
     {
         boolean res = true;
 
         try {
 
-
-
             conn = DriverManager.getConnection(DB_URL + "/" + DB_SCHEMA, USER, PASS);
             stmt = conn.createStatement();
-            String sqlDelete = "DELETE from Personaje where Nombre = '"+nombrePJ+"'";
+            String sqlDelete = "DELETE from Personaje where Usuario = '"+nombreUsuario+"'";
 
             System.out.println(sqlDelete);
 
             stmt.executeUpdate(sqlDelete);
 
+            String sqlUpdate = "UPDATE `dungeonsdragonsdb`.`Usuario` SET `partida` = NULL WHERE (`nombre` = '"+ nombreUsuario +"')";
 
-
+            stmt.executeUpdate(sqlUpdate);
 
         } catch (SQLException e) {
            System.err.println("Error en la base de datos ");
@@ -68,6 +67,7 @@ public class QueriesPersonaje {
         }
           catch (Exception e)
           {
+              res = false;
               System.err.println("Error: " + e.getMessage());
           }
 
