@@ -29,10 +29,19 @@ public class Inventario {
         stmt = conn.createStatement();
     }
 
-    public void aniadirItem(String personaje, String tipo, String nombre) throws SQLException {
+    /**
+     *
+     * @param personaje
+     * @param tipo
+     * @param nombre
+     * @return null si todo ha ido bien, en otro caso error
+     * @throws SQLException
+     */
+    public String aniadirItem(String personaje, String tipo, String nombre) throws SQLException {
+        String error = null;
         idPersonaje = obtenrIDPersonaje(personaje);
 
-        if(tipo.equals("Herrero")){
+        if (tipo.equals("Herrero")){
             tipoItem = "Armas";
         } else if(tipo.equals("Armero")){
             tipoItem = "Armaduras";
@@ -52,16 +61,18 @@ public class Inventario {
         precio = obtenerPrecio(tipoItem, nombre);
 
         if (!permitido(idPersonaje, precio)) {
-            System.err.println("No puede permitirse este item");
+            error = "No puede permitirse este item";
 
         } else {
             aniadir();
             quitarDinero(idPersonaje, precio);
-            System.out.println("El item ha sido introducido");
+
+            error = "El item ha sido introducido";
 
            aniadirPeso(idPersonaje, idItem, tipoItem);
         }
 
+        return error;
     }
 
     private int obeternIDItem(String nombre, String tipo) throws SQLException {
@@ -245,7 +256,7 @@ public class Inventario {
         boolean sol = false;
 
         while(rs.next() && !sol) {
-            if(rs.getInt("idPersonaje") == obtenrIDPersonaje(nombrePersonaje) &&
+            if (rs.getInt("idPersonaje") == obtenrIDPersonaje(nombrePersonaje) &&
                rs.getInt("idItem") == obeternIDItem(nombreObjeto,tipo) &&
                tipo.equals(rs.getString("tipo"))){
 
@@ -257,7 +268,16 @@ public class Inventario {
         return sol;
     }
 
-    public void eliminarItem(String nombrePersonaje, String nombreObjeto, String tipo) throws SQLException {
+    /**
+     *
+     * @param nombrePersonaje
+     * @param nombreObjeto
+     * @param tipo
+     * @return null si todo ha ido bien
+     * @throws SQLException
+     */
+    public String eliminarItem(String nombrePersonaje, String nombreObjeto, String tipo) throws SQLException {
+        String error = null;
         Statement stmtAux = null;
         stmtAux = conn.createStatement();
 
@@ -268,13 +288,14 @@ public class Inventario {
             modificarTP(nombrePersonaje, getTP(nombreObjeto) * (-1));
         }
 
-        if(posible(nombrePersonaje, nombreObjeto, tipo)) {
+        if (posible(nombrePersonaje, nombreObjeto, tipo)) {
             String sql = "DELETE FROM Inventario WHERE idPersonaje = " + idPer + " AND idItem = " + idIt;
             stmtAux.executeUpdate(sql);
         } else {
-            System.err.println("No tiene este Item en su inventario");
+            error = "No tiene este Item en su inventario";
         }
 
+        return error;
     }
 
     private int getId(String nom) throws SQLException {
