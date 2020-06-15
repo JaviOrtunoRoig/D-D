@@ -57,6 +57,13 @@ public class QueriesPersonaje {
 
             stmt.executeUpdate(sqlDelete);
 
+            int idPer = getIdUs(nombreUsuario);
+
+            borrarCaracteristicas(idPer);
+            borrarInventario(idPer);
+            borrarMoneda(idPer);
+
+
             String sqlUpdate = "UPDATE `dungeonsdragonsdb`.`Usuario` SET `partida` = NULL WHERE (`nombre` = '"+ nombreUsuario +"')";
 
             stmt.executeUpdate(sqlUpdate);
@@ -73,6 +80,48 @@ public class QueriesPersonaje {
 
         return res;
 
+    }
+
+    public int getIdUs(String nom) throws SQLException {
+        Statement stmtAux = null;
+        stmtAux = conn.createStatement();
+
+        String sqlUs = "SELECT idPersonaje, Usuario FROM Personaje";
+        ResultSet rsUs = stmtAux.executeQuery(sqlUs);
+
+        int idPer = 0;
+
+        while (rsUs.next()) {
+            if (nom.equals(rsUs.getString("usuario"))) {
+                idPer = rsUs.getInt("idPersonaje");
+            }
+        }
+
+        return idPer;
+    }
+
+    public void borrarCaracteristicas(int idP) throws SQLException {
+        Statement stmtAux = null;
+        stmtAux = conn.createStatement();
+
+        String sqlUs = "DELETE FROM Características WHERE idPersonaje = " + idP;
+        stmtAux.executeUpdate(sqlUs);
+    }
+
+    public void borrarMoneda(int idP) throws SQLException {
+        Statement stmtAux = null;
+        stmtAux = conn.createStatement();
+
+        String sqlUs = "DELETE FROM Moneda WHERE idPersonaje = " + idP;
+        stmtAux.executeUpdate(sqlUs);
+    }
+
+    public void borrarInventario(int idP) throws SQLException {
+        Statement stmtAux = null;
+        stmtAux = conn.createStatement();
+
+        String sqlUs = "DELETE FROM Inventario WHERE idPersonaje = " + idP;
+        stmtAux.executeUpdate(sqlUs);
     }
 
 
