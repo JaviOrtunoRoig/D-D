@@ -32,8 +32,14 @@ public class Inventario {
     public void aniadirItem(String personaje, String tipo, String nombre, int cant) throws SQLException {
         idPersonaje = obtenrIDPersonaje(personaje);
 
+        if(tipo.equals("Herrero")){
+            tipoItem = "Armas";
+        } else if(tipo.equals("Armero")){
+            tipoItem = "Armaduras";
+        } else if(tipo.equals("Tendero")){
+            tipoItem = "Utensilios";
+        }
 
-        tipoItem = tipo;
 
         if (tipoItem.equals("Armaduras")) {
             modificarTP(nombre);
@@ -43,7 +49,7 @@ public class Inventario {
         idItem = obeternIDItem(nombre, tipoItem);
 
         if (cant == 0) {
-            precio = obtenerPrecio(tipo, nombre);
+            precio = obtenerPrecio(tipoItem, nombre);
         } else {
             precio = cant;
         }
