@@ -84,12 +84,20 @@ public class CreacionPersonaje {
     }
 
     public void insertarPersonaje() throws SQLException {
-
-       String sqlPersonaje = String.format("INSERT INTO dungeonsdragonsdb.Personaje " +
-                       "(idPersonaje, Nombre, Usuario, idPartida, raza, experiencia, rasgos, PesoCalculado, " +
-               "idiomas, TP, VidaCalculada, comportamiento, vida) VALUES ('%d', '%s', '%s', '%d', '%d', '%d', '%s', '%d', '%s', '%d', '%d', '%s', '%d');",
-               id, nombre, usuario, idPartida, raza, experiencia, rasgos, pesocalculado, idiomas, TP, VidaCalculada, comportamiento, VidaCalculada);
-
+        String sqlPersonaje = "INSERT INTO Personaje VALUES (" +
+            id + ", '" +
+            nombre + "', '" +
+            usuario + "', " +
+            idPartida + ", " +
+            raza +  ", " +
+            experiencia + ", '" +
+            rasgos + "', " +
+            pesocalculado + ", '" +
+            idiomas + "', " +
+            TP + ", " +
+            VidaCalculada + ", '" +
+            comportamiento + "', " +
+            VidaCalculada + ")";
         stmt.executeUpdate(sqlPersonaje);
     }
 
@@ -140,21 +148,35 @@ public class CreacionPersonaje {
         return sol;
     }
 
+
     private int asignacionID(String nom) throws SQLException {
 
         String sql = "SELECT id" + nom + " FROM " + nom;
 
         ResultSet rs = stmt.executeQuery(sql);
 
+        int res = 1;
+        int cont = 1;
+
+        boolean listo = false;
+
         if(rs == null){
             return 1;
         } else {
-            int cont = 1;
-            while(rs.next()){
-                cont++;
+            while(rs.next() && !listo){
+                if(cont == rs.getInt("id" + nom)){
+                    cont++;
+                } else {
+                    listo = true;
+                    res = cont;
+                }
             }
 
-            return cont;
+            if(res == 1){
+                return cont;
+            } else {
+                return res;
+            }
         }
 
 
@@ -256,7 +278,7 @@ public class CreacionPersonaje {
                 caracteristicasValores[2] + "," + modificadores[2] + "," +
                 caracteristicasValores[3] + "," + modificadores[3] + "," +
                 caracteristicasValores[4] + "," + modificadores[4] + "," +
-                caracteristicasValores[5] + "," + modificadores[5] + ");";
+                caracteristicasValores[5] + "," + modificadores[5] + ")";
         stmt.executeUpdate(sqlInsert);
     }
 
@@ -344,11 +366,16 @@ public class CreacionPersonaje {
             }
         }
 
+
+
         return sol;
     }
 
-    public String[] getStatsRaza(String nom, int idRaz) throws SQLException {
+    public String[] getStatsRaza(String nom, int idRaz) throws SQLException, ClassNotFoundException {
         String sol[] = new String[2];
+
+        Class.forName(JDBC_DRIVER);
+        conn = DriverManager.getConnection(DB_URL + "/" + DB_SCHEMA, USER, PASS);
 
         Statement stmtAux = null;
         stmtAux = conn.createStatement();
@@ -371,11 +398,13 @@ public class CreacionPersonaje {
     }
 
     public int getRaza(String nom) throws SQLException, ClassNotFoundException {
+        Class.forName(JDBC_DRIVER);
+        conn = DriverManager.getConnection(DB_URL + "/" + DB_SCHEMA, USER, PASS);
 
         Statement stmtAux = null;
         stmtAux = conn.createStatement();
 
-        String sql = "SELECT raza, Usuario FROM Personaje";
+        String sql = "SELECT raza FROM Personaje";
         ResultSet rs = stmtAux.executeQuery(sql);
 
         boolean encontrado = false;
@@ -384,8 +413,7 @@ public class CreacionPersonaje {
 
         while(rs.next() && !encontrado) {
             if (nom.equals(rs.getString("Usuario"))) {
-                raz = rs.getInt("raza");
-                encontrado = true;
+                raz = rs.getInt("idRaza");
             }
         }
 
@@ -398,6 +426,9 @@ public class CreacionPersonaje {
         Map<Integer, List<String>> sol = new HashMap<>();
 
         int raz = getRaza(nom);
+
+        Class.forName(JDBC_DRIVER);
+        conn = DriverManager.getConnection(DB_URL + "/" + DB_SCHEMA, USER, PASS);
 
         Statement stmtAux = null;
         stmtAux = conn.createStatement();
@@ -415,7 +446,10 @@ public class CreacionPersonaje {
                 hab.add(rs.getString("dadoHabilidad"));
                 hab.add(rs.getString("requisitoDado"));
 
+
                 sol.put(rs.getInt("idHabilidad"), hab);
+
+
             }
         }
 
@@ -427,9 +461,8 @@ public class CreacionPersonaje {
 
     public String[] habilidadEspecial(String nom) throws SQLException, ClassNotFoundException {
         String [] sol = new String[20];
-        sol[0] = "Nombre  |  Descripcion  |  Dado  |  Requisito";
 
-        int cont = 1;
+        int cont = 0;
 
         Map<Integer, List<String>> HE = getHabilidades(nom);
 
@@ -437,19 +470,26 @@ public class CreacionPersonaje {
             String habilidad = "";
 
             for(String dato : aux){
-                habilidad += dato;
+                habilidad += dato + "\t";
             }
 
             sol[cont] = habilidad;
             System.out.println(sol[cont]);
             cont++;
+
+
         }
 
         return sol;
+
+
     }
 
-    public String getRasgos(String nom) throws SQLException {
+    public String getRasgos(String nom) throws SQLException, ClassNotFoundException {
         String sol = null;
+
+        Class.forName(JDBC_DRIVER);
+        conn = DriverManager.getConnection(DB_URL + "/" + DB_SCHEMA, USER, PASS);
 
         Statement stmtAux = null;
         stmtAux = conn.createStatement();
@@ -468,8 +508,11 @@ public class CreacionPersonaje {
         return sol;
     }
 
-    public String getIdioma(String nom) throws SQLException {
+    public String getIdioma(String nom) throws SQLException, ClassNotFoundException {
         String sol = null;
+
+        Class.forName(JDBC_DRIVER);
+        conn = DriverManager.getConnection(DB_URL + "/" + DB_SCHEMA, USER, PASS);
 
         Statement stmtAux = null;
         stmtAux = conn.createStatement();
@@ -479,10 +522,9 @@ public class CreacionPersonaje {
 
         boolean encontrado = false;
 
-        while (rs.next() && !encontrado){
-            if (nom.equals(rs.getString("Usuario"))){
+        while(rs.next() && ! encontrado){
+            if(nom.equals(rs.getString("Usuario"))){
                 sol = rs.getString("idiomas");
-                encontrado = true;
             }
         }
 
