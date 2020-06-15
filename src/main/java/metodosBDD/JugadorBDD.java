@@ -108,7 +108,7 @@ public class JugadorBDD {
         Statement stmtAux = null;
         stmtAux = conn.createStatement();
 
-        String sql = "SELECT raza FROM Personaje";
+        String sql = "SELECT raza, Usuario FROM Personaje";
         ResultSet rs = stmtAux.executeQuery(sql);
 
         boolean encontrado = false;
@@ -117,7 +117,8 @@ public class JugadorBDD {
 
         while(rs.next() && !encontrado) {
             if (nom.equals(rs.getString("Usuario"))) {
-                raz = rs.getInt("idRaza");
+                raz = rs.getInt("raza");
+                encontrado = true;
             }
         }
 
