@@ -327,6 +327,7 @@ public class ControladorIniciarDM implements ActionListener {
 
                 Principal.frame.setContentPane(vistaDm.getPanel());
                 Principal.frame.setVisible(true);
+
             } else if (idPartida == -1) { //No tiene ninguna partida asociada.
                 vistaConfirCreacionPartida = new VistaConfirCreacionPartida();
                 vistaConfirCreacionPartida.controlador(this);
@@ -345,9 +346,9 @@ public class ControladorIniciarDM implements ActionListener {
 
                 VistaJugador vistaJugador = new VistaJugador();
                 try {
-                CreacionPersonaje creacionPersonaje = new CreacionPersonaje();
-                ControladorJugador controladorJugador = new ControladorJugador(vistaJugador, creacionPersonaje.getCaracteristicas(usuario), usuario);
-                vistaJugador.controlador(controladorJugador);
+                    CreacionPersonaje creacionPersonaje = new CreacionPersonaje();
+                    ControladorJugador controladorJugador = new ControladorJugador(vistaJugador, creacionPersonaje.getCaracteristicas(usuario), usuario);
+                    vistaJugador.controlador(controladorJugador);
 
                 } catch (SQLException | ClassNotFoundException ex) {
                     vistaDM_usuario.setMensajeError("Error inesperado al recuperar la información del personake de la bdd");

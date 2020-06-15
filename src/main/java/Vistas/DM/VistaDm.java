@@ -19,6 +19,8 @@ public class VistaDm {
     public static String DELETE_HERRERO = "DELETE_HERRERO";
     public static String DELETE_ARMERO = "DELETE_ARMERO";
     public static String DELETE_TENDERO = "DELETE_TENDERO";
+    public static String DELETE_JUGADOR = "DELETE_JUGADOR";
+    public static String DELETE_PARTIDA = "DELETE_PARTIDA";
 
     private JPanel VistaDm;
     private JPanel Jugadores;
@@ -38,6 +40,7 @@ public class VistaDm {
     private JComboBox<String> comboBoxHerreroObjeto;
     private JComboBox<String> comboBoxArmeroObjeto;
     private JComboBox<String> comboBoxTenderoObjeto;
+    private JComboBox<String> comboBoxUsuarioEliminar;
     private JList<String> listJugadores;
     private JList<String> listHerrero;
     private JList<String> listArmero;
@@ -45,6 +48,8 @@ public class VistaDm {
     private JButton deleteButtonArmero;
     private JButton deleteButtonHerrero;
     private JButton deleteButtonTendero;
+    private JButton eliminarJugadorButton;
+    private JButton eliminarPartidaButton;
 
     public JPanel getPanel() {
         return VistaDm;
@@ -64,17 +69,35 @@ public class VistaDm {
     }
 
     public void setComboBoxs(List<Jugador> jugadores) {
+       /* for (int i = 0; i < comboBoxUsuarioEliminar.getItemCount(); i++) {
+            comboBoxUsuarioEliminar.remove(i);
+        }
+
+        for (int i = 0; i < comboBoxArmero.getItemCount(); i++) {
+            comboBoxArmero.remove(i);
+
+        }
+
+        for (int i = 0; i < comboBoxHerrero.getItemCount(); i++) {
+            comboBoxHerrero.remove(i);
+        }
+
+        for (int i = 0; i < comboBoxElegirPersonaje.getItemCount(); i++) {
+            comboBoxElegirPersonaje.remove(i);
+        }*/
+
         for (Jugador jugador : jugadores) {
             comboBoxArmero.addItem(jugador.getNombrePersonaje());
             comboBoxHerrero.addItem(jugador.getNombrePersonaje());
             comboBoxTendero.addItem(jugador.getNombrePersonaje());
+            comboBoxUsuarioEliminar.addItem(jugador.getNombreUsuario());
             comboBoxElegirPersonaje.addItem(jugador.getNombrePersonaje());
         }
     }
 
-    public String getPersonajeParaEditar() {
+    public String getUsuarioBorar() {
 
-        return comboBoxElegirPersonaje.getItemAt(comboBoxElegirPersonaje.getSelectedIndex());
+        return comboBoxUsuarioEliminar.getItemAt(comboBoxUsuarioEliminar.getSelectedIndex());
     }
 
     public Jugador getJugadorParaEditar(List<Jugador> jugadores) {
@@ -184,6 +207,12 @@ public class VistaDm {
 
         deleteButtonTendero.addActionListener(ctr);
         deleteButtonTendero.setActionCommand(DELETE_TENDERO);
+
+        eliminarJugadorButton.addActionListener(ctr);
+        eliminarJugadorButton.setActionCommand(DELETE_JUGADOR);
+
+        eliminarPartidaButton.addActionListener(ctr);
+        eliminarPartidaButton.setActionCommand(DELETE_PARTIDA);
     }
 
 }

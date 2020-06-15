@@ -7,6 +7,7 @@ import Vistas.DM.VistaModificarJugador;
 import metodosBDD.CreacionPersonaje;
 import metodosBDD.Inventario;
 import metodosBDD.ObtenerDatosBDD;
+import metodosBDD.QueriesPersonaje;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -117,6 +118,14 @@ public class ControladorDM implements ActionListener {
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
+        } else if (comando.equals(VistaDm.DELETE_JUGADOR)) {
+            QueriesPersonaje queriesPersonaje = new QueriesPersonaje();
+            queriesPersonaje.borrarPersonaje(vistaDm.getUsuarioBorar());
+
+            vistaDm.setComboBoxs(obtenerDatosBDD.getJugadores(usuario));
+
+        } else if (comando.equals(VistaDm.DELETE_PARTIDA)) {
+            //TODO que haga algo
         }
     }
 }
