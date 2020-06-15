@@ -349,13 +349,13 @@
                   <text value=""/>
                 </properties>
               </component>
-              <component id="d1902" class="javax.swing.JButton" binding="actualizarDatosButton" default-binding="true">
+              <component id="d1902" class="javax.swing.JButton" binding="volverButton">
                 <constraints>
                   <grid row="28" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                   <gridbag weightx="0.0" weighty="0.0"/>
                 </constraints>
                 <properties>
-                  <text value="Actualizar datos"/>
+                  <text value="Volver"/>
                 </properties>
               </component>
               <vspacer id="fa7bb">

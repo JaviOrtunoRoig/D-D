@@ -6,7 +6,7 @@ import java.util.List;
 
 public class VistaModificarJugador {
 
-    public static String ACTUALIZAR = "ACTUALIZAR";
+    public static String VOLVER = "VOLVER";
 
     private JTabbedPane tabbedPanel;
     private JPanel panelJugador;
@@ -45,7 +45,7 @@ public class VistaModificarJugador {
     private JTextArea textArea;
     private JTextArea textArea1;
     private JList <String> listHabilidades;
-    private JButton actualizarDatosButton;
+    private JButton volverButton;
     private JLabel HPLabel;
     private JPanel expLabelModDatos;
     private JLabel cobreLabel;
@@ -134,7 +134,7 @@ public class VistaModificarJugador {
     }
 
     public void controlador(ActionListener ctr) {
-        actualizarDatosButton.addActionListener(ctr);
-        actualizarDatosButton.setActionCommand(ACTUALIZAR);
+        volverButton.addActionListener(ctr);
+        volverButton.setActionCommand(VOLVER);
     }
 }

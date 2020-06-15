@@ -19,7 +19,7 @@ public class VistaFinManual {
     private JButton botonAtras;
     private JButton botonEntrarPartidaManual;
     private JLabel errorMessage;
-    private JComboBox comportaminetoCombo;
+    private JComboBox<String> comportaminetoCombo;
 
 
     public JPanel getPanel() {

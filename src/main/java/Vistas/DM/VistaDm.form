@@ -12,31 +12,48 @@
         <properties/>
         <border type="none"/>
         <children>
-          <grid id="fd480" binding="Jugadores" layout-manager="BorderLayout" hgap="0" vgap="0">
+          <grid id="fd480" binding="Jugadores" layout-manager="GridLayoutManager" row-count="2" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="0" left="0" bottom="0" right="0"/>
             <constraints>
               <tabbedpane title="Jugadores"/>
             </constraints>
             <properties/>
             <border type="none"/>
             <children>
-              <component id="d151c" class="javax.swing.JButton" binding="Cerrar1">
-                <constraints border-constraint="South"/>
-                <properties>
-                  <text value="Cerrar"/>
-                </properties>
-              </component>
-              <scrollpane id="f90e4">
-                <constraints border-constraint="Center"/>
-                <properties>
-                  <autoscrolls value="true"/>
-                </properties>
+              <grid id="1cfdc" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
+                <constraints>
+                  <grid row="1" column="0" row-span="1" col-span="2" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties/>
                 <border type="none"/>
                 <children>
-                  <component id="de8bb" class="javax.swing.JList" binding="list1" default-binding="true">
+                  <component id="a3fc" class="javax.swing.JComboBox" binding="comboBoxElegirPersonaje">
+                    <constraints/>
+                    <properties/>
+                  </component>
+                  <component id="60f3f" class="javax.swing.JButton" binding="editarPersonajeButton" default-binding="true">
                     <constraints/>
                     <properties>
-                      <model/>
+                      <text value="Editar Personaje"/>
                     </properties>
+                  </component>
+                </children>
+              </grid>
+              <vspacer id="b656c">
+                <constraints>
+                  <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+                </constraints>
+              </vspacer>
+              <scrollpane id="fd241">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties/>
+                <border type="none"/>
+                <children>
+                  <component id="85759" class="javax.swing.JList" binding="listJugadores">
+                    <constraints/>
+                    <properties/>
                   </component>
                 </children>
               </scrollpane>
@@ -75,7 +92,7 @@
                         <properties/>
                         <border type="none"/>
                         <children>
-                          <component id="5dc71" class="javax.swing.JComboBox" binding="comboBox2" default-binding="true">
+                          <component id="5dc71" class="javax.swing.JComboBox" binding="comboBoxHerrero">
                             <constraints border-constraint="West"/>
                             <properties/>
                           </component>
@@ -106,7 +123,7 @@
                             </properties>
                             <border type="none"/>
                             <children>
-                              <component id="ba028" class="javax.swing.JList" binding="list2" default-binding="true">
+                              <component id="ba028" class="javax.swing.JList" binding="listHerrero">
                                 <constraints/>
                                 <properties/>
                               </component>
@@ -131,7 +148,7 @@
                         <properties/>
                         <border type="none"/>
                         <children>
-                          <component id="f1bc0" class="javax.swing.JComboBox" binding="comboBox3" default-binding="true">
+                          <component id="f1bc0" class="javax.swing.JComboBox" binding="comboBoxArmero">
                             <constraints border-constraint="West"/>
                             <properties/>
                           </component>
@@ -162,7 +179,7 @@
                             </properties>
                             <border type="none"/>
                             <children>
-                              <component id="5c82" class="javax.swing.JList" binding="list3" default-binding="true">
+                              <component id="5c82" class="javax.swing.JList" binding="listArmero">
                                 <constraints/>
                                 <properties/>
                               </component>
@@ -200,7 +217,7 @@
                                   <text value="Add"/>
                                 </properties>
                               </component>
-                              <component id="4a78a" class="javax.swing.JComboBox" binding="comboBox1" default-binding="true">
+                              <component id="4a78a" class="javax.swing.JComboBox" binding="comboBoxTendero">
                                 <constraints border-constraint="West"/>
                                 <properties/>
                               </component>
@@ -225,7 +242,7 @@
                                 </properties>
                                 <border type="none"/>
                                 <children>
-                                  <component id="d09ad" class="javax.swing.JList" binding="list4" default-binding="true">
+                                  <component id="d09ad" class="javax.swing.JList" binding="listTendero">
                                     <constraints/>
                                     <properties/>
                                   </component>
@@ -240,14 +257,6 @@
                 </children>
               </tabbedpane>
             </children>
-          </grid>
-          <grid id="d716d" layout-manager="BorderLayout" hgap="0" vgap="0">
-            <constraints>
-              <tabbedpane title="Untitled"/>
-            </constraints>
-            <properties/>
-            <border type="none"/>
-            <children/>
           </grid>
         </children>
       </tabbedpane>
