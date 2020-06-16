@@ -44,9 +44,6 @@ public class JugadorBDD {
         String [] sol = new String[8];
         sol[0] = nom;
 
-        Class.forName(JDBC_DRIVER);
-        conn = DriverManager.getConnection(DB_URL + "/" + DB_SCHEMA, USER, PASS);
-
         Statement stmtAux = null;
         stmtAux = conn.createStatement();
 
@@ -78,9 +75,6 @@ public class JugadorBDD {
     public String[] getStatsRaza(String nom, int idRaz) throws SQLException, ClassNotFoundException {
         String sol[] = new String[2];
 
-        Class.forName(JDBC_DRIVER);
-        conn = DriverManager.getConnection(DB_URL + "/" + DB_SCHEMA, USER, PASS);
-
         Statement stmtAux = null;
         stmtAux = conn.createStatement();
 
@@ -102,8 +96,6 @@ public class JugadorBDD {
     }
 
     public int getRaza(String nom) throws SQLException, ClassNotFoundException {
-        Class.forName(JDBC_DRIVER);
-        conn = DriverManager.getConnection(DB_URL + "/" + DB_SCHEMA, USER, PASS);
 
         Statement stmtAux = null;
         stmtAux = conn.createStatement();
@@ -131,9 +123,6 @@ public class JugadorBDD {
         Map<Integer, List<String>> sol = new HashMap<>();
 
         int raz = getRaza(nom);
-
-        Class.forName(JDBC_DRIVER);
-        conn = DriverManager.getConnection(DB_URL + "/" + DB_SCHEMA, USER, PASS);
 
         Statement stmtAux = null;
         stmtAux = conn.createStatement();
@@ -184,9 +173,6 @@ public class JugadorBDD {
     public String getRasgos(String nom) throws SQLException, ClassNotFoundException {
         String sol = null;
 
-        Class.forName(JDBC_DRIVER);
-        conn = DriverManager.getConnection(DB_URL + "/" + DB_SCHEMA, USER, PASS);
-
         Statement stmtAux = null;
         stmtAux = conn.createStatement();
 
@@ -206,9 +192,6 @@ public class JugadorBDD {
 
     public String getIdioma(String nom) throws SQLException, ClassNotFoundException {
         String sol = null;
-
-        Class.forName(JDBC_DRIVER);
-        conn = DriverManager.getConnection(DB_URL + "/" + DB_SCHEMA, USER, PASS);
 
         Statement stmtAux = null;
         stmtAux = conn.createStatement();
