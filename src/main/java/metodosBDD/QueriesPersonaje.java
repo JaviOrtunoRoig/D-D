@@ -51,17 +51,22 @@ public class QueriesPersonaje {
 
             conn = DriverManager.getConnection(DB_URL + "/" + DB_SCHEMA, USER, PASS);
             stmt = conn.createStatement();
+
+            int idPer = getIdUs(nombreUsuario);
+
+            System.out.println(idPer);
+
+            borrarCaracteristicas(idPer);
+            borrarInventario(idPer);
+            borrarMoneda(idPer);
+
             String sqlDelete = "DELETE from Personaje where Usuario = '"+nombreUsuario+"'";
 
             System.out.println(sqlDelete);
 
             stmt.executeUpdate(sqlDelete);
 
-            int idPer = getIdUs(nombreUsuario);
 
-            borrarCaracteristicas(idPer);
-            borrarInventario(idPer);
-            borrarMoneda(idPer);
 
 
 
@@ -93,7 +98,7 @@ public class QueriesPersonaje {
         int idPer = 0;
 
         while (rsUs.next()) {
-            if (nom.equals(rsUs.getString("usuario"))) {
+            if (nom.equals(rsUs.getString("Usuario"))) {
                 idPer = rsUs.getInt("idPersonaje");
             }
         }
@@ -102,27 +107,27 @@ public class QueriesPersonaje {
     }
 
     public void borrarCaracteristicas(int idP) throws SQLException {
-        String sqlUs = "DELETE FROM Características WHERE idPersonaje = " + idP;
+        String sqlUs = "DELETE FROM `dungeonsdragonsdb`.`Características` WHERE (`idCaracterísticas` = '" + idP + "');";
         stmt.executeUpdate(sqlUs);
 
-        System.out.println("hola");
+
     }
 
     public void borrarMoneda(int idP) throws SQLException {
-        String sqlUs = "DELETE FROM Moneda WHERE idPersonaje = " + idP;
+        String sqlUs = "DELETE FROM `dungeonsdragonsdb`.`Moneda` WHERE (`idPersonaje` = '"+ idP +"');";
         stmt.executeUpdate(sqlUs);
 
-        System.out.println("hola");
+
     }
 
     public void borrarInventario(int idP) throws SQLException {
         Statement stmtAux = null;
         stmt = conn.createStatement();
 
-        String sqlUs = "DELETE FROM Inventario WHERE idPersonaje = " + idP;
+        String sqlUs = "DELETE FROM `dungeonsdragonsdb`.`Inventario` WHERE (`idPersonaje` = '" +idP +"');";
         stmt.executeUpdate(sqlUs);
 
-        System.out.println("hola");
+
     }
 
 
