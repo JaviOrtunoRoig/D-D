@@ -37,6 +37,12 @@
                       <text value="Editar Personaje"/>
                     </properties>
                   </component>
+                  <component id="b6a1f" class="javax.swing.JButton" binding="actualizarListaJugadoresButton" default-binding="true">
+                    <constraints/>
+                    <properties>
+                      <text value="Actualizar lista jugadores"/>
+                    </properties>
+                  </component>
                 </children>
               </grid>
               <vspacer id="b656c">

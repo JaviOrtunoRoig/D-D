@@ -8,6 +8,7 @@ public class VistaIniciarSesion {
 
     public static String INICIO = "INICIO";
     public static String VOLVER = "VOLVER";
+    public static String RECUPERAR_PASSWORD = "RECUPERAR_PASSWORD";
 
     public JPanel IniciarSesion;
     private JTextField username;
@@ -17,6 +18,7 @@ public class VistaIniciarSesion {
     private JLabel passwordLabel;
     private JButton buttonAtrasInicioSesion;
     private JLabel usuarioLabel;
+    private JButton recuperarPasswordButton;
 
 
     /**
@@ -41,6 +43,9 @@ public class VistaIniciarSesion {
 
         buttonAtrasInicioSesion.addActionListener(ctr);
         buttonAtrasInicioSesion.setActionCommand(VOLVER);
+
+        recuperarPasswordButton.addActionListener(ctr);
+        recuperarPasswordButton.setActionCommand(RECUPERAR_PASSWORD);
     }
 
     /**

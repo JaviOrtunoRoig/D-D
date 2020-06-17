@@ -10,6 +10,7 @@ import java.util.List;
 public class VistaJugador {
 
     public static String ACTUALIZAR = "ACTUALIZAR";
+    public static String BORRAR_PERSONAJE = "BORRAR_PERSONAJE";
 
     private JTabbedPane tabbedPanel;
     private JPanel panelJugador;
@@ -49,6 +50,7 @@ public class VistaJugador {
     private JTextArea textArea1;
     private JList <String> listHabilidades;
     private JButton actualizarDatosButton;
+    private JButton borrarPersonajeButton;
 
     public JPanel getPanel() {
         return panelJugador;
@@ -118,5 +120,8 @@ public class VistaJugador {
     public void controlador(ActionListener ctr) {
         actualizarDatosButton.addActionListener(ctr);
         actualizarDatosButton.setActionCommand(ACTUALIZAR);
+
+        borrarPersonajeButton.addActionListener(ctr);
+        borrarPersonajeButton.setActionCommand(BORRAR_PERSONAJE);
     }
 }

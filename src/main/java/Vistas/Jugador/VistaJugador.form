@@ -2,7 +2,7 @@
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="Vistas.Jugador.VistaJugador">
   <grid id="27dc6" binding="panelJugador" layout-manager="BorderLayout" hgap="0" vgap="0">
     <constraints>
-      <xy x="20" y="20" width="500" height="524"/>
+      <xy x="20" y="20" width="500" height="565"/>
     </constraints>
     <properties/>
     <border type="none"/>
@@ -364,6 +364,21 @@
                   <gridbag weightx="0.0" weighty="0.0"/>
                 </constraints>
               </vspacer>
+              <component id="4c224" class="javax.swing.JButton" binding="borrarPersonajeButton" default-binding="true">
+                <constraints>
+                  <grid row="30" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                  <gridbag weightx="0.0" weighty="0.0"/>
+                </constraints>
+                <properties>
+                  <text value="Borrar personaje"/>
+                </properties>
+              </component>
+              <hspacer id="3f14c">
+                <constraints>
+                  <grid row="29" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                  <gridbag weightx="0.0" weighty="0.0"/>
+                </constraints>
+              </hspacer>
             </children>
           </grid>
           <grid id="6aa56" binding="Inventario" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">

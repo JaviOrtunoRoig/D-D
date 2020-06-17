@@ -135,6 +135,10 @@ public class ControladorDM implements ActionListener {
 
             Principal.frame.setContentPane(vistaDM_usuario.DM_Usuario);
             Principal.frame.setVisible(true);
+
+        } else if (comando.equals(VistaDm.ACTUALIZAR__LISTA_JUGADORES)) {
+            vistaDm.setComboBoxs(obtenerDatosBDD.getJugadores(usuario));
+            vistaDm.setListaJugadores(obtenerDatosBDD.getJugadores(usuario));
         }
     }
 }

@@ -3,10 +3,12 @@ package Controladores;
 import Modelos.Principal;
 import Vistas.DM.VistaDm;
 import Vistas.DM.VistaModificarJugador;
+import Vistas.Inicio.VistaDM_Usuario;
 import Vistas.Jugador.VistaJugador;
 import metodosBDD.CreacionPersonaje;
 import metodosBDD.Inventario;
 import metodosBDD.JugadorBDD;
+import metodosBDD.QueriesPersonaje;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -83,7 +85,19 @@ public class ControladorJugador implements ActionListener  {
                 ex.printStackTrace();
             }
         } else if (e.getActionCommand().equals(VistaModificarJugador.VOLVER)) {
+
             Principal.frame.setContentPane(vistaDm.getPanel());
+            Principal.frame.setVisible(true);
+
+        } else if (e.getActionCommand().equals(VistaJugador.BORRAR_PERSONAJE)) {
+            QueriesPersonaje queriesPersonaje = new QueriesPersonaje();
+            queriesPersonaje.borrarPersonaje(usuario);
+
+            VistaDM_Usuario vistaDM_usuario = new VistaDM_Usuario();
+            ActionListener ControladorIniciarDM = new ControladorIniciarDM(usuario, vistaDM_usuario);
+            vistaDM_usuario.controlador(ControladorIniciarDM);
+
+            Principal.frame.setContentPane(vistaDM_usuario.DM_Usuario);
             Principal.frame.setVisible(true);
         }
     }

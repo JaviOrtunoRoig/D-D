@@ -22,6 +22,7 @@ public class VistaDm {
     public static String DELETE_TENDERO = "DELETE_TENDERO";
     public static String DELETE_JUGADOR = "DELETE_JUGADOR";
     public static String DELETE_PARTIDA = "DELETE_PARTIDA";
+    public static String ACTUALIZAR__LISTA_JUGADORES = "ACTUALIZAR__LISTA_JUGADORES";
 
     private JPanel VistaDm;
     private JPanel Jugadores;
@@ -53,6 +54,7 @@ public class VistaDm {
     private JButton eliminarPartidaButton;
     private JLabel idPartidaLabel;
     private JLabel idPartidaValue;
+    private JButton actualizarListaJugadoresButton;
 
     public JPanel getPanel() {
         return VistaDm;
@@ -214,6 +216,9 @@ public class VistaDm {
 
         eliminarPartidaButton.addActionListener(ctr);
         eliminarPartidaButton.setActionCommand(DELETE_PARTIDA);
+
+        actualizarListaJugadoresButton.addActionListener(ctr);
+        actualizarListaJugadoresButton.setActionCommand(ACTUALIZAR__LISTA_JUGADORES);
     }
 
 }

@@ -1,10 +1,7 @@
 package Controladores;
 
 import Modelos.Principal;
-import Vistas.Inicio.VistaDM_Usuario;
-import Vistas.Inicio.VistaIniciarSesion;
-import Vistas.Inicio.VistaPG;
-import Vistas.Inicio.VistaRegistrarse;
+import Vistas.Inicio.*;
 import Vistas.Jugador.VistaJugador;
 
 import java.awt.event.ActionEvent;
@@ -218,6 +215,22 @@ public class ControladorIdentificarse implements ActionListener {
 		} else if (e.equals(VistaIniciarSesion.VOLVER)) {
 			Principal.frame.setContentPane(new VistaPG().Inicio);
 			Principal.frame.setVisible(true);
+
+		} else if (e.equals(VistaRecuperarPassword.VOLVER2)) {
+
+			Principal.frame.setContentPane(vistaIniciarSesion.IniciarSesion);
+			Principal.frame.setVisible(true);
+
+		} else if (e.equals(VistaIniciarSesion.RECUPERAR_PASSWORD)) {
+
+			VistaRecuperarPassword vistaRecuperarPassword = new VistaRecuperarPassword();
+			vistaRecuperarPassword.controlador(this);
+
+			Principal.frame.setContentPane(vistaRecuperarPassword.getPanel());
+			Principal.frame.setVisible(true);
+
+		} else if (e.equals(VistaRecuperarPassword.RECUPERAR)) {
+			//TODO implementar
 		}
 	}
 }
