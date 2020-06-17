@@ -80,14 +80,18 @@ public class VistaDm {
         comboBoxArmero.setModel(model);
         comboBoxHerrero.setModel(model);
         comboBoxTendero.setModel(model);
-        comboBoxUsuarioEliminar.setModel(model);
         comboBoxElegirPersonaje.setModel(model);
 
+        model = new DefaultComboBoxModel<>();
 
+        for (Jugador jugador : jugadores) {
+            model.addElement(jugador.getNombreUsuario());
+        }
+
+        comboBoxUsuarioEliminar.setModel(model);
     }
 
     public String getUsuarioBorar() {
-
         return comboBoxUsuarioEliminar.getItemAt(comboBoxUsuarioEliminar.getSelectedIndex());
     }
 

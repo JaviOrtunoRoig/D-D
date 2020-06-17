@@ -7,6 +7,7 @@ import Vistas.DM.VistaModificarJugador;
 import metodosBDD.CreacionPersonaje;
 import metodosBDD.Inventario;
 import metodosBDD.ObtenerDatosBDD;
+import metodosBDD.QueriesPersonaje;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

@@ -60,7 +60,7 @@ public class QueriesPersonaje {
             borrarInventario(idPer);
             borrarMoneda(idPer);
 
-            String sqlDelete = "DELETE from Personaje where Usuario = '"+nombreUsuario+"'";
+            String sqlDelete = "DELETE from Personaje where Usuario = '" + nombreUsuario + "'";
 
             System.out.println(sqlDelete);
 
