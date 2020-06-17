@@ -358,7 +358,7 @@ public class Inventario {
                for(Integer nom : obj.get(tip)){
                    if(nom == rsInv.getInt("id" + tip)){
                        sol.add("Nombre: " + rsInv.getString("nombre") +
-                               " | Peso: " +Integer.toString(rsInv.getInt("peso")));
+                               "| Peso: " +Integer.toString(rsInv.getInt("peso")));
 
                    }
                }

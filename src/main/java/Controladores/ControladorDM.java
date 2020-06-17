@@ -12,6 +12,7 @@ import metodosBDD.QueriesPersonaje;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.List;
 
 public class ControladorDM implements ActionListener {
@@ -34,6 +35,7 @@ public class ControladorDM implements ActionListener {
         obtenerDatosBDD = new ObtenerDatosBDD();
         jugadores = obtenerDatosBDD.getJugadores(usuario);
         vistaDm.setComboBoxs(jugadores);
+        System.out.println(obtenerDatosBDD.getJugadores(usuario));
         vistaDm.setListaJugadores(jugadores);
 
         vistaDm.setListaHerrero(obtenerDatosBDD.getArmas());
@@ -123,6 +125,7 @@ public class ControladorDM implements ActionListener {
             queriesPersonaje.borrarPersonaje(vistaDm.getUsuarioBorar());
 
             vistaDm.setComboBoxs(obtenerDatosBDD.getJugadores(usuario));
+            vistaDm.setListaJugadores(obtenerDatosBDD.getJugadores(usuario));
 
         } else if (comando.equals(VistaDm.DELETE_PARTIDA)) {
             //TODO que haga algo

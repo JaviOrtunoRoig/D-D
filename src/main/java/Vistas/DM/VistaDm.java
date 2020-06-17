@@ -4,6 +4,7 @@ import Modelos.Jugador;
 import metodosBDD.Arma;
 import metodosBDD.Armadura;
 import metodosBDD.Utensilio;
+import org.omg.CORBA.WStringSeqHelper;
 
 import javax.swing.*;
 import java.awt.event.ActionListener;
@@ -69,30 +70,20 @@ public class VistaDm {
     }
 
     public void setComboBoxs(List<Jugador> jugadores) {
-       /* for (int i = 0; i < comboBoxUsuarioEliminar.getItemCount(); i++) {
-            comboBoxUsuarioEliminar.remove(i);
-        }
 
-        for (int i = 0; i < comboBoxArmero.getItemCount(); i++) {
-            comboBoxArmero.remove(i);
-
-        }
-
-        for (int i = 0; i < comboBoxHerrero.getItemCount(); i++) {
-            comboBoxHerrero.remove(i);
-        }
-
-        for (int i = 0; i < comboBoxElegirPersonaje.getItemCount(); i++) {
-            comboBoxElegirPersonaje.remove(i);
-        }*/
+        DefaultComboBoxModel<String> model = new DefaultComboBoxModel<>();
 
         for (Jugador jugador : jugadores) {
-            comboBoxArmero.addItem(jugador.getNombrePersonaje());
-            comboBoxHerrero.addItem(jugador.getNombrePersonaje());
-            comboBoxTendero.addItem(jugador.getNombrePersonaje());
-            comboBoxUsuarioEliminar.addItem(jugador.getNombreUsuario());
-            comboBoxElegirPersonaje.addItem(jugador.getNombrePersonaje());
+            model.addElement(jugador.getNombrePersonaje());
         }
+
+        comboBoxArmero.setModel(model);
+        comboBoxHerrero.setModel(model);
+        comboBoxTendero.setModel(model);
+        comboBoxUsuarioEliminar.setModel(model);
+        comboBoxElegirPersonaje.setModel(model);
+
+
     }
 
     public String getUsuarioBorar() {
