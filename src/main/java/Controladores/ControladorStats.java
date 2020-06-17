@@ -2,7 +2,6 @@
 package Controladores;
 
 import Modelos.Stats;
-import metodosBDD.QueriesPersonaje;
 
 public class ControladorStats {
 
