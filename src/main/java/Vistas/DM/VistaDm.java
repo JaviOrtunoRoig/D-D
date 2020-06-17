@@ -51,6 +51,8 @@ public class VistaDm {
     private JButton deleteButtonTendero;
     private JButton eliminarJugadorButton;
     private JButton eliminarPartidaButton;
+    private JLabel idPartidaLabel;
+    private JLabel idPartidaValue;
 
     public JPanel getPanel() {
         return VistaDm;
@@ -176,6 +178,10 @@ public class VistaDm {
 
     public String getObjetoTendero() {
         return comboBoxTenderoObjeto.getItemAt(comboBoxTenderoObjeto.getSelectedIndex());
+    }
+
+    public void setIdPartidaValue(String id) {
+        this.idPartidaValue.setText(id);
     }
 
     public void controlador (ActionListener ctr) {

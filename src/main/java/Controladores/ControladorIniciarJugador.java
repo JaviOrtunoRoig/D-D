@@ -187,20 +187,27 @@ public class ControladorIniciarJugador implements ActionListener {
         String comando = e.getActionCommand();
         if (comando.equals(VistaBuscarPartida.UNIRMEPARTIDA)) {
 
-            int estado = this.UnirseAPartida(usuario, Integer.parseInt(vistaBuscarPartida.getIdPartida()),vistaBuscarPartida.getPasswordField());
+            try {
+                int estado = this.UnirseAPartida(usuario, Integer.parseInt(vistaBuscarPartida.getIdPartida()),vistaBuscarPartida.getPasswordField());
 
-            vistaPersonajeAuto_manual = new VistaPersonajeAuto_Manual();
-            vistaPersonajeAuto_manual.controlador(this);
-            if (estado == 1) {
-                Principal.frame.setContentPane(vistaPersonajeAuto_manual.pantalla);
-                Principal.frame.setVisible(true);
-            } else if (estado == 2) {
-                vistaBuscarPartida.setMensajeError("No existe una partida con ese id");
-            } else if (estado == 3 ) {
-                vistaBuscarPartida.setMensajeError("Algo inesperado a ocurrido");
-            } else {
-                vistaBuscarPartida.setMensajeError("Contraseña erronea");
+                vistaPersonajeAuto_manual = new VistaPersonajeAuto_Manual();
+                vistaPersonajeAuto_manual.controlador(this);
+                if (estado == 1) {
+                    Principal.frame.setContentPane(vistaPersonajeAuto_manual.pantalla);
+                    Principal.frame.setVisible(true);
+                } else if (estado == 2) {
+                    vistaBuscarPartida.setMensajeError("No existe una partida con ese id");
+                } else if (estado == 3 ) {
+                    vistaBuscarPartida.setMensajeError("Algo inesperado a ocurrido");
+                } else {
+                    vistaBuscarPartida.setMensajeError("Contraseña erronea");
+                }
+
+            } catch (NumberFormatException ex) {
+                vistaBuscarPartida.setErrorMessage("Id de partida no válido");
             }
+
+
 
         } else if (comando.equals(VistaPersonajeAuto_Manual.MANUAL)) {
 
@@ -271,6 +278,9 @@ public class ControladorIniciarJugador implements ActionListener {
             }
 
         } else if (comando.equals(VistaEleccionManual.ATRAS2)) {
+
+            vistaPersonajeAuto_manual = new VistaPersonajeAuto_Manual();
+            vistaPersonajeAuto_manual.controlador(this);
 
             Principal.frame.setContentPane(vistaPersonajeAuto_manual.pantalla);
             Principal.frame.setVisible(true);

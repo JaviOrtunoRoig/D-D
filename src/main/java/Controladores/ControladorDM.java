@@ -4,10 +4,8 @@ import Modelos.Jugador;
 import Modelos.Principal;
 import Vistas.DM.VistaDm;
 import Vistas.DM.VistaModificarJugador;
-import metodosBDD.CreacionPersonaje;
-import metodosBDD.Inventario;
-import metodosBDD.ObtenerDatosBDD;
-import metodosBDD.QueriesPersonaje;
+import Vistas.Inicio.VistaDM_Usuario;
+import metodosBDD.*;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -19,24 +17,27 @@ public class ControladorDM implements ActionListener {
     String usuario;
     VistaDm vistaDm;
     VistaModificarJugador vistaModificarJugador;
+    VistaDM_Usuario vistaDM_usuario;
 
     List<Jugador> jugadores;
     ObtenerDatosBDD obtenerDatosBDD;
+    ClaseAuxiliar claseAuxiliar;
     Inventario inventario;
 
     public ControladorDM(String usuario, VistaDm dm) {
-        //TODO: tratar bien
         this.usuario = usuario;
 
         vistaDm = dm;
         vistaDm.controlador(this);
 
         obtenerDatosBDD = new ObtenerDatosBDD();
+        claseAuxiliar = new ClaseAuxiliar();
         jugadores = obtenerDatosBDD.getJugadores(usuario);
-        vistaDm.setComboBoxs(jugadores);
-        System.out.println(obtenerDatosBDD.getJugadores(usuario));
-        vistaDm.setListaJugadores(jugadores);
 
+        vistaDm.setIdPartidaValue(String.valueOf(claseAuxiliar.getIdPartida(usuario)));
+
+        vistaDm.setComboBoxs(jugadores);
+        vistaDm.setListaJugadores(jugadores);
         vistaDm.setListaHerrero(obtenerDatosBDD.getArmas());
         vistaDm.setListaArmero(obtenerDatosBDD.getArmaduras());
         vistaDm.setListaTendero(obtenerDatosBDD.getUtensilios());
@@ -127,7 +128,13 @@ public class ControladorDM implements ActionListener {
             vistaDm.setListaJugadores(obtenerDatosBDD.getJugadores(usuario));
 
         } else if (comando.equals(VistaDm.DELETE_PARTIDA)) {
-            //TODO que haga algo
+            vistaDM_usuario = new VistaDM_Usuario();
+            claseAuxiliar.borrarPartida(usuario);
+            ActionListener ControladorIniciarDM = new ControladorIniciarDM(usuario, vistaDM_usuario);
+            vistaDM_usuario.controlador(ControladorIniciarDM);
+
+            Principal.frame.setContentPane(vistaDM_usuario.DM_Usuario);
+            Principal.frame.setVisible(true);
         }
     }
 }

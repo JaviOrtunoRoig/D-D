@@ -20,6 +20,9 @@ public class VistaDM_Usuario {
     public VistaDM_Usuario(ControladorIniciarDM control) {
         this.controlador(control);
     }
+    public VistaDM_Usuario() {
+
+    }
 
     /**
      *
