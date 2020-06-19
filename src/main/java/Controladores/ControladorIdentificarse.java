@@ -3,6 +3,7 @@ package Controladores;
 import Modelos.Principal;
 import Vistas.Inicio.*;
 import Vistas.Jugador.VistaJugador;
+import metodosBDD.JugadorBDDnew;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -29,6 +30,7 @@ public class ControladorIdentificarse implements ActionListener {
 	VistaRegistrarse vistaRegistrarse;
 	VistaIniciarSesion vistaIniciarSesion;
 	VistaDM_Usuario vistaDM_Usuario;
+	VistaRecuperarPassword vistaRecuperarPassword;
 
 	public ControladorIdentificarse(VistaRegistrarse vista, VistaIniciarSesion vistaIni, VistaDM_Usuario vistaDM_Usuario) {
 		this.vistaIniciarSesion = vistaIni;
@@ -223,14 +225,26 @@ public class ControladorIdentificarse implements ActionListener {
 
 		} else if (e.equals(VistaIniciarSesion.RECUPERAR_PASSWORD)) {
 
-			VistaRecuperarPassword vistaRecuperarPassword = new VistaRecuperarPassword();
+			vistaRecuperarPassword = new VistaRecuperarPassword();
 			vistaRecuperarPassword.controlador(this);
 
 			Principal.frame.setContentPane(vistaRecuperarPassword.getPanel());
 			Principal.frame.setVisible(true);
 
 		} else if (e.equals(VistaRecuperarPassword.RECUPERAR)) {
-			//TODO implementar
+			try {
+				JugadorBDDnew jugadorBDDnew = new JugadorBDDnew();
+
+				String password = jugadorBDDnew.getPassword(vistaRecuperarPassword.getUsuario());
+
+				if (password.equals("-1")) {
+					vistaRecuperarPassword.setErrorMessage("El usuario no existe");
+				} else {
+					vistaRecuperarPassword.setPassword(password);
+				}
+			} catch (ClassNotFoundException | SQLException ex) {
+				vistaRecuperarPassword.setErrorMessage("Ha ocurrido un error. \n Por favor contacte con nosotros en:\n D&DProyecto@gmail.com");
+			}
 		}
 	}
 }

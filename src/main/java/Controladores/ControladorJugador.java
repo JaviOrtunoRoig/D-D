@@ -5,10 +5,7 @@ import Vistas.DM.VistaDm;
 import Vistas.DM.VistaModificarJugador;
 import Vistas.Inicio.VistaDM_Usuario;
 import Vistas.Jugador.VistaJugador;
-import metodosBDD.CreacionPersonaje;
-import metodosBDD.Inventario;
-import metodosBDD.JugadorBDD;
-import metodosBDD.QueriesPersonaje;
+import metodosBDD.*;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -53,12 +50,14 @@ public class ControladorJugador implements ActionListener  {
         Inventario inventario = new Inventario();
         List<String> inventarioList = inventario.mostrarInventario(usuario);
 
+        JugadorBDDnew jugadorBDDnew = new JugadorBDDnew(usuario);
+
         this.vistaJugador.setEstadisticas(estadisticas);
         this.vistaJugador.setInventario(inventarioList);
-        this.vistaJugador.setDatos(jugadorBDD.getStats(usuario));
-        this.vistaJugador.setHabilidades(jugadorBDD.habilidadEspecial(usuario));
-        this.vistaJugador.setRasgos(jugadorBDD.getRasgos(usuario));
-        this.vistaJugador.setIdiomas(jugadorBDD.getIdioma(usuario));
+        this.vistaJugador.setDatos(jugadorBDDnew.getStats());
+        this.vistaJugador.setHabilidades(jugadorBDDnew.habilidadEspecial(usuario));
+        this.vistaJugador.setRasgos(jugadorBDDnew.getRasgo());
+        this.vistaJugador.setIdiomas(jugadorBDDnew.getIdioma());
     }
 
 
@@ -67,12 +66,14 @@ public class ControladorJugador implements ActionListener  {
         Inventario inventario = new Inventario();
         List<String> inventarioList = inventario.mostrarInventario(usuario);
 
-        this.vistaModificarJugador.setEstadisticas(estadisticas);
-        this.vistaModificarJugador.setInventario(inventarioList);
-        this.vistaModificarJugador.setDatos(jugadorBDD.getStats(usuario));
-        this.vistaModificarJugador.setHabilidades(jugadorBDD.habilidadEspecial(usuario));
-        this.vistaModificarJugador.setRasgos(jugadorBDD.getRasgos(usuario));
-        this.vistaModificarJugador.setIdiomas(jugadorBDD.getIdioma(usuario));
+        JugadorBDDnew jugadorBDDnew = new JugadorBDDnew(usuario);
+
+        this.vistaJugador.setEstadisticas(estadisticas);
+        this.vistaJugador.setInventario(inventarioList);
+        this.vistaJugador.setDatos(jugadorBDDnew.getStats());
+        this.vistaJugador.setHabilidades(jugadorBDDnew.habilidadEspecial(usuario));
+        this.vistaJugador.setRasgos(jugadorBDDnew.getRasgo());
+        this.vistaJugador.setIdiomas(jugadorBDDnew.getIdioma());
     }
 
     @Override

@@ -25,7 +25,7 @@ public class JugadorBDDnew {
     private String comportamiento;
     private String nombrePersonaje;
     private String usuario;
-    private int [] características;
+    private int [] caracteristicas;
     private int dadoVida;
     private String raza;
     private int idRaza;
@@ -63,6 +63,12 @@ public class JugadorBDDnew {
 
         password = getPassword(us);
 
+    }
+
+    public JugadorBDDnew() throws ClassNotFoundException, SQLException {
+        Class.forName(JDBC_DRIVER);
+        conn = DriverManager.getConnection(DB_URL + "/" + DB_SCHEMA, USER, PASS);
+        stmt = conn.createStatement();
     }
 
     public String getRasgo() {
@@ -120,8 +126,8 @@ public class JugadorBDDnew {
         return usuario;
     }
 
-    public int[] getCaracterísticas() {
-        return características;
+    public int[] getCaracteristicas() {
+        return caracteristicas;
     }
 
     public int getDadoVida() {
@@ -148,6 +154,10 @@ public class JugadorBDDnew {
 
                 listo = true;
             }
+        }
+
+        if(!listo){
+            return Integer.toString(-1);
         }
 
         return pass;
@@ -212,8 +222,8 @@ public class JugadorBDDnew {
         sol[3] = raza;
         sol[4] = Integer.toString(TP);
         sol[5] = Integer.toString(vida);
-        sol[5] = Integer.toString(experiencia);
-        sol[5] = Integer.toString(dadoVida);
+        sol[6] = Integer.toString(experiencia);
+        sol[7] = Integer.toString(dadoVida);
 
 
         return sol;

@@ -1,6 +1,7 @@
 package Vistas.Inicio;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionListener;
 
 public class VistaRecuperarPassword {
@@ -28,6 +29,7 @@ public class VistaRecuperarPassword {
     }
 
     public void setErrorMessage(String errorMessage) {
+        this.errorMessage.setForeground(Color.red);
         this.errorMessage.setText(errorMessage);
     }
 
