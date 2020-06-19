@@ -12,7 +12,7 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 import java.util.List;
 
-public class VistaDm implements Error {
+public class VistaDm {
 
     public static String CERRAR = "CERRAR";
     public static String EDITAR_PERSONAJE = "EDITAR_PERSONAJE";
