@@ -39,7 +39,7 @@ public class Inventario {
      */
     public String aniadirItem(String personaje, String tipo, String nombre) throws SQLException {
         String error = null;
-        idPersonaje = obtenrIDPersonaje(personaje);
+        idPersonaje = obtenerIDPersonaje(personaje);
 
         if (tipo.equals("Herrero")){
             tipoItem = "Armas";
@@ -124,7 +124,7 @@ public class Inventario {
 
             while (rsTP.next()) {
 
-                if (rsTP.getInt("idPersonaje") == obtenrIDPersonaje(nombre)) {
+                if (rsTP.getInt("idPersonaje") == obtenerIDPersonaje(nombre)) {
                     TP = rsTP.getInt("TP");
                 }
             }
@@ -134,7 +134,7 @@ public class Inventario {
     }
 
 
-    private int obtenrIDPersonaje(String nom) throws SQLException {
+    private int obtenerIDPersonaje(String nom) throws SQLException {
         int res = 0;
 
         String sql = "SELECT idPersonaje, Nombre FROM Personaje";
@@ -256,7 +256,7 @@ public class Inventario {
         boolean sol = false;
 
         while(rs.next() && !sol) {
-            if (rs.getInt("idPersonaje") == obtenrIDPersonaje(nombrePersonaje) &&
+            if (rs.getInt("idPersonaje") == obtenerIDPersonaje(nombrePersonaje) &&
                rs.getInt("idItem") == obeternIDItem(nombreObjeto,tipo) &&
                tipo.equals(rs.getString("tipo"))){
 
@@ -281,7 +281,7 @@ public class Inventario {
         Statement stmtAux = null;
         stmtAux = conn.createStatement();
 
-        int idPer = obtenrIDPersonaje(nombrePersonaje);
+        int idPer = obtenerIDPersonaje(nombrePersonaje);
         int idIt = obeternIDItem(nombreObjeto, tipo);
 
         if(tipo.equals("Armaduras")){
