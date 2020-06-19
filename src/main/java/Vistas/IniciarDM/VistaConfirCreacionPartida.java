@@ -8,11 +8,13 @@ public class VistaConfirCreacionPartida {
     public static String NO = "NO";
     public static String SI = "SI";
 
-    public JPanel confirmarPartida;
+    private JPanel confirmarPartida;
 
     private JLabel mensajeLabel;
     private JButton botonSi;
     private JButton botonNo;
+
+    public JPanel getPanel() { return confirmarPartida; };
 
     public void controlador(ActionListener ctr) {
         botonNo.addActionListener(ctr);

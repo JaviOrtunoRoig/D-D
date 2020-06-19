@@ -10,7 +10,7 @@ public class VistaIniciarSesion {
     public static String VOLVER = "VOLVER";
     public static String RECUPERAR_PASSWORD = "RECUPERAR_PASSWORD";
 
-    public JPanel IniciarSesion;
+    private JPanel IniciarSesion;
     private JTextField username;
     private JPasswordField password;
     private JButton buttonIniciarSesion;
@@ -20,6 +20,9 @@ public class VistaIniciarSesion {
     private JLabel usuarioLabel;
     private JButton recuperarPasswordButton;
 
+    public JPanel getPanel() {
+        return IniciarSesion;
+    }
 
     /**
      *

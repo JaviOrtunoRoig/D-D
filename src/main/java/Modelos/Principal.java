@@ -29,7 +29,7 @@ public class Principal {
 		frame.setExtendedState(Frame.MAXIMIZED_BOTH);
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setContentPane(vistaInicial.Inicio);
+        frame.setContentPane(vistaInicial.getPanel());
 
 
 		// Display the window.

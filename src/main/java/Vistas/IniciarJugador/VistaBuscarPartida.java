@@ -9,7 +9,7 @@ public class VistaBuscarPartida {
     public static String ATRAS2 = "ATRAS2";
     public static String UNIRMEPARTIDA = "UNIRMEPARTIDA";
 
-    public JPanel BuscarPartida;
+    private JPanel BuscarPartida;
     private JLabel mensajeLabel;
     private JTextField IDField;
     private JPasswordField passwordField;
@@ -18,6 +18,10 @@ public class VistaBuscarPartida {
     private JButton botonBuscar;
     private JButton botonAtras;
     private JLabel errorMessage;
+
+    public JPanel getPanel() {
+        return BuscarPartida;
+    }
 
     public String getIdPartida() {
         return IDField.getText();

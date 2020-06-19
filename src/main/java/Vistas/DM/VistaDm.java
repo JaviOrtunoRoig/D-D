@@ -1,6 +1,7 @@
 package Vistas.DM;
 
 import Modelos.Jugador;
+import Vistas.Error;
 import metodosBDD.Arma;
 import metodosBDD.Armadura;
 import metodosBDD.Utensilio;
@@ -11,7 +12,7 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 import java.util.List;
 
-public class VistaDm {
+public class VistaDm implements Error {
 
     public static String CERRAR = "CERRAR";
     public static String EDITAR_PERSONAJE = "EDITAR_PERSONAJE";

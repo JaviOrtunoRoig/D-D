@@ -288,7 +288,7 @@ public class ControladorIniciarDM implements ActionListener {
                 vistaConfirCreacionPartida = new VistaConfirCreacionPartida();
                 vistaConfirCreacionPartida.controlador(this);
 
-                Principal.frame.setContentPane(vistaConfirCreacionPartida.confirmarPartida);
+                Principal.frame.setContentPane(vistaConfirCreacionPartida.getPanel());
                 Principal.frame.setVisible(true);
             } else {
                 vistaDM_usuario.setMensajeError("Error: Estás asociado a una partida, \n pero no como dm.");
@@ -325,7 +325,7 @@ public class ControladorIniciarDM implements ActionListener {
                 ActionListener controladorIniciarJugador = new ControladorIniciarJugador(usuario, vistaBuscarPartida, vistaDM_usuario);
                 vistaBuscarPartida.controlador(controladorIniciarJugador);
 
-                Principal.frame.setContentPane(vistaBuscarPartida.BuscarPartida);
+                Principal.frame.setContentPane(vistaBuscarPartida.getPanel());
                 Principal.frame.setVisible(true);
 
             } else { //tiene partida pero es DM
@@ -334,7 +334,7 @@ public class ControladorIniciarDM implements ActionListener {
 
         } else if (comando.equals(VistaConfirCreacionPartida.NO)) { //En el aviso de crear nueva partida se dice que no
 
-            Principal.frame.setContentPane(new VistaDM_Usuario(this).DM_Usuario);
+            Principal.frame.setContentPane(new VistaDM_Usuario(this).getPanel());
             Principal.frame.setVisible(true);
 
         } else if (comando.equals(VistaConfirCreacionPartida.SI)) {
@@ -342,7 +342,7 @@ public class ControladorIniciarDM implements ActionListener {
             vistaCrearPartida = new VistaCrearPartida();
             vistaCrearPartida.controlador(this);
 
-            Principal.frame.setContentPane(vistaCrearPartida.crear);
+            Principal.frame.setContentPane(vistaCrearPartida.getPanel());
             Principal.frame.setVisible(true);
 
         } else if (comando.equals(VistaCrearPartida.CREAR)) {
@@ -369,11 +369,11 @@ public class ControladorIniciarDM implements ActionListener {
 
         } else if (comando.equals(VistaCrearPartida.ATRAS)) {
 
-            Principal.frame.setContentPane(vistaConfirCreacionPartida.confirmarPartida);
+            Principal.frame.setContentPane(vistaConfirCreacionPartida.getPanel());
             Principal.frame.setVisible(true);
 
         } else if (comando.equals(VistaBuscarPartida.ATRAS2)) {
-            Principal.frame.setContentPane(new VistaDM_Usuario(this).DM_Usuario);
+            Principal.frame.setContentPane(new VistaDM_Usuario(this).getPanel());
             Principal.frame.setVisible(true);
         }
     }

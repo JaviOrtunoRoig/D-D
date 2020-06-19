@@ -9,12 +9,15 @@ public class VistaPersonajeAuto_Manual {
     public static String MANUAL = "MANUAL" ;
     public static String AUTOMATICO = "AUTOMATICO";
 
-    public JPanel pantalla;
-
+    private JPanel pantalla;
 
     private JButton botonManual;
     private JButton botonAutomatico;
     private JLabel mensajeError;
+
+    public JPanel getPanel() {
+        return pantalla;
+    }
 
     public void setMensajeError(String mensajeError) {
         this.mensajeError.setForeground(Color.red);

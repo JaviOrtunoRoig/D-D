@@ -195,7 +195,7 @@ public class ControladorIdentificarse implements ActionListener {
 			correcto = this.registrarse(user, passw, passWConfig);
 
 			if (correcto) {
-				Principal.frame.setContentPane(new VistaPG().Inicio);
+				Principal.frame.setContentPane(new VistaPG().getPanel());
 				Principal.frame.setVisible(true);
 			}
 
@@ -208,19 +208,19 @@ public class ControladorIdentificarse implements ActionListener {
 				ActionListener ControladorIniciarDM = new ControladorIniciarDM(user, vistaDM_Usuario);
 				vistaDM_Usuario.controlador(ControladorIniciarDM);
 
-				Principal.frame.setContentPane(vistaDM_Usuario.DM_Usuario);
+				Principal.frame.setContentPane(vistaDM_Usuario.getPanel());
 				Principal.frame.setVisible(true);
 			}
 		} else if (e.equals(VistaRegistrarse.VOLVER)) {
-			Principal.frame.setContentPane(new VistaPG().Inicio);
+			Principal.frame.setContentPane(new VistaPG().getPanel());
 			Principal.frame.setVisible(true);
 		} else if (e.equals(VistaIniciarSesion.VOLVER)) {
-			Principal.frame.setContentPane(new VistaPG().Inicio);
+			Principal.frame.setContentPane(new VistaPG().getPanel());
 			Principal.frame.setVisible(true);
 
 		} else if (e.equals(VistaRecuperarPassword.VOLVER2)) {
 
-			Principal.frame.setContentPane(vistaIniciarSesion.IniciarSesion);
+			Principal.frame.setContentPane(vistaIniciarSesion.getPanel());
 			Principal.frame.setVisible(true);
 
 		} else if (e.equals(VistaIniciarSesion.RECUPERAR_PASSWORD)) {

@@ -12,7 +12,7 @@ public class VistaDM_Usuario {
     public static String DM = "DM";
     public static String JUGADOR = "JUGADOR";
 
-    public JPanel DM_Usuario;
+    private JPanel DM_Usuario;
     private JButton botonDM;
     private JButton botonJugador;
     private JLabel mensajeError;
@@ -20,8 +20,13 @@ public class VistaDM_Usuario {
     public VistaDM_Usuario(ControladorIniciarDM control) {
         this.controlador(control);
     }
+
     public VistaDM_Usuario() {
 
+    }
+
+    public JPanel getPanel() {
+        return DM_Usuario;
     }
 
     /**

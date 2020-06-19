@@ -190,7 +190,7 @@ public class ControladorIniciarJugador implements ActionListener {
                 vistaPersonajeAuto_manual = new VistaPersonajeAuto_Manual();
                 vistaPersonajeAuto_manual.controlador(this);
                 if (estado == 1) {
-                    Principal.frame.setContentPane(vistaPersonajeAuto_manual.pantalla);
+                    Principal.frame.setContentPane(vistaPersonajeAuto_manual.getPanel());
                     Principal.frame.setVisible(true);
                 } else if (estado == 2) {
                     vistaBuscarPartida.setMensajeError("No existe una partida con ese id");
@@ -244,7 +244,7 @@ public class ControladorIniciarJugador implements ActionListener {
                 Principal.frame.setContentPane(vistaEleccionManual.getPanel());
                 Principal.frame.setVisible(true);
             } else {
-                Principal.frame.setContentPane(vistaPersonajeAuto_manual.pantalla);
+                Principal.frame.setContentPane(vistaPersonajeAuto_manual.getPanel());
                 Principal.frame.setVisible(true);
             }
 
@@ -286,7 +286,7 @@ public class ControladorIniciarJugador implements ActionListener {
             vistaPersonajeAuto_manual = new VistaPersonajeAuto_Manual();
             vistaPersonajeAuto_manual.controlador(this);
 
-            Principal.frame.setContentPane(vistaPersonajeAuto_manual.pantalla);
+            Principal.frame.setContentPane(vistaPersonajeAuto_manual.getPanel());
             Principal.frame.setVisible(true);
 
         } else if (comando.equals(VistaElegirRaza.ATRAS4)) {

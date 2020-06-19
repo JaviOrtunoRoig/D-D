@@ -9,7 +9,7 @@ public class VistaRegistrarse {
     public static String ACEPTAR = "ACEPTAR";
     public static String VOLVER = "VOLVER";
 
-    public JPanel Registro;
+    private JPanel Registro;
     private JTextField username;
     private JPasswordField password;
     private JPasswordField passwordConfirmation;
@@ -19,6 +19,10 @@ public class VistaRegistrarse {
     private JLabel usernameLabel;
     private JLabel passwordLabel;
     private JLabel confPasswordLabel;
+
+    public JPanel getPanel() {
+        return Registro;
+    }
 
     /**
      *

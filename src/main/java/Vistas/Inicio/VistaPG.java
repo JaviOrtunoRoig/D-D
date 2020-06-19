@@ -11,12 +11,16 @@ public class VistaPG implements ActionListener{
     public static String REGISTRARSE = "REGISTRARSE";
     public static String INICIARSESION = "INICIARSESION";
 
-    public JPanel Inicio;
+    private JPanel Inicio;
     private JButton buttonIniciSesion;
     private JButton buttonRegistrarse;
 
     public VistaPG() {
         this.controlador(this);
+    }
+
+    public JPanel getPanel() {
+        return Inicio;
     }
 
     public void controlador(ActionListener ctr) {
@@ -40,7 +44,7 @@ public class VistaPG implements ActionListener{
             ActionListener controladorRegistro = new ControladorIdentificarse(vistaRegistrarse, vistaIniciarSesion, vistaDM_Usuario); //Lo he metido en la propia vista
             vistaRegistrarse.controlador(controladorRegistro);
 
-            Principal.frame.setContentPane(vistaRegistrarse.Registro);
+            Principal.frame.setContentPane(vistaRegistrarse.getPanel());
             Principal.frame.setVisible(true);
 
         } else if (e.equals(VistaPG.INICIARSESION)) {
@@ -51,7 +55,7 @@ public class VistaPG implements ActionListener{
             ActionListener controladorInicioSesion = new ControladorIdentificarse(vistaRegistrarse, vistaIniciarSesion, vistaDM_Usuario); //Lo he metiddo en la propia vista
             vistaIniciarSesion.controlador(controladorInicioSesion);
 
-            Principal.frame.setContentPane(vistaIniciarSesion.IniciarSesion);
+            Principal.frame.setContentPane(vistaIniciarSesion.getPanel());
             Principal.frame.setVisible(true);
         }
     }

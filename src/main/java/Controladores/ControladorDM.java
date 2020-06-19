@@ -145,7 +145,7 @@ public class ControladorDM implements ActionListener {
             ActionListener ControladorIniciarDM = new ControladorIniciarDM(usuario, vistaDM_usuario);
             vistaDM_usuario.controlador(ControladorIniciarDM);
 
-            Principal.frame.setContentPane(vistaDM_usuario.DM_Usuario);
+            Principal.frame.setContentPane(vistaDM_usuario.getPanel());
             Principal.frame.setVisible(true);
 
         } else if (comando.equals(VistaDm.ACTUALIZAR__LISTA_JUGADORES)) {

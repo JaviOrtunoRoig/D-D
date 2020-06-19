@@ -6,7 +6,8 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 
 public class VistaCrearPartida {
-    public JPanel crear;
+
+    private JPanel crear;
 
     public static String CREAR = "CREAR";
     public static String ATRAS = "ATRAS";
@@ -16,6 +17,10 @@ public class VistaCrearPartida {
     private JButton botonCrear;
     private JButton botonAtras;
     private JLabel errorMessage;
+
+    public JPanel getPanel() {
+        return crear;
+    }
 
     public String getPassword() {
         return new String(passwordfield.getPassword());
