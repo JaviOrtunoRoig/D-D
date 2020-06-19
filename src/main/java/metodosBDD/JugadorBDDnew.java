@@ -202,4 +202,20 @@ public class JugadorBDDnew {
 
         return sol;
     }
+
+    public String[] getStats(){
+        String[] sol = new String[8];
+
+        sol[0] = usuario;
+        sol[1] = nombrePersonaje;
+        sol[2] = comportamiento;
+        sol[3] = raza;
+        sol[4] = Integer.toString(TP);
+        sol[5] = Integer.toString(vida);
+        sol[5] = Integer.toString(experiencia);
+        sol[5] = Integer.toString(dadoVida);
+
+
+        return sol;
+    }
 }
