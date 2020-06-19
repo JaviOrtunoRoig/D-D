@@ -60,17 +60,13 @@ public class ModificarStats {
         conn = DriverManager.getConnection("jdbc:mysql://database-iis.cobadwnzalab.eu-central-1.rds.amazonaws.com/dungeonsdragonsdb", "dundragons", "VengerHank");
         stmt = conn.createStatement();
 
-        if(existeUsuario(Usuario)==1){
-            String sqlConsulta = "UPDATE `dungeonsdragonsdb`.`Personaje` SET `vida` = '"
-                    + newVida + "' WHERE (`Usuario` = '"
-                    + Usuario + "');";
+        if(existeUsuario(Usuario) == 0){
+            String sqlConsulta = String.format("UPDATE `dungeonsdragonsdb`.`Personaje` SET `VidaCalculada` = '%d', `vida` = '%d' WHERE (`idPersonaje` = '7');", newVida, newVida);
             stmt.executeUpdate(sqlConsulta);
             return 1;
         }else{
             return existeUsuario(Usuario);
         }
-
-
     }
 
 

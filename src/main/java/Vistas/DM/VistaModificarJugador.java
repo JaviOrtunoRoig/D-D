@@ -9,6 +9,7 @@ import java.util.List;
 public class VistaModificarJugador {
 
     public static String VOLVER = "VOLVER";
+    public static String ACTUALIZAR_MONEDAS = "ACTUALIZAR_MONEDAS";
     public static String HP_MENOS = "HP_MENOS";
     public static String HP_MAS = "HP_MAS";
     public static String EXP_MENOS = "EXP_MENOS";
@@ -92,17 +93,26 @@ public class VistaModificarJugador {
     private JButton buttonOroMas;
     private JButton buttonPlatinoMas;
     private JLabel errorMessage;
+    private JButton actualizarMonButton;
 
     public JPanel getPanel() {
         return panelJugador;
     }
 
+    public String getHPMod() {
+        return HPValue.getText();
+    }
+
+    public String getExpMod() {
+        return expValueModDato.getText();
+    }
+
     public String getHP() {
-        return vidaValue.getText();
+        return HPValue.getText();
     }
 
     public String getExp() {
-        return expValue.getText();
+        return expValueModDato.getText();
     }
 
     public String getCobre() {
@@ -125,12 +135,20 @@ public class VistaModificarJugador {
         return platinoValue.getText();
     }
 
-    public void setHP(String mensaje) {
+    public void setHPMod(String mensaje) {
         HPValue.setText(mensaje);
     }
 
-    public void setExp(String mensaje) {
+    public void setExpMod(String mensaje) {
         expValueModDato.setText(mensaje);
+    }
+
+    public void setHP(String mensaje) {
+        vidaValue.setText(mensaje);
+    }
+
+    public void setExp(String mensaje) {
+        expValue.setText(mensaje);
     }
 
     public void setCobre(String mensaje) {
@@ -215,7 +233,6 @@ public class VistaModificarJugador {
 
     public void setIdiomas(String idioma) {
         textArea.setText(idioma);
-
     }
 
     public void controlador(ActionListener ctr) {
@@ -263,5 +280,8 @@ public class VistaModificarJugador {
 
         buttonPlatinoMas.addActionListener(ctr);
         buttonPlatinoMas.setActionCommand(PLATINO_MAS);
+
+        actualizarMonButton.addActionListener(ctr);
+        actualizarMonButton.setActionCommand(ACTUALIZAR_MONEDAS);
     }
 }

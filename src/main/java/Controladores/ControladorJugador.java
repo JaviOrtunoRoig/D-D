@@ -79,8 +79,8 @@ public class ControladorJugador implements ActionListener  {
         this.vistaModificarJugador.setIdiomas(jugadorBDDnew.getIdioma());
 
         if (modificarStats.getVida(usuario) != -1) {
-            this.vistaModificarJugador.setHP(String.valueOf(modificarStats.getVida(usuario)));
-            this.vistaModificarJugador.setExp(String.valueOf(modificarStats.getExperiencia(usuario)));
+            this.vistaModificarJugador.setHPMod(String.valueOf(modificarStats.getVida(usuario)));
+            this.vistaModificarJugador.setExpMod(String.valueOf(modificarStats.getExperiencia(usuario)));
             //TOdo terminar
             //this.vistaModificarJugador.setCobre();
             //this.vistaModificarJugador.setPlata();
@@ -120,30 +120,32 @@ public class ControladorJugador implements ActionListener  {
 
         } else if (command.equals(VistaModificarJugador.HP_MENOS)) {
 
+            int hp = Integer.parseInt(vistaModificarJugador.getHPMod());
+            if (hp > 0) {
+                vistaModificarJugador.setHPMod(String.valueOf(hp - 1));
+            }
+
         } else if (command.equals(VistaModificarJugador.HP_MAS)) {
 
+            int hp = Integer.parseInt(vistaModificarJugador.getHPMod());
+            if (hp >= 0) {
+                vistaModificarJugador.setHPMod(String.valueOf(hp + 1));
+            }
+
         } else if (command.equals(VistaModificarJugador.EXP_MENOS)) {
-            int exp = Integer.parseInt(vistaModificarJugador.getExp());
+
+            int exp = Integer.parseInt(vistaModificarJugador.getExpMod());
             if (exp > 0) {
-                vistaModificarJugador.setExp(String.valueOf(exp - 1));
-                try {
-                    modificarStats.modificarExperiencia(usuario, exp - 1);
-                } catch (ClassNotFoundException | SQLException ex) {
-                    ex.printStackTrace();
-                    vistaModificarJugador.setErrorMessage("Ha ocurrido un error. \n Por favor contacte con nosotros en:\n D&DProyecto@gmail.com");
-                }
+                vistaModificarJugador.setExpMod(String.valueOf(exp - 1));
             }
+
         } else if (command.equals(VistaModificarJugador.EXP_MAS)) {
-            int exp = Integer.parseInt(vistaModificarJugador.getExp());
+
+            int exp = Integer.parseInt(vistaModificarJugador.getExpMod());
             if (exp >= 0) {
-                vistaModificarJugador.setExp(String.valueOf(exp + 1));
-                try {
-                    modificarStats.modificarExperiencia(usuario, exp + 1);
-                } catch (ClassNotFoundException | SQLException ex) {
-                    ex.printStackTrace();
-                    vistaModificarJugador.setErrorMessage("Ha ocurrido un error. \n Por favor contacte con nosotros en:\n D&DProyecto@gmail.com");
-                }
+                vistaModificarJugador.setExpMod(String.valueOf(exp + 1));
             }
+
         } else if (command.equals(VistaModificarJugador.COBRE_MENOS)) {
 
         } else if (command.equals(VistaModificarJugador.COBRE_MAS)) {
@@ -164,6 +166,22 @@ public class ControladorJugador implements ActionListener  {
 
         } else if (command.equals(VistaModificarJugador.PLATINO_MAS)) {
 
+        } else if (command.equals(VistaModificarJugador.ACTUALIZAR_MONEDAS)) {
+            try {
+
+                //Actualizar mod
+                modificarStats.modificarVida(usuario, Integer.parseInt(vistaModificarJugador.getHPMod()));
+                modificarStats.modificarExperiencia(usuario, Integer.parseInt(vistaModificarJugador.getExpMod()));
+
+                //Actualizar general
+                vistaModificarJugador.setHP(vistaModificarJugador.getHPMod());
+                vistaModificarJugador.setExp(vistaModificarJugador.getExpMod());
+
+
+            } catch (ClassNotFoundException | SQLException ex) {
+                ex.printStackTrace();
+                vistaModificarJugador.setErrorMessage("Ha ocurrido un error. \n Por favor contacte con nosotros en:\n D&DProyecto@gmail.com");
+            }
         }
     }
 }

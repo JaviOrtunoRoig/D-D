@@ -829,6 +829,15 @@
                   <text value=""/>
                 </properties>
               </component>
+              <component id="28191" class="javax.swing.JButton" binding="actualizarMonButton">
+                <constraints>
+                  <grid row="14" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                  <gridbag weightx="0.0" weighty="0.0"/>
+                </constraints>
+                <properties>
+                  <text value="Actualizar"/>
+                </properties>
+              </component>
             </children>
           </grid>
         </children>
