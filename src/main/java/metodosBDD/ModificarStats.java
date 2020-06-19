@@ -24,6 +24,7 @@ public class ModificarStats {
      * @return int:
      * vida personaje
      * -1 si no existe
+     * -2 error de conexion
      */
     public int getVida(String Usuario) throws SQLException, ClassNotFoundException {
 
@@ -34,11 +35,18 @@ public class ModificarStats {
         int vida = -1;
 
 
-        String sqlConsulta = "SELECT vida FROM Personaje WHERE Usuario = '" + Usuario + "';";
-        ResultSet resultado = stmt.executeQuery(sqlConsulta);
-        resultado.next();
-        vida = resultado.getInt("vida");
-        return vida;
+        if(existeUsuario(Usuario)==1){
+            String sqlConsulta = "SELECT vida FROM Personaje WHERE Usuario = '" + Usuario + "';";
+            ResultSet resultado = stmt.executeQuery(sqlConsulta);
+            resultado.next();
+            vida = resultado.getInt("vida");
+            return vida;
+        }else if(existeUsuario(Usuario)==2){
+            return -1;
+        }else{
+            return -2;
+        }
+
 
     }
 
@@ -61,7 +69,6 @@ public class ModificarStats {
                     + newVida + "' WHERE (`Usuario` = '"
                     + Usuario + "');";
             stmt.executeUpdate(sqlConsulta);
-            System.out.println("Sentencia ejecutada con exito.");
             return 1;
         }else{
             return existeUsuario(Usuario);
@@ -71,30 +78,63 @@ public class ModificarStats {
     }
 
 
-
+    /**
+     *
+     * @param Usuario
+     * @return experiencia personaje, -1 no existe usuario, -2 error de conexion
+     * @throws SQLException
+     * @throws ClassNotFoundException
+     */
     public int getExperiencia(String Usuario) throws SQLException, ClassNotFoundException {
 
 
         Class.forName(JDBC_DRIVER);
         conn = DriverManager.getConnection(DB_URL + "/" + DB_SCHEMA, USER, PASS);
         stmt = conn.createStatement();
-        int vida = -1;
-
+        int experiencia = -1;
 
         if(existeUsuario(Usuario)==1){
             String sqlConsulta = "SELECT experiencia FROM Personaje WHERE Usuario = '" + Usuario + "';";
             ResultSet resultado = stmt.executeQuery(sqlConsulta);
             resultado.next();
-            vida = resultado.getInt("vida");
-            return vida;
+            experiencia = resultado.getInt("experiencia");
+            return experiencia;
+        }else if(existeUsuario(Usuario)==2){
+        return -1;
         }else{
-            return existeUsuario(Usuario);
+        return -2;
         }
 
 
     }
 
 
+    /**
+     *
+     * @param Usuario
+     * @param newXP
+     * @return 1 si bien, 2 si no existe el personaje-usuario, 3 error de conexión con la BDD
+     * @throws ClassNotFoundException
+     * @throws SQLException
+     */
+    public int modificarExperiencia(String Usuario, int newXP) throws ClassNotFoundException, SQLException {
+
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        conn = DriverManager.getConnection("jdbc:mysql://database-iis.cobadwnzalab.eu-central-1.rds.amazonaws.com/dungeonsdragonsdb", "dundragons", "VengerHank");
+        stmt = conn.createStatement();
+
+        if(existeUsuario(Usuario)==1){
+            String sqlConsulta = "UPDATE `dungeonsdragonsdb`.`Personaje` SET `experiencia` = '"
+                    + newXP + "' WHERE (`Usuario` = '"
+                    + Usuario + "');";
+            stmt.executeUpdate(sqlConsulta);
+            return 1;
+        }else{
+            return existeUsuario(Usuario);
+        }
+
+
+    }
 
 
 
