@@ -23,8 +23,7 @@ public class ModificarStats {
      * @param Usuario
      * @return int:
      * vida personaje
-     * -1 si no existe
-     * -2 error de conexion
+     * -1 error
      */
     public int getVida(String Usuario) throws SQLException, ClassNotFoundException {
 
@@ -35,19 +34,16 @@ public class ModificarStats {
         int vida = -1;
 
 
-        if (existeUsuario(Usuario) == 1){
+        if (existeUsuario(Usuario) == 0){
             String sqlConsulta = "SELECT vida FROM Personaje WHERE Usuario = '" + Usuario + "';";
             ResultSet resultado = stmt.executeQuery(sqlConsulta);
             resultado.next();
             vida = resultado.getInt("vida");
             return vida;
-        }else if (existeUsuario(Usuario)==2){
+
+        } else {
             return -1;
-        }else {
-            return -2;
         }
-
-
     }
 
 
@@ -87,25 +83,20 @@ public class ModificarStats {
      */
     public int getExperiencia(String Usuario) throws SQLException, ClassNotFoundException {
 
-
         Class.forName(JDBC_DRIVER);
         conn = DriverManager.getConnection(DB_URL + "/" + DB_SCHEMA, USER, PASS);
         stmt = conn.createStatement();
         int experiencia = -1;
 
-        if(existeUsuario(Usuario)==1){
+        if (existeUsuario(Usuario) == 0){
             String sqlConsulta = "SELECT experiencia FROM Personaje WHERE Usuario = '" + Usuario + "';";
             ResultSet resultado = stmt.executeQuery(sqlConsulta);
             resultado.next();
             experiencia = resultado.getInt("experiencia");
             return experiencia;
-        }else if(existeUsuario(Usuario)==2){
-        return -1;
-        }else{
-        return -2;
+        }else {
+            return -1;
         }
-
-
     }
 
 
@@ -123,84 +114,40 @@ public class ModificarStats {
         conn = DriverManager.getConnection("jdbc:mysql://database-iis.cobadwnzalab.eu-central-1.rds.amazonaws.com/dungeonsdragonsdb", "dundragons", "VengerHank");
         stmt = conn.createStatement();
 
-        if(existeUsuario(Usuario)==1){
+        if(existeUsuario(Usuario) == 0){
             String sqlConsulta = "UPDATE `dungeonsdragonsdb`.`Personaje` SET `experiencia` = '"
                     + newXP + "' WHERE (`Usuario` = '"
                     + Usuario + "');";
             stmt.executeUpdate(sqlConsulta);
             return 1;
         }else{
-            return existeUsuario(Usuario);
+            return -1;
         }
-
-
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     /**
      *
      * @param Usuario
-     * @return
-     * 1 existe
-     * 2 error bdd
-     * 3 error conexion
+     * @return 0 ha ido bien
+     * 1 existe (error)
      */
-    private int existeUsuario(String Usuario) {
+    private int existeUsuario(String Usuario) throws ClassNotFoundException, SQLException {
 
         Connection conn = null;
         Statement stmt = null;
-        String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
-        String DB_URL = "jdbc:mysql://database-iis.cobadwnzalab.eu-central-1.rds.amazonaws.com";
-        String DB_SCHEMA = "dungeonsdragonsdb";
-        String USER = "dundragons";
-        String var8 = "VengerHank";
 
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            conn = DriverManager.getConnection("jdbc:mysql://database-iis.cobadwnzalab.eu-central-1.rds.amazonaws.com/dungeonsdragonsdb", "dundragons", "VengerHank");
-            stmt = conn.createStatement();
-        } catch (ClassNotFoundException e) {
-            return 3;
-        } catch (SQLException e) {
-            return 3;
-        }
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        conn = DriverManager.getConnection("jdbc:mysql://database-iis.cobadwnzalab.eu-central-1.rds.amazonaws.com/dungeonsdragonsdb", "dundragons", "VengerHank");
+        stmt = conn.createStatement();
 
         ResultSet resultado;
-        try {
-            String sqlConsulta = "SELECT Nombre FROM Personaje WHERE Usuario = '" + Usuario + "';";
-            resultado = stmt.executeQuery(sqlConsulta);
-        } catch (SQLException e) {
-            System.err.println(e.getMessage());
-            return 2;
-        }
+        String sqlConsulta = "SELECT Nombre FROM Personaje WHERE Usuario = '" + Usuario + "';";
+        resultado = stmt.executeQuery(sqlConsulta);
 
-        try {
-            if (resultado.getRow() == 0) {
-                return 0;
-            } else {
-                return 1;
-            }
-        } catch (SQLException e) {
-            return 2;
+        if (resultado.getRow() == 0) {
+            return 0;
+        } else {
+            return 1;
         }
     }
 }

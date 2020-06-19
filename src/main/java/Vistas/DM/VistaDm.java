@@ -60,6 +60,7 @@ public class VistaDm {
     private JLabel messageError1;
     private JLabel messageError2;
     private JLabel messageError3;
+    private JLabel errorUsuarioNoEncontrado;
 
     public JPanel getPanel() {
         return VistaDm;
@@ -203,6 +204,11 @@ public class VistaDm {
     public void setMessageError3(String mensaje) {
         messageError3.setForeground(Color.red);
         messageError3.setText(mensaje);
+    }
+
+    public void setErrorUsuarioNoEncontrado(String mensaje) {
+        errorUsuarioNoEncontrado.setForeground(Color.red);
+        errorUsuarioNoEncontrado.setText(mensaje);
     }
 
     public void controlador (ActionListener ctr) {

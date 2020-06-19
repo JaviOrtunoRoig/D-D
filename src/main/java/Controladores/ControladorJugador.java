@@ -46,7 +46,8 @@ public class ControladorJugador implements ActionListener  {
 
     private void obtenerdatos() throws SQLException, ClassNotFoundException {
 
-        Inventario inventario = new Inventario();
+        Inventario inventario = null;
+        inventario = new Inventario();
         List<String> inventarioList = inventario.mostrarInventario(usuario);
 
         JugadorBDDnew jugadorBDDnew = new JugadorBDDnew(usuario);
@@ -57,12 +58,14 @@ public class ControladorJugador implements ActionListener  {
         this.vistaJugador.setHabilidades(jugadorBDDnew.habilidadEspecial(usuario));
         this.vistaJugador.setRasgos(jugadorBDDnew.getRasgo());
         this.vistaJugador.setIdiomas(jugadorBDDnew.getIdioma());
+
     }
 
 
     private void obtenerdatosModificacion() throws SQLException, ClassNotFoundException {
 
-        Inventario inventario = new Inventario();
+        Inventario inventario = null;
+        inventario = new Inventario();
         List<String> inventarioList = inventario.mostrarInventario(usuario);
 
         JugadorBDDnew jugadorBDDnew = new JugadorBDDnew(usuario);
@@ -74,16 +77,19 @@ public class ControladorJugador implements ActionListener  {
         this.vistaModificarJugador.setHabilidades(jugadorBDDnew.habilidadEspecial(usuario));
         this.vistaModificarJugador.setRasgos(jugadorBDDnew.getRasgo());
         this.vistaModificarJugador.setIdiomas(jugadorBDDnew.getIdioma());
-        this.vistaModificarJugador.setHP(String.valueOf(modificarStats.getVida(usuario)));
-        System.out.println(modificarStats.getVida(usuario));
-        System.out.println(String.valueOf(modificarStats.getVida(usuario)));
-        this.vistaModificarJugador.setExp(String.valueOf(modificarStats.getExperiencia(usuario)));
-        //TOdo terminar
-        //this.vistaModificarJugador.setCobre();
-        //this.vistaModificarJugador.setPlata();
-        //this.vistaModificarJugador.setElectrum();
-        //this.vistaModificarJugador.setOro();
-        //this.vistaModificarJugador.setPlatino();
+
+        if (modificarStats.getVida(usuario) != -1) {
+            this.vistaModificarJugador.setHP(String.valueOf(modificarStats.getVida(usuario)));
+            this.vistaModificarJugador.setExp(String.valueOf(modificarStats.getExperiencia(usuario)));
+            //TOdo terminar
+            //this.vistaModificarJugador.setCobre();
+            //this.vistaModificarJugador.setPlata();
+            //this.vistaModificarJugador.setElectrum();
+            //this.vistaModificarJugador.setOro();
+            //this.vistaModificarJugador.setPlatino();
+        } else {
+            vistaDm.setErrorUsuarioNoEncontrado("Usuario no encontrado");
+        }
     }
 
     @Override
@@ -112,33 +118,51 @@ public class ControladorJugador implements ActionListener  {
             Principal.frame.setContentPane(vistaDM_usuario.getPanel());
             Principal.frame.setVisible(true);
 
-        } else if (e.equals(VistaModificarJugador.HP_MENOS)) {
+        } else if (command.equals(VistaModificarJugador.HP_MENOS)) {
 
-        } else if (e.equals(VistaModificarJugador.HP_MAS)) {
+        } else if (command.equals(VistaModificarJugador.HP_MAS)) {
 
-        } else if (e.equals(VistaModificarJugador.EXP_MENOS)) {
+        } else if (command.equals(VistaModificarJugador.EXP_MENOS)) {
+            int exp = Integer.parseInt(vistaModificarJugador.getExp());
+            if (exp > 0) {
+                vistaModificarJugador.setExp(String.valueOf(exp - 1));
+                try {
+                    modificarStats.modificarExperiencia(usuario, exp - 1);
+                } catch (ClassNotFoundException | SQLException ex) {
+                    ex.printStackTrace();
+                    vistaModificarJugador.setErrorMessage("Ha ocurrido un error. \n Por favor contacte con nosotros en:\n D&DProyecto@gmail.com");
+                }
+            }
+        } else if (command.equals(VistaModificarJugador.EXP_MAS)) {
+            int exp = Integer.parseInt(vistaModificarJugador.getExp());
+            if (exp >= 0) {
+                vistaModificarJugador.setExp(String.valueOf(exp + 1));
+                try {
+                    modificarStats.modificarExperiencia(usuario, exp + 1);
+                } catch (ClassNotFoundException | SQLException ex) {
+                    ex.printStackTrace();
+                    vistaModificarJugador.setErrorMessage("Ha ocurrido un error. \n Por favor contacte con nosotros en:\n D&DProyecto@gmail.com");
+                }
+            }
+        } else if (command.equals(VistaModificarJugador.COBRE_MENOS)) {
 
-        } else if (e.equals(VistaModificarJugador.EXP_MAS)) {
+        } else if (command.equals(VistaModificarJugador.COBRE_MAS)) {
 
-        } else if (e.equals(VistaModificarJugador.COBRE_MENOS)) {
+        } else if (command.equals(VistaModificarJugador.PLATA_MENOS)) {
 
-        } else if (e.equals(VistaModificarJugador.COBRE_MAS)) {
+        } else if (command.equals(VistaModificarJugador.PLATA_MAS)) {
 
-        } else if (e.equals(VistaModificarJugador.PLATA_MENOS)) {
+        } else if (command.equals(VistaModificarJugador.ELECTRUM_MENOS)) {
 
-        } else if (e.equals(VistaModificarJugador.PLATA_MAS)) {
+        } else if (command.equals(VistaModificarJugador.ELECTRUM_MAS)) {
 
-        } else if (e.equals(VistaModificarJugador.ELECTRUM_MENOS)) {
+        } else if (command.equals(VistaModificarJugador.ORO_MENOS)) {
 
-        } else if (e.equals(VistaModificarJugador.ELECTRUM_MAS)) {
+        } else if (command.equals(VistaModificarJugador.ORO_MAS)) {
 
-        } else if (e.equals(VistaModificarJugador.ORO_MENOS)) {
+        } else if (command.equals(VistaModificarJugador.PLATINO_MENOS)) {
 
-        } else if (e.equals(VistaModificarJugador.ORO_MAS)) {
-
-        } else if (e.equals(VistaModificarJugador.PLATINO_MENOS)) {
-
-        } else if (e.equals(VistaModificarJugador.PLATINO_MAS)) {
+        } else if (command.equals(VistaModificarJugador.PLATINO_MAS)) {
 
         }
     }

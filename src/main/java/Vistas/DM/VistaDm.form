@@ -43,6 +43,12 @@
                       <text value="Actualizar lista jugadores"/>
                     </properties>
                   </component>
+                  <component id="7dde7" class="javax.swing.JLabel" binding="errorUsuarioNoEncontrado">
+                    <constraints/>
+                    <properties>
+                      <text value=""/>
+                    </properties>
+                  </component>
                 </children>
               </grid>
               <vspacer id="b656c">

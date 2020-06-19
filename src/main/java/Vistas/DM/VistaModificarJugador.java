@@ -1,6 +1,7 @@
 package Vistas.DM;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionListener;
 import java.util.Arrays;
 import java.util.List;
@@ -90,6 +91,7 @@ public class VistaModificarJugador {
     private JButton buttonElectrumMas;
     private JButton buttonOroMas;
     private JButton buttonPlatinoMas;
+    private JLabel errorMessage;
 
     public JPanel getPanel() {
         return panelJugador;
@@ -124,11 +126,11 @@ public class VistaModificarJugador {
     }
 
     public void setHP(String mensaje) {
-        vidaValue.setText(mensaje);
+        HPValue.setText(mensaje);
     }
 
     public void setExp(String mensaje) {
-        expValue.setText(mensaje);
+        expValueModDato.setText(mensaje);
     }
 
     public void setCobre(String mensaje) {
@@ -182,6 +184,11 @@ public class VistaModificarJugador {
         vidaValue.setText(stats[5]);
         expValue.setText(stats[6]);
         dadoVidaValue.setText(stats[7]);
+    }
+
+    public void setErrorMessage(String mensaje) {
+        errorMessage.setForeground(Color.red);
+        errorMessage.setText(mensaje);
     }
 
     public void setHabilidades(String[] habilidades) {

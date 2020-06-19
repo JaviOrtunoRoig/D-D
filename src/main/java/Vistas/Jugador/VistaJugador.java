@@ -53,6 +53,16 @@ public class VistaJugador {
     private JButton actualizarDatosButton;
     private JButton borrarPersonajeButton;
     private JLabel errorMessage;
+    private JLabel cobreLabel;
+    private JLabel plataLabel;
+    private JLabel electrumLabel;
+    private JLabel oroLabel;
+    private JLabel platinoLabel;
+    private JLabel cobreValue;
+    private JLabel plataValue;
+    private JLabel electrumValue;
+    private JLabel oroValue;
+    private JLabel platinoValue;
 
     public JPanel getPanel() {
         return panelJugador;
