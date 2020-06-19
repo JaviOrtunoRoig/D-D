@@ -8,6 +8,21 @@ import java.util.List;
 public class VistaModificarJugador {
 
     public static String VOLVER = "VOLVER";
+    public static String HP_MENOS = "HP_MENOS";
+    public static String HP_MAS = "HP_MAS";
+    public static String EXP_MENOS = "EXP_MENOS";
+    public static String EXP_MAS = "EXP_MAS";
+    public static String COBRE_MENOS = "COBRE_MENOS";
+    public static String COBRE_MAS = "COBRE_MAS";
+    public static String PLATA_MENOS = "PLATA_MENOS";
+    public static String PLATA_MAS = "PLATA_MAS";
+    public static String ELECTRUM_MENOS = "ELECTRUM_MENOS";
+    public static String ELECTRUM_MAS = "ELECTRUM_MAS";
+    public static String ORO_MENOS = "ORO_MENOS";
+    public static String ORO_MAS = "ORO_MAS";
+    public static String PLATINO_MENOS = "PLATINO_MENOS";
+    public static String PLATINO_MAS = "PLATINO_MAS";
+
 
     private JTabbedPane tabbedPanel;
     private JPanel panelJugador;
@@ -80,6 +95,62 @@ public class VistaModificarJugador {
         return panelJugador;
     }
 
+    public String getHP() {
+        return vidaValue.getText();
+    }
+
+    public String getExp() {
+        return expValue.getText();
+    }
+
+    public String getCobre() {
+        return cobreValue.getText();
+    }
+
+    public String getPlata() {
+        return plataValue.getText();
+    }
+
+    public String getElectrum() {
+        return electrumValue.getText();
+    }
+
+    public String getOro() {
+        return oroValue.getText();
+    }
+
+    public String getPlatino() {
+        return platinoValue.getText();
+    }
+
+    public void setHP(String mensaje) {
+        vidaValue.setText(mensaje);
+    }
+
+    public void setExp(String mensaje) {
+        expValue.setText(mensaje);
+    }
+
+    public void setCobre(String mensaje) {
+        cobreValue.setText(mensaje);
+    }
+
+    public void setPlata(String mensaje) {
+        plataValue.setText(mensaje);
+    }
+
+    public void setElectrum(String mensaje) {
+        electrumValue.setText(mensaje);
+    }
+
+    public void setOro(String mensaje) {
+        oroValue.setText(mensaje);
+    }
+
+    public void setPlatino(String mensaje) {
+        platinoValue.setText(mensaje);
+    }
+
     public void setEstadisticas(int[] estadisticas) {
 
         fuerzaValue.setText(String.valueOf(estadisticas[0]));
@@ -143,5 +214,47 @@ public class VistaModificarJugador {
     public void controlador(ActionListener ctr) {
         volverButton.addActionListener(ctr);
         volverButton.setActionCommand(VOLVER);
+
+        buttonHPmenos.addActionListener(ctr);
+        buttonHPmenos.setActionCommand(HP_MENOS);
+
+        buttonHPmas.addActionListener(ctr);
+        buttonHPmas.setActionCommand(HP_MAS);
+
+        buttonExpMenos.addActionListener(ctr);
+        buttonExpMenos.setActionCommand(EXP_MENOS);
+
+        buttonExpMas.addActionListener(ctr);
+        buttonExpMas.setActionCommand(EXP_MAS);
+
+        buttonCobreMenos.addActionListener(ctr);
+        buttonCobreMenos.setActionCommand(COBRE_MENOS);
+
+        buttonCobreMas.addActionListener(ctr);
+        buttonCobreMas.setActionCommand(COBRE_MAS);
+
+        buttonPlataMenos.addActionListener(ctr);
+        buttonPlataMenos.setActionCommand(PLATA_MENOS);
+
+        buttonPlataMas.addActionListener(ctr);
+        buttonPlataMas.setActionCommand(PLATA_MAS);
+
+        buttonElectrumMenos.addActionListener(ctr);
+        buttonElectrumMenos.setActionCommand(ELECTRUM_MENOS);
+
+        buttonElectrumMas.addActionListener(ctr);
+        buttonElectrumMas.setActionCommand(ELECTRUM_MAS);
+
+        buttonOroMenos.addActionListener(ctr);
+        buttonOroMenos.setActionCommand(ORO_MENOS);
+
+        buttonOroMas.addActionListener(ctr);
+        buttonOroMas.setActionCommand(ORO_MAS);
+
+        buttonPlatinoMenos.addActionListener(ctr);
+        buttonPlatinoMenos.setActionCommand(PLATINO_MENOS);
+
+        buttonPlatinoMas.addActionListener(ctr);
+        buttonPlatinoMas.setActionCommand(PLATINO_MAS);
     }
 }

@@ -20,13 +20,13 @@ public class ControladorJugador implements ActionListener  {
     VistaJugador vistaJugador;
     VistaDm vistaDm;
     VistaModificarJugador vistaModificarJugador;
+    ModificarStats modificarStats;
 
     public ControladorJugador(VistaJugador vistaJugador, int[] estadisticas, String usuario) throws SQLException, ClassNotFoundException {
         this.usuario = usuario;
         this.estadisticas = estadisticas;
         this.vistaJugador = vistaJugador;
         this.vistaJugador.controlador(this);
-
         obtenerdatos();
     }
 
@@ -66,6 +66,7 @@ public class ControladorJugador implements ActionListener  {
         List<String> inventarioList = inventario.mostrarInventario(usuario);
 
         JugadorBDDnew jugadorBDDnew = new JugadorBDDnew(usuario);
+        modificarStats = new ModificarStats();
 
         this.vistaModificarJugador.setEstadisticas(estadisticas);
         this.vistaModificarJugador.setInventario(inventarioList);
@@ -73,22 +74,34 @@ public class ControladorJugador implements ActionListener  {
         this.vistaModificarJugador.setHabilidades(jugadorBDDnew.habilidadEspecial(usuario));
         this.vistaModificarJugador.setRasgos(jugadorBDDnew.getRasgo());
         this.vistaModificarJugador.setIdiomas(jugadorBDDnew.getIdioma());
+        this.vistaModificarJugador.setHP(String.valueOf(modificarStats.getVida(usuario)));
+        System.out.println(modificarStats.getVida(usuario));
+        System.out.println(String.valueOf(modificarStats.getVida(usuario)));
+        this.vistaModificarJugador.setExp(String.valueOf(modificarStats.getExperiencia(usuario)));
+        //TOdo terminar
+        //this.vistaModificarJugador.setCobre();
+        //this.vistaModificarJugador.setPlata();
+        //this.vistaModificarJugador.setElectrum();
+        //this.vistaModificarJugador.setOro();
+        //this.vistaModificarJugador.setPlatino();
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getActionCommand().equals(VistaJugador.ACTUALIZAR)) {
+
+        String command = e.getActionCommand();
+        if (command.equals(VistaJugador.ACTUALIZAR)) {
             try {
                 obtenerdatos();
             } catch (SQLException | ClassNotFoundException ex) {
                 vistaJugador.setErrorMessage("Ha ocurrido un error. \n Por favor contacte con nosotros en:\n D&DProyecto@gmail.com");
             }
-        } else if (e.getActionCommand().equals(VistaModificarJugador.VOLVER)) {
+        } else if (command.equals(VistaModificarJugador.VOLVER)) {
 
             Principal.frame.setContentPane(vistaDm.getPanel());
             Principal.frame.setVisible(true);
 
-        } else if (e.getActionCommand().equals(VistaJugador.BORRAR_PERSONAJE)) {
+        } else if (command.equals(VistaJugador.BORRAR_PERSONAJE)) {
             QueriesPersonaje queriesPersonaje = new QueriesPersonaje();
             queriesPersonaje.borrarPersonaje(usuario);
 
@@ -98,6 +111,35 @@ public class ControladorJugador implements ActionListener  {
 
             Principal.frame.setContentPane(vistaDM_usuario.getPanel());
             Principal.frame.setVisible(true);
+
+        } else if (e.equals(VistaModificarJugador.HP_MENOS)) {
+
+        } else if (e.equals(VistaModificarJugador.HP_MAS)) {
+
+        } else if (e.equals(VistaModificarJugador.EXP_MENOS)) {
+
+        } else if (e.equals(VistaModificarJugador.EXP_MAS)) {
+
+        } else if (e.equals(VistaModificarJugador.COBRE_MENOS)) {
+
+        } else if (e.equals(VistaModificarJugador.COBRE_MAS)) {
+
+        } else if (e.equals(VistaModificarJugador.PLATA_MENOS)) {
+
+        } else if (e.equals(VistaModificarJugador.PLATA_MAS)) {
+
+        } else if (e.equals(VistaModificarJugador.ELECTRUM_MENOS)) {
+
+        } else if (e.equals(VistaModificarJugador.ELECTRUM_MAS)) {
+
+        } else if (e.equals(VistaModificarJugador.ORO_MENOS)) {
+
+        } else if (e.equals(VistaModificarJugador.ORO_MAS)) {
+
+        } else if (e.equals(VistaModificarJugador.PLATINO_MENOS)) {
+
+        } else if (e.equals(VistaModificarJugador.PLATINO_MAS)) {
+
         }
     }
 }

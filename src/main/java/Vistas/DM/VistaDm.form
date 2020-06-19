@@ -314,7 +314,7 @@
           </grid>
           <grid id="c3156" layout-manager="GridBagLayout">
             <constraints>
-              <tabbedpane title="Eliminar"/>
+              <tabbedpane title="Opciones"/>
             </constraints>
             <properties/>
             <border type="none"/>

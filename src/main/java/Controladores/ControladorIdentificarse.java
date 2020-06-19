@@ -75,8 +75,6 @@ public class ControladorIdentificarse implements ActionListener {
 			 
 		    if (!encontrado) {
 		    	String sqlInsert = "INSERT INTO `dungeonsdragonsdb`.`Usuario` (`nombre`, `contrasena`) VALUES ('" + nombre +"','" + password + "')";
-				;
-				System.out.println(sqlInsert);
 
 		    	if (password.equals(confPassword)) {
 
@@ -85,13 +83,11 @@ public class ControladorIdentificarse implements ActionListener {
 
 					res = true;
 		    	} else {
-		    		//JOptionPane.showMessageDialog(parentComponent, message);
 		    		vistaRegistrarse.setErrorMessageValue("Las contrasenias no coinciden");
 		    	}
 		    }
 		    else {
 				vistaRegistrarse.setErrorMessageValue("Nombre ya existentes");
-
 		    }
 		} catch (SQLException e) {
 			System.err.println("Error en la base de datos");
@@ -192,6 +188,11 @@ public class ControladorIdentificarse implements ActionListener {
 			String user = vistaRegistrarse.getUsername().getText();
 			String passw = new String(vistaRegistrarse.getPassword().getPassword());
 			String passWConfig = new String(vistaRegistrarse.getPasswordConfirmation().getPassword());
+
+			if (user.equals("") || passw.equals("") || passWConfig.equals("")) {
+				vistaRegistrarse.setErrorMessageValue("Hay campos sin rellenar");
+			}
+
 			correcto = this.registrarse(user, passw, passWConfig);
 
 			if (correcto) {

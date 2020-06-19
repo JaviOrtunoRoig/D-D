@@ -291,6 +291,7 @@ public class Inventario {
         if (posible(nombrePersonaje, nombreObjeto, tipo)) {
             String sql = "DELETE FROM Inventario WHERE idPersonaje = " + idPer + " AND idItem = " + idIt;
             stmtAux.executeUpdate(sql);
+            error = "Se ha eliminado el objeto";
         } else {
             error = "No tiene este Item en su inventario";
         }

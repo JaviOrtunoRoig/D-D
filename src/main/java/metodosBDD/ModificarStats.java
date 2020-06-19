@@ -35,15 +35,15 @@ public class ModificarStats {
         int vida = -1;
 
 
-        if(existeUsuario(Usuario)==1){
+        if (existeUsuario(Usuario) == 1){
             String sqlConsulta = "SELECT vida FROM Personaje WHERE Usuario = '" + Usuario + "';";
             ResultSet resultado = stmt.executeQuery(sqlConsulta);
             resultado.next();
             vida = resultado.getInt("vida");
             return vida;
-        }else if(existeUsuario(Usuario)==2){
+        }else if (existeUsuario(Usuario)==2){
             return -1;
-        }else{
+        }else {
             return -2;
         }
 

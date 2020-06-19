@@ -63,7 +63,6 @@ public class VistaDm {
 
     public JPanel getPanel() {
         return VistaDm;
-
     }
 
     public void setListaJugadores(List<Jugador> jugadores) {
@@ -197,12 +196,12 @@ public class VistaDm {
     }
 
     public void setMessageError2(String mensaje) {
-        messageError1.setForeground(Color.red);
+        messageError2.setForeground(Color.red);
         messageError2.setText(mensaje);
     }
 
     public void setMessageError3(String mensaje) {
-        messageError1.setForeground(Color.red);
+        messageError3.setForeground(Color.red);
         messageError3.setText(mensaje);
     }
 
