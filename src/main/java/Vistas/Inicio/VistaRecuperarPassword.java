@@ -1,10 +1,13 @@
 package Vistas.Inicio;
 
+import Modelos.resetError;
+import Vistas.Error;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
-public class VistaRecuperarPassword {
+public class VistaRecuperarPassword implements Error {
 
     public final static String VOLVER2 = "VOLVER2";
     public final static String RECUPERAR = "RECUPERAR";
@@ -31,6 +34,9 @@ public class VistaRecuperarPassword {
     public void setErrorMessage(String errorMessage) {
         this.errorMessage.setForeground(Color.red);
         this.errorMessage.setText(errorMessage);
+
+        resetError hebra = new resetError(this);
+        hebra.start();
     }
 
     public void setPassword(String password) {
@@ -43,5 +49,10 @@ public class VistaRecuperarPassword {
 
         encontrarPasswordButton.addActionListener(ctr);
         encontrarPasswordButton.setActionCommand(RECUPERAR);
+    }
+
+    @Override
+    public void resetErrorMessage() {
+        this.setErrorMessage("");
     }
 }

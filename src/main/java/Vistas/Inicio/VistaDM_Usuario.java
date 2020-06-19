@@ -1,13 +1,15 @@
 package Vistas.Inicio;
 
 import Controladores.ControladorIniciarDM;
+import Modelos.resetError;
+import Vistas.Error;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
 
-public class VistaDM_Usuario {
+public class VistaDM_Usuario implements Error {
 
     public static String DM = "DM";
     public static String JUGADOR = "JUGADOR";
@@ -44,6 +46,9 @@ public class VistaDM_Usuario {
     public void setMensajeError(String mensaje) {
         this.mensajeError.setForeground(Color.red);
         mensajeError.setText(mensaje);
+
+        resetError hebra = new resetError(this);
+        hebra.start();
     }
 
     public void controlador(ActionListener ctr) {
@@ -52,5 +57,10 @@ public class VistaDM_Usuario {
 
         botonJugador.addActionListener(ctr);
         botonJugador.setActionCommand(JUGADOR);
+    }
+
+    @Override
+    public void resetErrorMessage() {
+        this.setMensajeError("");
     }
 }

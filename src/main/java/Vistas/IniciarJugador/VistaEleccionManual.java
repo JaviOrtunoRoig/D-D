@@ -1,10 +1,13 @@
 package Vistas.IniciarJugador;
 
+import Modelos.resetError;
+import Vistas.Error;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
-public class VistaEleccionManual {
+public class VistaEleccionManual implements Error {
 
     public static String ATRAS2 = "ATRAS2";
     public static String ESTADISTICAS = "ESTADISTICAS";
@@ -45,6 +48,9 @@ public class VistaEleccionManual {
     public void setErrorMessage(String mensaje) {
         this.errorMessage.setForeground(Color.red);
         errorMessage.setText(mensaje);
+
+        resetError hebra = new resetError(this);
+        hebra.start();
     }
 
     public void controlador(ActionListener ctr) {
@@ -53,5 +59,10 @@ public class VistaEleccionManual {
 
         estadisticasButton.addActionListener(ctr);
         estadisticasButton.setActionCommand(ESTADISTICAS);
+    }
+
+    @Override
+    public void resetErrorMessage() {
+        this.setErrorMessage("");
     }
 }

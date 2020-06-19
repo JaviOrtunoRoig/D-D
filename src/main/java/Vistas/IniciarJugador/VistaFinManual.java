@@ -1,10 +1,13 @@
 package Vistas.IniciarJugador;
 
+import Modelos.resetError;
+import Vistas.Error;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
-public class VistaFinManual {
+public class VistaFinManual implements Error {
 
     public static String ATRAS4 = "ATRAS4";
     public static String ENTRARPARTIDAMANUAL = "ENTRARPARTIDAMANUAL";
@@ -29,6 +32,9 @@ public class VistaFinManual {
     public void setErrorMessage(String mensaje) {
         errorMessage.setForeground(Color.red);
         errorMessage.setText(mensaje);
+
+        resetError hebra = new resetError(this);
+        hebra.start();
     }
 
     public String getNombre() {
@@ -62,5 +68,10 @@ public class VistaFinManual {
 
         botonEntrarPartidaManual.addActionListener(ctr);
         botonEntrarPartidaManual.setActionCommand(ENTRARPARTIDAMANUAL);
+    }
+
+    @Override
+    public void resetErrorMessage() {
+        this.setErrorMessage("");
     }
 }

@@ -1,6 +1,8 @@
 package Vistas.Jugador;
 
 import Controladores.ControladorJugador;
+import Modelos.resetError;
+import Vistas.Error;
 
 import javax.swing.*;
 import java.awt.*;
@@ -8,7 +10,7 @@ import java.awt.event.ActionListener;
 import java.util.Arrays;
 import java.util.List;
 
-public class VistaJugador {
+public class VistaJugador implements Error {
 
     public static String ACTUALIZAR = "ACTUALIZAR";
     public static String BORRAR_PERSONAJE = "BORRAR_PERSONAJE";
@@ -104,6 +106,9 @@ public class VistaJugador {
     public void setErrorMessage(String mensaje) {
         errorMessage.setBackground(Color.red);
         errorMessage.setText(mensaje);
+
+        resetError hebra = new resetError(this);
+        hebra.start();
     }
 
     public void setHabilidades(String[] habilidades) {
@@ -140,5 +145,10 @@ public class VistaJugador {
 
         borrarPersonajeButton.addActionListener(ctr);
         borrarPersonajeButton.setActionCommand(BORRAR_PERSONAJE);
+    }
+
+    @Override
+    public void resetErrorMessage() {
+        this.setErrorMessage("");
     }
 }

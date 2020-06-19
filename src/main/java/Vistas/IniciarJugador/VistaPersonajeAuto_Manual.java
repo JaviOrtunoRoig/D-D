@@ -1,10 +1,13 @@
 package Vistas.IniciarJugador;
 
+import Modelos.resetError;
+import Vistas.Error;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
-public class VistaPersonajeAuto_Manual {
+public class VistaPersonajeAuto_Manual implements Error {
 
     public static String MANUAL = "MANUAL" ;
     public static String AUTOMATICO = "AUTOMATICO";
@@ -22,6 +25,9 @@ public class VistaPersonajeAuto_Manual {
     public void setMensajeError(String mensajeError) {
         this.mensajeError.setForeground(Color.red);
         this.mensajeError.setText(mensajeError);
+
+        resetError hebra = new resetError(this);
+        hebra.start();
     }
 
 
@@ -33,4 +39,8 @@ public class VistaPersonajeAuto_Manual {
         botonAutomatico.setActionCommand(AUTOMATICO);
     }
 
+    @Override
+    public void resetErrorMessage() {
+        this.setMensajeError("");
+    }
 }

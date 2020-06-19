@@ -1,11 +1,14 @@
 package Vistas.IniciarDM;
 
 
+import Modelos.resetError;
+import Vistas.Error;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
-public class VistaCrearPartida {
+public class VistaCrearPartida implements Error {
 
     private JPanel crear;
 
@@ -29,6 +32,9 @@ public class VistaCrearPartida {
     public void setErrorMessage(String mensaje) {
         errorMessage.setForeground(Color.red);
         errorMessage.setText(mensaje);
+
+        resetError hebra = new resetError(this);
+        hebra.start();
     }
 
     public void controlador(ActionListener ctr) {
@@ -42,5 +48,10 @@ public class VistaCrearPartida {
     public void setPasswordLabel(String mensaje) {
         this.passwordLabel.setForeground(Color.red);
         passwordLabel.setText(mensaje);
+    }
+
+    @Override
+    public void resetErrorMessage() {
+        this.setErrorMessage("");
     }
 }

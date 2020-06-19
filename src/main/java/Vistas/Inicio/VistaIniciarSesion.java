@@ -1,10 +1,13 @@
 package Vistas.Inicio;
 
+import Modelos.resetError;
+import Vistas.Error;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
-public class VistaIniciarSesion {
+public class VistaIniciarSesion implements Error {
 
     public static String INICIO = "INICIO";
     public static String VOLVER = "VOLVER";
@@ -66,6 +69,13 @@ public class VistaIniciarSesion {
     public void setErrorMessage(String text) {
         this.errorMessage.setForeground(Color.red);
         errorMessage.setText(text);
+
+        resetError hebra = new resetError(this);
+        hebra.start();
     }
 
+    @Override
+    public void resetErrorMessage() {
+        this.setErrorMessage("");
+    }
 }

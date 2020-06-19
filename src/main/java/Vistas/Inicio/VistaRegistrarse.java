@@ -1,10 +1,13 @@
 package Vistas.Inicio;
 
+import Modelos.resetError;
+import Vistas.Error;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
-public class VistaRegistrarse {
+public class VistaRegistrarse implements Error {
 
     public static String ACEPTAR = "ACEPTAR";
     public static String VOLVER = "VOLVER";
@@ -39,6 +42,9 @@ public class VistaRegistrarse {
     public void setErrorMessageValue(String errorMessage) {
         this.errorMessage.setForeground(Color.red);
         this.errorMessage.setText(errorMessage);
+
+        resetError hebra = new resetError(this);
+        hebra.start();
     }
 
     /**
@@ -71,5 +77,10 @@ public class VistaRegistrarse {
 
         buttonAtrasRegistrarse.addActionListener(ctr);
         buttonAtrasRegistrarse.setActionCommand(VOLVER);
+    }
+
+    @Override
+    public void resetErrorMessage() {
+        this.setErrorMessageValue("");
     }
 }

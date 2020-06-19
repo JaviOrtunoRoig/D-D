@@ -1,6 +1,7 @@
 package Vistas.DM;
 
 import Modelos.Jugador;
+import Modelos.resetError;
 import Vistas.Error;
 import metodosBDD.Arma;
 import metodosBDD.Armadura;
@@ -12,7 +13,7 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 import java.util.List;
 
-public class VistaDm {
+public class VistaDm implements Error{
 
     public static String CERRAR = "CERRAR";
     public static String EDITAR_PERSONAJE = "EDITAR_PERSONAJE";
@@ -204,11 +205,17 @@ public class VistaDm {
     public void setMessageError3(String mensaje) {
         messageError3.setForeground(Color.red);
         messageError3.setText(mensaje);
+
+        resetError hebra = new resetError(this);
+        hebra.start();
     }
 
     public void setErrorUsuarioNoEncontrado(String mensaje) {
         errorUsuarioNoEncontrado.setForeground(Color.red);
         errorUsuarioNoEncontrado.setText(mensaje);
+
+        resetError hebra = new resetError(this);
+        hebra.start();
     }
 
     public void controlador (ActionListener ctr) {
@@ -246,6 +253,13 @@ public class VistaDm {
         actualizarListaJugadoresButton.setActionCommand(ACTUALIZAR__LISTA_JUGADORES);
     }
 
+    @Override
+    public void resetErrorMessage() {
+        this.setMessageError1("");
+        this.setMessageError2("");
+        this.setMessageError3("");
+        this.setErrorUsuarioNoEncontrado("");
+    }
 }
 
 

@@ -1,12 +1,15 @@
 package Vistas.DM;
 
+import Modelos.resetError;
+import Vistas.Error;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.util.Arrays;
 import java.util.List;
 
-public class VistaModificarJugador {
+public class VistaModificarJugador implements Error {
 
     public static String VOLVER = "VOLVER";
     public static String ACTUALIZAR_MONEDAS = "ACTUALIZAR_MONEDAS";
@@ -207,6 +210,9 @@ public class VistaModificarJugador {
     public void setErrorMessage(String mensaje) {
         errorMessage.setForeground(Color.red);
         errorMessage.setText(mensaje);
+
+        resetError hebra = new resetError(this);
+        hebra.start();
     }
 
     public void setHabilidades(String[] habilidades) {
@@ -228,7 +234,6 @@ public class VistaModificarJugador {
 
     public void setRasgos(String rasgos) {
         textArea1.setText(rasgos);
-
     }
 
     public void setIdiomas(String idioma) {
@@ -283,5 +288,10 @@ public class VistaModificarJugador {
 
         actualizarMonButton.addActionListener(ctr);
         actualizarMonButton.setActionCommand(ACTUALIZAR_MONEDAS);
+    }
+
+    @Override
+    public void resetErrorMessage() {
+        this.setErrorMessage("");
     }
 }

@@ -1,10 +1,13 @@
 package Vistas.IniciarJugador;
 
+import Modelos.resetError;
+import Vistas.Error;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
-public class VistaBuscarPartida {
+public class VistaBuscarPartida implements Error {
 
     public static String ATRAS2 = "ATRAS2";
     public static String UNIRMEPARTIDA = "UNIRMEPARTIDA";
@@ -39,6 +42,9 @@ public class VistaBuscarPartida {
     public void setErrorMessage(String mensaje) {
         mensajeLabel.setForeground(Color.red);
         mensajeLabel.setText(mensaje);
+
+        resetError hebra = new resetError(this);
+        hebra.start();
     }
 
     public void controlador(ActionListener ctr) {
@@ -47,5 +53,10 @@ public class VistaBuscarPartida {
 
         botonAtras.addActionListener(ctr);
         botonAtras.setActionCommand(ATRAS2);
+    }
+
+    @Override
+    public void resetErrorMessage() {
+        this.setMensajeError("");
     }
 }
