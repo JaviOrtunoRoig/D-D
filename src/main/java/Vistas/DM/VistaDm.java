@@ -55,6 +55,9 @@ public class VistaDm {
     private JLabel idPartidaLabel;
     private JLabel idPartidaValue;
     private JButton actualizarListaJugadoresButton;
+    private JLabel messageError1;
+    private JLabel messageError2;
+    private JLabel messageError3;
 
     public JPanel getPanel() {
         return VistaDm;
@@ -184,6 +187,18 @@ public class VistaDm {
 
     public void setIdPartidaValue(String id) {
         this.idPartidaValue.setText(id);
+    }
+
+    public void setMessageError1(String mensaje) {
+        messageError1.setText(mensaje);
+    }
+
+    public void setMessageError2(String mensaje) {
+        messageError2.setText(mensaje);
+    }
+
+    public void setMessageError3(String mensaje) {
+        messageError3.setText(mensaje);
     }
 
     public void controlador (ActionListener ctr) {

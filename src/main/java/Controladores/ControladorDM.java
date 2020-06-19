@@ -45,7 +45,6 @@ public class ControladorDM implements ActionListener {
         try {
             inventario = new Inventario();
         } catch (ClassNotFoundException | SQLException e) {
-            //TODO tratar bien
             e.printStackTrace();
         }
 

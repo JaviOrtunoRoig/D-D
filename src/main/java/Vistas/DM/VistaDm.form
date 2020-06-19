@@ -118,6 +118,12 @@
                               <text value="Delete"/>
                             </properties>
                           </component>
+                          <component id="c67aa" class="javax.swing.JLabel" binding="messageError1">
+                            <constraints/>
+                            <properties>
+                              <text value=""/>
+                            </properties>
+                          </component>
                         </children>
                       </grid>
                       <vspacer id="2b40b">
@@ -182,6 +188,12 @@
                             <constraints/>
                             <properties>
                               <text value="Delete"/>
+                            </properties>
+                          </component>
+                          <component id="26462" class="javax.swing.JLabel" binding="messageError2">
+                            <constraints/>
+                            <properties>
+                              <text value=""/>
                             </properties>
                           </component>
                         </children>
@@ -255,6 +267,12 @@
                                 <constraints/>
                                 <properties>
                                   <text value="Delete"/>
+                                </properties>
+                              </component>
+                              <component id="42835" class="javax.swing.JLabel" binding="messageError3">
+                                <constraints/>
+                                <properties>
+                                  <text value=""/>
                                 </properties>
                               </component>
                             </children>
