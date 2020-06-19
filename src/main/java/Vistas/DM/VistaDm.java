@@ -7,6 +7,7 @@ import metodosBDD.Utensilio;
 import org.omg.CORBA.WStringSeqHelper;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionListener;
 import java.util.List;
 
@@ -190,14 +191,17 @@ public class VistaDm {
     }
 
     public void setMessageError1(String mensaje) {
+        messageError1.setForeground(Color.red);
         messageError1.setText(mensaje);
     }
 
     public void setMessageError2(String mensaje) {
+        messageError1.setForeground(Color.red);
         messageError2.setText(mensaje);
     }
 
     public void setMessageError3(String mensaje) {
+        messageError1.setForeground(Color.red);
         messageError3.setText(mensaje);
     }
 

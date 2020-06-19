@@ -139,33 +139,30 @@ public class ControladorIniciarJugador implements ActionListener {
         return caracteristicas;
     }
 
-    public boolean [] razasDisponibles (Map<String, Integer> caracteristicas) {
+    public boolean [] razasDisponibles (Map<String, Integer> caracteristicas) throws SQLException {
 
         boolean [] disponible = new boolean [7];
-        try {
 
-            conn = DriverManager.getConnection(DB_URL + "/" + DB_SCHEMA, USER, PASS);
-            stmt = conn.createStatement();
+        conn = DriverManager.getConnection(DB_URL + "/" + DB_SCHEMA, USER, PASS);
+        stmt = conn.createStatement();
 
 
-            int cont = 0;
+        int cont = 0;
 
-            while(cont < 7) {
-                String contMasUno = String.valueOf(cont+1);
-                String sql = "SELECT idRazas, CaracterísticaPrincipal FROM Razas WHERE idRazas = " + contMasUno;
-                ResultSet rs = stmt.executeQuery(sql);
-                rs.next();
+        while(cont < 7) {
+            String contMasUno = String.valueOf(cont+1);
+            String sql = "SELECT idRazas, CaracterísticaPrincipal FROM Razas WHERE idRazas = " + contMasUno;
+            ResultSet rs = stmt.executeQuery(sql);
+            rs.next();
 
-                if (caracteristicas.get(rs.getString("CaracterísticaPrincipal")) >= 9 && rs.getInt("idRazas") == cont + 1) {
-                    disponible[cont] = true;
-                } else {
-                    disponible[cont] = false;
-                }
-                cont++;
+            if (caracteristicas.get(rs.getString("CaracterísticaPrincipal")) >= 9 && rs.getInt("idRazas") == cont + 1) {
+                disponible[cont] = true;
+            } else {
+                disponible[cont] = false;
             }
-        } catch (SQLException e) {
-            //TODO: Mostrar error en la GUI
+            cont++;
         }
+
         return disponible;
     }
 
@@ -231,7 +228,12 @@ public class ControladorIniciarJugador implements ActionListener {
 
             caracteristicasMapa = new TreeMap<>();
             caracteristicasMapa = asignacionCaracteristicas(caracteristicas, caracteristicasMapa);
-            razasDisponibles = razasDisponibles(caracteristicasMapa);
+
+            try {
+                razasDisponibles = razasDisponibles(caracteristicasMapa);
+            } catch (SQLException ex) {
+                vistaPersonajeAuto_manual.setMensajeError("Ha ocurrido un error. \n Por favor contacte con nosotros en: \nD&DProyecto@gmail.com");
+            }
 
             Principal.frame.setContentPane(vistaMostrarEstadisticas.getPanel());
             Principal.frame.setVisible(true);
@@ -275,6 +277,8 @@ public class ControladorIniciarJugador implements ActionListener {
                 Principal.frame.setVisible(true);
             } catch (NumberFormatException a) {
                 vistaEleccionManual.setErrorMessage("Las estadisticas tienen que ser numeros.");
+            } catch (SQLException ex) {
+                vistaEleccionManual.setErrorMessage("Ha ocurrido un error. \n Por favor contacte con nosotros en: \nD&DProyecto@gmail.com");
             }
 
         } else if (comando.equals(VistaEleccionManual.ATRAS2)) {

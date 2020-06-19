@@ -51,65 +51,52 @@ public class ControladorIniciarDM implements ActionListener {
      * @return id de la partida si es encontrada
      * @return "-1" si el usuario no tiene asociada una partida ó -2" si el usuario tiene asociada una partida, pero no es el DM de la misma
      */
-    public int estaDMEnPartida(String nom) {
+    public int estaDMEnPartida(String nom) throws ClassNotFoundException, SQLException {
 
         int id = -1;
 
-        try {
+        Class.forName(JDBC_DRIVER);
 
-            Class.forName(JDBC_DRIVER);
+        conn = DriverManager.getConnection(DB_URL + "/" + DB_SCHEMA, USER, PASS);
 
-            conn = DriverManager.getConnection(DB_URL + "/" + DB_SCHEMA, USER, PASS);
+        stmt = conn.createStatement();
+        boolean encontrado = false;
 
-            stmt = conn.createStatement();
-            boolean encontrado = false;
+        String query1 = "SELECT nombre, partida FROM Usuario";
+        ResultSet rsConsulta = stmt.executeQuery(query1);
 
-            String query1 = "SELECT nombre, partida FROM Usuario";
-            ResultSet rsConsulta = stmt.executeQuery(query1);
+        while (rsConsulta.next() && !encontrado){
 
-            while (rsConsulta.next() && !encontrado){
+            String nombreBD = rsConsulta.getString("nombre");
 
-                String nombreBD = rsConsulta.getString("nombre");
-
-                if (nombreBD.equals(nom)) {
-                    id = rsConsulta.getInt("partida");
-                    encontrado = true;
-                }
+            if (nombreBD.equals(nom)) {
+                id = rsConsulta.getInt("partida");
+                encontrado = true;
             }
-            if(id == 0)
-            {
-                id = -1;
-            }
-            else if (encontrado) {
-                String query2 = "SELECT idPartida, DM FROM Partida";
-                ResultSet rsConsulta2 = stmt.executeQuery(query2);
-                boolean encontradoDM = false;
-
-                while (rsConsulta2.next() && !encontradoDM) {
-
-                    int idPartida = rsConsulta2.getInt("idPartida");
-                    String DM = rsConsulta2.getString("DM");
-
-                    if (idPartida == id && nom.equals(DM)) {
-                        encontradoDM = true;
-                    }
-                }
-
-                if (!encontradoDM) {
-                    id = -2;
-                }
-            }
-
-        } catch (SQLException e) {
-            //TODO: Cambiar a error
-            //TODO: Cambiar a error
-            System.err.println("Error en la conexion a la base de datos");
-        } catch (Exception e) {
-            //TODO: Cambiar a error
-            //TODO: Cambiar a error
-            System.err.println("Error : " + e.getMessage());
         }
+        if(id == 0)
+        {
+            id = -1;
+        }
+        else if (encontrado) {
+            String query2 = "SELECT idPartida, DM FROM Partida";
+            ResultSet rsConsulta2 = stmt.executeQuery(query2);
+            boolean encontradoDM = false;
 
+            while (rsConsulta2.next() && !encontradoDM) {
+
+                int idPartida = rsConsulta2.getInt("idPartida");
+                String DM = rsConsulta2.getString("DM");
+
+                if (idPartida == id && nom.equals(DM)) {
+                    encontradoDM = true;
+                }
+            }
+
+            if (!encontradoDM) {
+                id = -2;
+            }
+        }
         return id;
     }
 
@@ -121,72 +108,59 @@ public class ControladorIniciarDM implements ActionListener {
      * @return id de la partida si ha sido creada con éxito
      * @return "-1" si  ha habido algún error creando la partida
      */
-    public int crearPartida(String nombreusuario, String contrasena) {
+    public int crearPartida(String nombreusuario, String contrasena) throws SQLException, ClassNotFoundException {
 
         int id = -1;
 
-        try {
+        Calendar fecha = new GregorianCalendar();
+        int anio = fecha.get(Calendar.YEAR);
+        int mes = fecha.get(Calendar.MONTH);
+        int dia = fecha.get(Calendar.DAY_OF_MONTH);
+        String fechasistema = anio + "-" + (mes+1) + "-" + dia;
 
-            Calendar fecha = new GregorianCalendar();
-            int anio = fecha.get(Calendar.YEAR);
-            int mes = fecha.get(Calendar.MONTH);
-            int dia = fecha.get(Calendar.DAY_OF_MONTH);
-            String fechasistema = anio + "-" + (mes+1) + "-" + dia;
+        Class.forName(JDBC_DRIVER);
 
-            Class.forName(JDBC_DRIVER);
+        conn = DriverManager.getConnection(DB_URL + "/" + DB_SCHEMA, USER, PASS);
 
-            conn = DriverManager.getConnection(DB_URL + "/" + DB_SCHEMA, USER, PASS);
+        stmt = conn.createStatement();
 
-            stmt = conn.createStatement();
-
-            Random r = new Random();
+        Random r = new Random();
 
 
-            boolean seguir = true;
+        boolean seguir = true;
 
-            while(seguir) {
+        while(seguir) {
 
-                int idPartida = r.nextInt(10000);
+            int idPartida = r.nextInt(10000);
 
-                String query1 = "SELECT idPartida FROM Partida";
-                ResultSet rsConsulta1 = stmt.executeQuery(query1);
-                boolean encontrado = false;
+            String query1 = "SELECT idPartida FROM Partida";
+            ResultSet rsConsulta1 = stmt.executeQuery(query1);
+            boolean encontrado = false;
 
-                while (rsConsulta1.next() && !encontrado) {
+            while (rsConsulta1.next() && !encontrado) {
 
-                    int idPartidaBBDD = rsConsulta1.getInt("idPartida");
+                int idPartidaBBDD = rsConsulta1.getInt("idPartida");
 
 
-                    if (idPartidaBBDD == idPartida) {
-                        encontrado = true;
-                    }
-                }
-
-                if(!encontrado) {
-                    seguir = false;
-                    id = idPartida;
-                    String insert1 = "INSERT INTO `dungeonsdragonsdb`.`Partida` (`idPartida`, `contrasena`, `fechaCreacion`, `numeroJugadores`, `DM`) " +
-                            "VALUES ('" + id + "','" + contrasena + "','" + fechasistema + "','" + 0 + "','" + nombreusuario + "')";
-
-                    stmt.executeUpdate(insert1);
-
-                    String insert2 = "UPDATE `dungeonsdragonsdb`.`Usuario` SET `partida` = '" + id + "' WHERE (`nombre` = '" + nombreusuario + "')";
-
-                    stmt.executeUpdate(insert2);
+                if (idPartidaBBDD == idPartida) {
+                    encontrado = true;
                 }
             }
 
+            if(!encontrado) {
+                seguir = false;
+                id = idPartida;
+                String insert1 = "INSERT INTO `dungeonsdragonsdb`.`Partida` (`idPartida`, `contrasena`, `fechaCreacion`, `numeroJugadores`, `DM`) " +
+                        "VALUES ('" + id + "','" + contrasena + "','" + fechasistema + "','" + 0 + "','" + nombreusuario + "')";
 
+                stmt.executeUpdate(insert1);
 
+                String insert2 = "UPDATE `dungeonsdragonsdb`.`Usuario` SET `partida` = '" + id + "' WHERE (`nombre` = '" + nombreusuario + "')";
 
-        }catch(SQLException e) {
-            //TODO: Cambiar a error
-            System.err.println("Error en la base de Datos");
+                stmt.executeUpdate(insert2);
+            }
         }
-        catch(Exception e) {
-            //TODO: Cambiar a error
-            System.err.println(e.getMessage());
-        }
+
         return id;
     }
 
@@ -197,40 +171,33 @@ public class ControladorIniciarDM implements ActionListener {
      Tercer caso: Tiene idPartida, es DM, devuelve "-2"
      */
 
-    public int estaJugadorEnPartida (String nombre) {
+    public int estaJugadorEnPartida (String nombre) throws ClassNotFoundException, SQLException {
         //res es lo que va a devolver este metodo.
         int res=0;
 
-        try {
-            Class.forName(JDBC_DRIVER);
-            conn = DriverManager.getConnection(DB_URL + "/" + DB_SCHEMA, USER, PASS);
-            stmt = conn.createStatement();
-            //vamos a consultar si pertenece a partida por ello hacemos la consulta
-            String sqlConsulta = "SELECT partida FROM Usuario WHERE nombre LIKE '" + nombre + "'";
-            ResultSet resultado = stmt.executeQuery(sqlConsulta);
-            resultado.next();
-            //cargamos el int de partida en un int para trabajar con el.
-            int result = resultado.getInt("partida");
+        Class.forName(JDBC_DRIVER);
+        conn = DriverManager.getConnection(DB_URL + "/" + DB_SCHEMA, USER, PASS);
+        stmt = conn.createStatement();
+        //vamos a consultar si pertenece a partida por ello hacemos la consulta
+        String sqlConsulta = "SELECT partida FROM Usuario WHERE nombre LIKE '" + nombre + "'";
+        ResultSet resultado = stmt.executeQuery(sqlConsulta);
+        resultado.next();
+        //cargamos el int de partida en un int para trabajar con el.
+        int result = resultado.getInt("partida");
 
-            //si el codigo de la partida es null en la BD devuelve 0, por ello lo pongo así.
-            if (result == 0) {
-                res = -1;
+        //si el codigo de la partida es null en la BD devuelve 0, por ello lo pongo así.
+        if (result == 0) {
+            res = -1;
+        } else {
+            //cree otro metodo para saber si dicho jugador, estando en la partida 'x' es dm o no y nos devuelve un bool.
+            boolean esDM = EsDM(nombre, result);
+            if (esDM) {
+                res = -2;
             } else {
-                //cree otro metodo para saber si dicho jugador, estando en la partida 'x' es dm o no y nos devuelve un bool.
-                boolean esDM = EsDM(nombre, result);
-                if (esDM) {
-                    res = -2;
-                } else {
-                    res = result;
-                }
+                res = result;
             }
-        } catch (SQLException e){
-            //TODO: Cambiar a error
-            System.err.println("Error de conexion a la base de datos.");
-        } catch (Exception e){
-            //TODO: Cambiar a error
-            System.err.println(e.getMessage());
         }
+
         return res;
     }
 
@@ -242,36 +209,29 @@ public class ControladorIniciarDM implements ActionListener {
      false si el jugador de dicha partida no lo es.
 
      */
-    private boolean EsDM (String nombre, int Partida) {
+    private boolean EsDM (String nombre, int Partida) throws ClassNotFoundException, SQLException {
         boolean esDM=false;
 
         //creo lo necesario para hacer una consulta preguntando en la partida 'x' cual es el nombre del DM
         //para poder compararo con el nombre del jugador dado.
-        try {
-            Class.forName(JDBC_DRIVER);
-            conn = DriverManager.getConnection(DB_URL + "/" + DB_SCHEMA, USER, PASS);
-            stmt = conn.createStatement();
-            String sqlConsulta = "SELECT DM FROM Partida WHERE idPartida =" + Partida;
-            ResultSet resultado = stmt.executeQuery(sqlConsulta);
-            resultado.next();
-            //cargo el resultado en un string para porder compararlo con comodidad.
-            String DM = resultado.getString("DM");
-            //por defecto esDM=false. Si el nombre del DM y el nombre del jugador coinciden, esDM pasara a ser true.
-            if (DM.equals(nombre)) {
-                esDM = true;
-            }
-        }catch (SQLException e){
-            //TODO: Cambiar a error
-            System.err.println("Error conexion a la base de datos");
-        } catch (Exception e){
-            //TODO: Cambiar a error
-            System.err.println(e.getMessage());
+        Class.forName(JDBC_DRIVER);
+        conn = DriverManager.getConnection(DB_URL + "/" + DB_SCHEMA, USER, PASS);
+        stmt = conn.createStatement();
+        String sqlConsulta = "SELECT DM FROM Partida WHERE idPartida =" + Partida;
+        ResultSet resultado = stmt.executeQuery(sqlConsulta);
+        resultado.next();
+        //cargo el resultado en un string para porder compararlo con comodidad.
+        String DM = resultado.getString("DM");
+        //por defecto esDM=false. Si el nombre del DM y el nombre del jugador coinciden, esDM pasara a ser true.
+        if (DM.equals(nombre)) {
+            esDM = true;
         }
+
         return esDM;
     }
 
 
-    /**
+   /* *//**
      *   Unir jugador a partida:
      *     -partida y contraseña coinciden
      *     -unir al jugador
@@ -279,46 +239,42 @@ public class ControladorIniciarDM implements ActionListener {
      @param: nombre: nombre usuario (jugador)
      idPartida.
      pass: contrasena partida
-     */
+     *//*
 
-    public void UnirseAPartida (String nombre, int idpartida, int password) {
-        try{
-            Class.forName(JDBC_DRIVER);
-            conn = DriverManager.getConnection(DB_URL + "/" + DB_SCHEMA, USER, PASS);
-            stmt = conn.createStatement();
-            //vamos a ver que la partida existe y coincide con la contrasena.
-            String sqlConsultapartida = "SELECT contrasena FROM Partida WHERE idPartida =" + idpartida;
-            stmt.executeQuery(sqlConsultapartida);
-            ResultSet resultado = stmt.executeQuery(sqlConsultapartida);
-            resultado.next();
-            int pass = resultado.getInt("contrasena");
+    private void UnirseAPartida (String nombre, int idpartida, int password) throws ClassNotFoundException, SQLException {
+
+        Class.forName(JDBC_DRIVER);
+        conn = DriverManager.getConnection(DB_URL + "/" + DB_SCHEMA, USER, PASS);
+        stmt = conn.createStatement();
+        //vamos a ver que la partida existe y coincide con la contrasena.
+        String sqlConsultapartida = "SELECT contrasena FROM Partida WHERE idPartida =" + idpartida;
+        stmt.executeQuery(sqlConsultapartida);
+        ResultSet resultado = stmt.executeQuery(sqlConsultapartida);
+        resultado.next();
+        int pass = resultado.getInt("contrasena");
 
 
-            if (pass==password){
-                //vamos a realizar la inclusion del usuario a la partida.
-                //UPDATE `dungeonsdragonsdb`.`Usuario` SET `partida` = '1234' WHERE (`nombre` = 'micho');
-                String sqlConsulta = "UPDATE `dungeonsdragonsdb`.`Usuario` SET `partida` = '" + idpartida + "' WHERE (`nombre` = '"+ nombre + "');";
-                stmt.executeUpdate(sqlConsulta);
+        if (pass==password){
+            //vamos a realizar la inclusion del usuario a la partida.
+            String sqlConsulta = "UPDATE `dungeonsdragonsdb`.`Usuario` SET `partida` = '" + idpartida + "' WHERE (`nombre` = '"+ nombre + "');";
+            stmt.executeUpdate(sqlConsulta);
 
-            }else {
-                //TODO: Cambiar a error
-                System.out.println("Las contrasenas no coinciden");
-            }
-
-        } catch (SQLException e){
+        }else {
             //TODO: Cambiar a error
-            System.err.println("Error de conexion a la base de datos");
-        } catch (Exception e){
-            //TODO: Cambiar a error
-            System.err.println(e.getMessage());
+            System.out.println("Las contrasenas no coinciden");
         }
-    }
+    }*/
 
     @Override
     public void actionPerformed(ActionEvent e) {
         String comando = e.getActionCommand();
         if (comando.equals(VistaDM_Usuario.DM)) {
-            int idPartida = estaDMEnPartida(usuario);
+            int idPartida = 0;
+            try {
+                idPartida = estaDMEnPartida(usuario);
+            } catch (ClassNotFoundException | SQLException ex) {
+                vistaDM_usuario.setMensajeError("Ha ocurrido un error. \n Por favor contacte con nosotros en: \nD&DProyecto@gmail.com");
+            }
 
             if (idPartida >= 0) { //Se ha encontrado partida
 
@@ -340,7 +296,12 @@ public class ControladorIniciarDM implements ActionListener {
 
         } else if (comando.equals(VistaDM_Usuario.JUGADOR)) {
 
-            int id = estaJugadorEnPartida(usuario);
+            int id = 0;
+            try {
+                id = estaJugadorEnPartida(usuario);
+            } catch (ClassNotFoundException | SQLException ex) {
+                vistaDM_usuario.setMensajeError("Ha ocurrido un error. \n Por favor contacte con nosotros en: \nD&DProyecto@gmail.com");
+            }
 
             if (id >= 0) { //to do bien
 
@@ -386,7 +347,12 @@ public class ControladorIniciarDM implements ActionListener {
 
         } else if (comando.equals(VistaCrearPartida.CREAR)) {
 
-            int estado = crearPartida(usuario, vistaCrearPartida.getPassword());
+            int estado = 0;
+            try {
+                estado = crearPartida(usuario, vistaCrearPartida.getPassword());
+            } catch (SQLException | ClassNotFoundException ex) {
+                vistaCrearPartida.setErrorMessage("Ha ocurrido un error. \n Por favor contacte con nosotros en: \nD&DProyecto@gmail.com");
+            }
             if (estado >= 0) {
                 vistaCrearPartida.setPasswordLabel("Partida creada");
 

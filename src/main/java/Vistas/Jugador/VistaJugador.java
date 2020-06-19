@@ -3,6 +3,7 @@ package Vistas.Jugador;
 import Controladores.ControladorJugador;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionListener;
 import java.util.Arrays;
 import java.util.List;
@@ -51,6 +52,7 @@ public class VistaJugador {
     private JList <String> listHabilidades;
     private JButton actualizarDatosButton;
     private JButton borrarPersonajeButton;
+    private JLabel errorMessage;
 
     public JPanel getPanel() {
         return panelJugador;
@@ -87,6 +89,11 @@ public class VistaJugador {
         vidaValue.setText(stats[5]);
         expValue.setText(stats[6]);
         dadoVidaValue.setText(stats[7]);
+    }
+
+    public void setErrorMessage(String mensaje) {
+        errorMessage.setBackground(Color.red);
+        errorMessage.setText(mensaje);
     }
 
     public void setHabilidades(String[] habilidades) {

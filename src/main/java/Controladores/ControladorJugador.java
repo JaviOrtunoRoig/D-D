@@ -20,7 +20,6 @@ public class ControladorJugador implements ActionListener  {
     VistaJugador vistaJugador;
     VistaDm vistaDm;
     VistaModificarJugador vistaModificarJugador;
-    JugadorBDD jugadorBDD = new JugadorBDD();
 
     public ControladorJugador(VistaJugador vistaJugador, int[] estadisticas, String usuario) throws SQLException, ClassNotFoundException {
         this.usuario = usuario;
@@ -68,12 +67,12 @@ public class ControladorJugador implements ActionListener  {
 
         JugadorBDDnew jugadorBDDnew = new JugadorBDDnew(usuario);
 
-        this.vistaJugador.setEstadisticas(estadisticas);
-        this.vistaJugador.setInventario(inventarioList);
-        this.vistaJugador.setDatos(jugadorBDDnew.getStats());
-        this.vistaJugador.setHabilidades(jugadorBDDnew.habilidadEspecial(usuario));
-        this.vistaJugador.setRasgos(jugadorBDDnew.getRasgo());
-        this.vistaJugador.setIdiomas(jugadorBDDnew.getIdioma());
+        this.vistaModificarJugador.setEstadisticas(estadisticas);
+        this.vistaModificarJugador.setInventario(inventarioList);
+        this.vistaModificarJugador.setDatos(jugadorBDDnew.getStats());
+        this.vistaModificarJugador.setHabilidades(jugadorBDDnew.habilidadEspecial(usuario));
+        this.vistaModificarJugador.setRasgos(jugadorBDDnew.getRasgo());
+        this.vistaModificarJugador.setIdiomas(jugadorBDDnew.getIdioma());
     }
 
     @Override
@@ -82,8 +81,7 @@ public class ControladorJugador implements ActionListener  {
             try {
                 obtenerdatos();
             } catch (SQLException | ClassNotFoundException ex) {
-                //TODO: Mostrar error en GUI
-                ex.printStackTrace();
+                vistaJugador.setErrorMessage("Ha ocurrido un error. \n Por favor contacte con nosotros en:\n D&DProyecto@gmail.com");
             }
         } else if (e.getActionCommand().equals(VistaModificarJugador.VOLVER)) {
 

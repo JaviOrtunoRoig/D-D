@@ -34,7 +34,7 @@ public class Inventario {
      * @param personaje
      * @param tipo
      * @param nombre
-     * @return null si todo ha ido bien, en otro caso error
+     * @return null si to do ha ido bien, en otro caso error
      * @throws SQLException
      */
     public String aniadirItem(String personaje, String tipo, String nombre) throws SQLException {
@@ -51,7 +51,7 @@ public class Inventario {
 
 
         if (tipoItem.equals("Armaduras")) {
-            modificarTP(nombre, getTP(nombre));
+            modificarTP(personaje, getTP(nombre));
         }
 
 
@@ -273,7 +273,7 @@ public class Inventario {
      * @param nombrePersonaje
      * @param nombreObjeto
      * @param tipo
-     * @return null si todo ha ido bien
+     * @return null si to do ha ido bien
      * @throws SQLException
      */
     public String eliminarItem(String nombrePersonaje, String nombreObjeto, String tipo) throws SQLException {
@@ -285,7 +285,7 @@ public class Inventario {
         int idIt = obeternIDItem(nombreObjeto, tipo);
 
         if(tipo.equals("Armaduras")){
-            modificarTP(nombrePersonaje, getTP(nombreObjeto) * (-1));
+            modificarTP(nombrePersonaje, (getTP(nombreObjeto) * (-1)));
         }
 
         if (posible(nombrePersonaje, nombreObjeto, tipo)) {

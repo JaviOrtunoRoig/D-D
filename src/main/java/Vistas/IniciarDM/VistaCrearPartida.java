@@ -15,9 +15,15 @@ public class VistaCrearPartida {
     private JLabel passwordLabel;
     private JButton botonCrear;
     private JButton botonAtras;
+    private JLabel errorMessage;
 
     public String getPassword() {
         return new String(passwordfield.getPassword());
+    }
+
+    public void setErrorMessage(String mensaje) {
+        errorMessage.setForeground(Color.red);
+        errorMessage.setText(mensaje);
     }
 
     public void controlador(ActionListener ctr) {

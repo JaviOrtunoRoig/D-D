@@ -116,7 +116,6 @@ public class VistaModificarJugador {
     public void setHabilidades(String[] habilidades) {
         DefaultListModel<String> model = new DefaultListModel<>();
 
-        System.out.println("Habilidades: " + Arrays.toString(habilidades));
         for (int i = 0; i < habilidades.length; i++) {
             if (habilidades[i] != null) {
                 String[] corte = habilidades[i].split(",");

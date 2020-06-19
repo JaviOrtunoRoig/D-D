@@ -53,6 +53,7 @@ public class ControladorDM implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         String comando = e.getActionCommand();
+        String error = null;
 
         if (comando.equals(VistaDm.CERRAR)) {
             System.exit(0);
@@ -76,48 +77,60 @@ public class ControladorDM implements ActionListener {
 
         } else if (comando.equals(VistaDm.ADD_HERRERO)) {
             try {
-                inventario.aniadirItem(vistaDm.getPersonajeHerrero(), "Herrero", vistaDm.getObjetoHerrero());
+                error = inventario.aniadirItem(vistaDm.getPersonajeHerrero(), "Herrero", vistaDm.getObjetoHerrero());
+                vistaDm.setMessageError1(error);
             } catch (SQLException ex) {
-                //TODO: tratar bien
-                ex.printStackTrace();
+                vistaDm.setMessageError1("Ha ocurrido un error. \n" +
+                        " Por favor contacte con nosotros en:\n" +
+                        " D&DProyecto@gmail.com");
             }
 
         } else if (comando.equals(VistaDm.ADD_ARMERO)) {
             try {
-                inventario.aniadirItem(vistaDm.getPersonajeArmero(), "Armero", vistaDm.getObjetoArmero());
+                error = inventario.aniadirItem(vistaDm.getPersonajeArmero(), "Armero", vistaDm.getObjetoArmero());
+                vistaDm.setMessageError2(error);
             } catch (SQLException ex) {
-                //TODO: tratar bien
-                ex.printStackTrace();
+                vistaDm.setMessageError2("Ha ocurrido un error. \n" +
+                        " Por favor contacte con nosotros en:\n" +
+                        " D&DProyecto@gmail.com");
             }
 
         } else if (comando.equals(VistaDm.ADD_TENDERO)) {
             try {
-                inventario.aniadirItem(vistaDm.getPersonajeTendero(), "Tendero", vistaDm.getObjetoTendero());
+                error = inventario.aniadirItem(vistaDm.getPersonajeTendero(), "Tendero", vistaDm.getObjetoTendero());
+                vistaDm.setMessageError3(error);
             } catch (SQLException ex) {
-                //TODO: tratar bien
-                ex.printStackTrace();
+                vistaDm.setMessageError3("Ha ocurrido un error. \n" +
+                        " Por favor contacte con nosotros en:\n" +
+                        " D&DProyecto@gmail.com");
             }
         } else if (comando.equals(VistaDm.DELETE_HERRERO)) {
             try {
-                //TODO: tratar bien
-                inventario.eliminarItem(vistaDm.getPersonajeHerrero(), vistaDm.getObjetoHerrero(), "Armas");
+                error = inventario.eliminarItem(vistaDm.getPersonajeHerrero(), vistaDm.getObjetoHerrero(), "Armas");
+                vistaDm.setMessageError1(error);
             } catch (SQLException ex) {
-                ex.printStackTrace();
+                vistaDm.setMessageError1("Ha ocurrido un error. \n" +
+                        " Por favor contacte con nosotros en:\n" +
+                        " D&DProyecto@gmail.com");
             }
         } else if (comando.equals(VistaDm.DELETE_ARMERO)) {
             try {
-                //TODO: tratar bien
-                inventario.eliminarItem(vistaDm.getPersonajeArmero(), vistaDm.getObjetoArmero(), "Armaduras");
+                error = inventario.eliminarItem(vistaDm.getPersonajeArmero(), vistaDm.getObjetoArmero(), "Armaduras");
+                vistaDm.setMessageError2(error);
             } catch (SQLException ex) {
-                ex.printStackTrace();
+                vistaDm.setMessageError2("Ha ocurrido un error. \n" +
+                        " Por favor contacte con nosotros en:\n" +
+                        " D&DProyecto@gmail.com");
             }
 
         } else if (comando.equals(VistaDm.DELETE_TENDERO)) {
             try {
-                //TODO: tratar bien
-                inventario.eliminarItem(vistaDm.getPersonajeTendero(), vistaDm.getObjetoTendero(), "Utensilios");
+                error = inventario.eliminarItem(vistaDm.getPersonajeTendero(), vistaDm.getObjetoTendero(), "Utensilios");
+                vistaDm.setMessageError3(error);
             } catch (SQLException ex) {
-                ex.printStackTrace();
+                vistaDm.setMessageError3("Ha ocurrido un error. \n" +
+                        " Por favor contacte con nosotros en:\n" +
+                        " D&DProyecto@gmail.com");
             }
         } else if (comando.equals(VistaDm.DELETE_JUGADOR)) {
             QueriesPersonaje queriesPersonaje = new QueriesPersonaje();
