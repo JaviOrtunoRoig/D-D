@@ -34,7 +34,7 @@ public class ModificarStats {
         int vida = -1;
 
 
-        if (existeUsuario(Usuario) == 0){
+        if (existeUsuario(Usuario) == 1){
             String sqlConsulta = "SELECT vida FROM Personaje WHERE Usuario = '" + Usuario + "';";
             ResultSet resultado = stmt.executeQuery(sqlConsulta);
             resultado.next();
@@ -60,7 +60,7 @@ public class ModificarStats {
         conn = DriverManager.getConnection("jdbc:mysql://database-iis.cobadwnzalab.eu-central-1.rds.amazonaws.com/dungeonsdragonsdb", "dundragons", "VengerHank");
         stmt = conn.createStatement();
 
-        if(existeUsuario(Usuario) == 0){
+        if(existeUsuario(Usuario) == 1){
             String sqlConsulta = String.format("UPDATE `dungeonsdragonsdb`.`Personaje` SET `VidaCalculada` = '%d', `vida` = '%d' WHERE (`idPersonaje` = '7');", newVida, newVida);
             stmt.executeUpdate(sqlConsulta);
             return 1;
@@ -84,7 +84,7 @@ public class ModificarStats {
         stmt = conn.createStatement();
         int experiencia = -1;
 
-        if (existeUsuario(Usuario) == 0){
+        if (existeUsuario(Usuario) == 1){
             String sqlConsulta = "SELECT experiencia FROM Personaje WHERE Usuario = '" + Usuario + "';";
             ResultSet resultado = stmt.executeQuery(sqlConsulta);
             resultado.next();
@@ -110,7 +110,7 @@ public class ModificarStats {
         conn = DriverManager.getConnection("jdbc:mysql://database-iis.cobadwnzalab.eu-central-1.rds.amazonaws.com/dungeonsdragonsdb", "dundragons", "VengerHank");
         stmt = conn.createStatement();
 
-        if(existeUsuario(Usuario) == 0){
+        if(existeUsuario(Usuario) == 1){
             String sqlConsulta = "UPDATE `dungeonsdragonsdb`.`Personaje` SET `experiencia` = '"
                     + newXP + "' WHERE (`Usuario` = '"
                     + Usuario + "');";
@@ -121,29 +121,104 @@ public class ModificarStats {
         }
     }
 
+
     /**
      *
      * @param Usuario
-     * @return 0 ha ido bien
-     * 1 existe (error)
+     * @return int[]={cobre,plata,electrum,oro,platino} o null si el usuario no existe.
+     * @throws SQLException
+     * @throws ClassNotFoundException
      */
-    private int existeUsuario(String Usuario) throws ClassNotFoundException, SQLException {
+    public static int[] getMoneda(String Usuario) throws SQLException, ClassNotFoundException {
 
         Connection conn = null;
         Statement stmt = null;
+        String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
+        String DB_URL = "jdbc:mysql://database-iis.cobadwnzalab.eu-central-1.rds.amazonaws.com";
+        String DB_SCHEMA = "dungeonsdragonsdb";
+        String USER = "dundragons";
+        String var8 = "VengerHank";
+
+
 
         Class.forName("com.mysql.cj.jdbc.Driver");
         conn = DriverManager.getConnection("jdbc:mysql://database-iis.cobadwnzalab.eu-central-1.rds.amazonaws.com/dungeonsdragonsdb", "dundragons", "VengerHank");
         stmt = conn.createStatement();
 
-        ResultSet resultado;
-        String sqlConsulta = "SELECT Nombre FROM Personaje WHERE Usuario = '" + Usuario + "';";
-        resultado = stmt.executeQuery(sqlConsulta);
 
-        if (resultado.getRow() == 0) {
-            return 0;
-        } else {
-            return 1;
+        if(existeUsuario(Usuario)==1){
+
+            System.out.println("Existe.");
+            String sqlConsulta = "SELECT idPersonaje FROM Personaje WHERE Usuario = '" + Usuario + "';";
+            ResultSet resultado=stmt.executeQuery(sqlConsulta);
+            resultado.next();
+
+            int idPersonaje = resultado.getInt("idPersonaje");
+
+            System.out.println("id: " + idPersonaje);
+            int monedas[] = new int[5];
+            sqlConsulta = "SELECT * FROM Moneda WHERE idPersonaje = " + idPersonaje + ";";
+            resultado=stmt.executeQuery(sqlConsulta);
+            resultado.next();
+            monedas[0]=resultado.getInt("CantidadCobre");
+            monedas[1]=resultado.getInt("CantidadPlata");
+            monedas[2]=resultado.getInt("CantidadElectum");
+            monedas[3]=resultado.getInt("CantidadOro");
+            monedas[4]=resultado.getInt("CantidadPlatino");
+            return monedas;
+        }else{
+            return null;
+        }
+    }
+
+    /**
+     *
+     * @param Usuario
+     * @return
+     * 1 existe
+     * 2 error bdd
+     * 3 error conexion
+     */
+    private static int existeUsuario(String Usuario) {
+
+        Connection conn = null;
+        Statement stmt = null;
+        String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
+        String DB_URL = "jdbc:mysql://database-iis.cobadwnzalab.eu-central-1.rds.amazonaws.com";
+        String DB_SCHEMA = "dungeonsdragonsdb";
+        String USER = "dundragons";
+        String var8 = "VengerHank";
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            conn = DriverManager.getConnection("jdbc:mysql://database-iis.cobadwnzalab.eu-central-1.rds.amazonaws.com/dungeonsdragonsdb", "dundragons", "VengerHank");
+            stmt = conn.createStatement();
+        } catch (ClassNotFoundException e) {
+            return 3;
+        } catch (SQLException e) {
+            return 3;
+        }
+
+        ResultSet resultado;
+        try {
+            String sqlConsulta = "SELECT Nombre FROM Personaje WHERE Usuario = '" + Usuario + "';";
+            resultado = stmt.executeQuery(sqlConsulta);
+            resultado.next();
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+            return 2;
+        }
+
+
+
+        try {
+            if (resultado.getRow() == 0) {
+                return 2;
+            } else {
+                return 1;
+            }
+        } catch (SQLException e) {
+            return 2;
         }
     }
 }
