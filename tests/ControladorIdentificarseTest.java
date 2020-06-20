@@ -13,20 +13,20 @@ class ControladorIdentificarseTest {
     @Test
     void registrarseSuccess() {
         ci.borrarUsuario("admin");
-        boolean res = ci.registrarse("admin", "1234", "1234");
+        boolean res = ci.registrarse("admin", "1234", "1234", null);
         assertTrue(res);
     }
 
     @Test
     void registrarseFail() {
-        ci.registrarse("test", "test", "test");
-        boolean reg2 = ci.registrarse("test", "test", "test");
+        ci.registrarse("test", "test", "test", null);
+        boolean reg2 = ci.registrarse("test", "test", "test", null);
         assertFalse(reg2);
     }
 
     @Test
     void iniciarSesionSuccess() {
-        ci.registrarse("admin", "1234", "1234");
+        ci.registrarse("admin", "1234", "1234", null);
         boolean res = ci.iniciarSesion("admin", "1234");
        assertTrue(res);
     }

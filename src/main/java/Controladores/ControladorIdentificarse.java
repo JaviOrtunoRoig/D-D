@@ -1,5 +1,6 @@
 package Controladores;
 
+import Modelos.Gmail;
 import Modelos.Principal;
 import Vistas.Inicio.*;
 import Vistas.Jugador.VistaJugador;
@@ -45,7 +46,7 @@ public class ControladorIdentificarse implements ActionListener {
 	 * @param confPassword confirmación del password del usuario.
 	 * @return true si se ha registrado al usuario satisfactoriamente.
 	 */
-	public boolean registrarse(String nombre, String password, String confPassword)	{
+	public boolean registrarse(String nombre, String password, String confPassword, String correo)	{
 
 
 		boolean res = false;
@@ -74,7 +75,8 @@ public class ControladorIdentificarse implements ActionListener {
 			 }
 			 
 		    if (!encontrado) {
-		    	String sqlInsert = "INSERT INTO `dungeonsdragonsdb`.`Usuario` (`nombre`, `contrasena`) VALUES ('" + nombre +"','" + password + "')";
+		    	String sqlInsert = String.format("INSERT INTO `dungeonsdragonsdb`.`Usuario` " +
+						"(`nombre`, `contrasena`, `correo`) VALUES ('%s', '%s', '%s');", nombre, password, correo);
 
 		    	if (password.equals(confPassword)) {
 
@@ -188,12 +190,16 @@ public class ControladorIdentificarse implements ActionListener {
 			String user = vistaRegistrarse.getUsername().getText();
 			String passw = new String(vistaRegistrarse.getPassword().getPassword());
 			String passWConfig = new String(vistaRegistrarse.getPasswordConfirmation().getPassword());
+			String correo = vistaRegistrarse.getCorreo();
+			String confCorreo = vistaRegistrarse.getCorreoConf();
 
 			if (user.equals("") || passw.equals("") || passWConfig.equals("")) {
 				vistaRegistrarse.setErrorMessageValue("Hay campos sin rellenar");
+			} else if (!correo.equals(confCorreo)) {
+				vistaRegistrarse.setErrorMessageValue("Los correos no coinciden");
 			}
 
-			correcto = this.registrarse(user, passw, passWConfig);
+			correcto = this.registrarse(user, passw, passWConfig, correo);
 
 			if (correcto) {
 				Principal.frame.setContentPane(new VistaPG().getPanel());
@@ -241,7 +247,15 @@ public class ControladorIdentificarse implements ActionListener {
 				if (password.equals("-1")) {
 					vistaRecuperarPassword.setErrorMessage("El usuario no existe");
 				} else {
-					vistaRecuperarPassword.setPassword(password);
+					String correo = vistaRecuperarPassword.getCorreo();
+					String correoConf = vistaRecuperarPassword.getCorreoConf();
+					if (!correo.equals(correoConf)) {
+						vistaRecuperarPassword.setErrorMessage("Los correos no coinciden");
+					} else {
+						Gmail gmail = new Gmail();
+						gmail.enviarCorreo(correo, password);
+						vistaRecuperarPassword.setErrorMessage("Se le ha enviado un correo con su password");
+					}
 				}
 			} catch (ClassNotFoundException | SQLException ex) {
 				vistaRecuperarPassword.setErrorMessage("Ha ocurrido un error. \n Por favor contacte con nosotros en:\n D&DProyecto@gmail.com");

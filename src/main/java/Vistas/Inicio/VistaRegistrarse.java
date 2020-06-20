@@ -22,6 +22,8 @@ public class VistaRegistrarse implements Error {
     private JLabel usernameLabel;
     private JLabel passwordLabel;
     private JLabel confPasswordLabel;
+    private JTextField correoField;
+    private JTextField confCorreoField;
 
     public JPanel getPanel() {
         return Registro;
@@ -33,6 +35,14 @@ public class VistaRegistrarse implements Error {
      */
     public JLabel getErrorMessage() {
         return errorMessage;
+    }
+
+    public String getCorreo() {
+        return correoField.getText();
+    }
+
+    public String getCorreoConf() {
+        return confCorreoField.getText();
     }
 
     /**

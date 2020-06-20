@@ -15,16 +15,23 @@ public class VistaRecuperarPassword implements Error {
 
     private JPanel recuperarPassword;
     private JTextField usuarioValue;
-    private JLabel usuarioLabel;
-    private JLabel passwordLabel;
-    private JLabel passwordValue;
     private JButton encontrarPasswordButton;
     private JButton volverButton;
     private JLabel errorMessage;
-
+    private JLabel usuarioLabel;
+    private JTextField correoConfValue;
+    private JTextField correoValue;
 
     public JPanel getPanel() {
         return recuperarPassword;
+    }
+
+    public String getCorreo() {
+        return correoValue.getText();
+    }
+
+    public String getCorreoConf() {
+        return correoConfValue.getText();
     }
 
     public String getUsuario() {
@@ -39,9 +46,6 @@ public class VistaRecuperarPassword implements Error {
         hebra.start();
     }
 
-    public void setPassword(String password) {
-        passwordValue.setText(password);
-    }
 
     public void controlador(ActionListener ctr) {
         volverButton.addActionListener(ctr);
