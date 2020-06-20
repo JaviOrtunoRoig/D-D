@@ -2,6 +2,7 @@ package Modelos;
 
 import javax.swing.*;
 import java.awt.*;
+import java.net.URL;
 
 import Vistas.Inicio.VistaPG;
 
@@ -30,7 +31,6 @@ public class Principal {
 		frame.setTitle("Proyecto D&D");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setContentPane(vistaInicial.getPanel());
-
 
 		// Display the window.
 		frame.pack(); //si lo pongo no va el tamaño por defecto

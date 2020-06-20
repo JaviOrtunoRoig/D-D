@@ -55,10 +55,7 @@ public class ControladorDM implements ActionListener {
         String comando = e.getActionCommand();
         String error = null;
 
-        if (comando.equals(VistaDm.CERRAR)) {
-            System.exit(0);
-
-        } else if (comando.equals(VistaDm.EDITAR_PERSONAJE)) {
+        if (comando.equals(VistaDm.EDITAR_PERSONAJE)) {
             Jugador jugador = vistaDm.getJugadorParaEditar(obtenerDatosBDD.getJugadores(usuario));
 
             CreacionPersonaje creacionPersonaje = null;

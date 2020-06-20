@@ -78,12 +78,6 @@
             <properties/>
             <border type="none"/>
             <children>
-              <component id="78163" class="javax.swing.JButton" binding="Cerrar">
-                <constraints border-constraint="South"/>
-                <properties>
-                  <text value="Cerrar"/>
-                </properties>
-              </component>
               <tabbedpane id="52ba9" binding="tabbedPane2" default-binding="true">
                 <constraints border-constraint="Center"/>
                 <properties/>

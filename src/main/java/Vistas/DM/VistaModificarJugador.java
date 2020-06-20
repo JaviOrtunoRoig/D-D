@@ -6,28 +6,12 @@ import Vistas.Error;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
-import java.util.Arrays;
 import java.util.List;
 
 public class VistaModificarJugador implements Error {
 
     public static String VOLVER = "VOLVER";
     public static String ACTUALIZAR_MONEDAS = "ACTUALIZAR_MONEDAS";
-    public static String HP_MENOS = "HP_MENOS";
-    public static String HP_MAS = "HP_MAS";
-    public static String EXP_MENOS = "EXP_MENOS";
-    public static String EXP_MAS = "EXP_MAS";
-    public static String COBRE_MENOS = "COBRE_MENOS";
-    public static String COBRE_MAS = "COBRE_MAS";
-    public static String PLATA_MENOS = "PLATA_MENOS";
-    public static String PLATA_MAS = "PLATA_MAS";
-    public static String ELECTRUM_MENOS = "ELECTRUM_MENOS";
-    public static String ELECTRUM_MAS = "ELECTRUM_MAS";
-    public static String ORO_MENOS = "ORO_MENOS";
-    public static String ORO_MAS = "ORO_MAS";
-    public static String PLATINO_MENOS = "PLATINO_MENOS";
-    public static String PLATINO_MAS = "PLATINO_MAS";
-
 
     private JTabbedPane tabbedPanel;
     private JPanel panelJugador;
@@ -67,43 +51,90 @@ public class VistaModificarJugador implements Error {
     private JTextArea textArea1;
     private JList <String> listHabilidades;
     private JButton volverButton;
-    private JLabel HPLabel;
-    private JPanel expLabelModDatos;
+    private JLabel HPLabelMod;
+    private JPanel ModDatos;
+    private JLabel cobreLabelMod;
+    private JLabel plataLabelMod;
+    private JLabel electrumLabelMod;
+    private JLabel oroLabelMod;
+    private JLabel HPValueMod;
+    private JLabel expValueModDato;
+    private JLabel cobreValueMod;
+    private JLabel plataValueMod;
+    private JLabel electrumValueMod;
+    private JLabel oroValueMod;
+    private JLabel platinoValue;
+    private JLabel errorMessage;
+    private JButton actualizarMonButton;
+    private JLabel expLabelMod;
     private JLabel cobreLabel;
     private JLabel plataLabel;
     private JLabel electrumLabel;
     private JLabel oroLabel;
-    private JLabel platinoLabel;
-    private JLabel HPValue;
-    private JLabel expValueModDato;
     private JLabel cobreValue;
     private JLabel plataValue;
     private JLabel electrumValue;
     private JLabel oroValue;
-    private JLabel platinoValue;
-    private JButton buttonHPmenos;
-    private JButton buttonHPmas;
-    private JButton buttonExpMenos;
-    private JButton buttonCobreMenos;
-    private JButton buttonPlataMenos;
-    private JButton buttonElectrumMenos;
-    private JButton buttonOroMenos;
-    private JButton buttonPlatinoMenos;
-    private JButton buttonExpMas;
-    private JButton buttonCobreMas;
-    private JButton buttonPlataMas;
-    private JButton buttonElectrumMas;
-    private JButton buttonOroMas;
-    private JButton buttonPlatinoMas;
-    private JLabel errorMessage;
-    private JButton actualizarMonButton;
+    private JTextField hpField;
+    private JTextField expField;
+    private JTextField cobreField;
+    private JTextField plataField;
+    private JTextField electrumField;
+    private JTextField oroField;
 
     public JPanel getPanel() {
         return panelJugador;
     }
 
+    public String getHPField() {
+        return hpField.getText();
+    }
+
+    public String getExpField() {
+        return expField.getText();
+    }
+
+    public String getCobreField() {
+        return cobreField.getText();
+    }
+
+    public String getPlataField() {
+        return plataField.getText();
+    }
+
+    public String getElectrumField() {
+        return electrumField.getText();
+    }
+
+    public String getOroField() {
+        return oroField.getText();
+    }
+
+    public void setHPField(String mensaje) {
+        hpField.setText(mensaje);
+    }
+
+    public void setExpField(String mensaje) {
+        expField.setText(mensaje);
+    }
+
+    public void setCobreField(String mensaje) {
+        cobreField.setText(mensaje);
+    }
+
+    public void setPlataField(String mensaje) {
+        plataField.setText(mensaje);
+    }
+
+    public void setelectrumField(String mensaje) {
+        electrumField.setText(mensaje);
+    }
+
+    public void setOroField(String mensaje) {
+        oroField.setText(mensaje);
+    }
     public String getHPMod() {
-        return HPValue.getText();
+        return HPValueMod.getText();
     }
 
     public String getExpMod() {
@@ -111,39 +142,31 @@ public class VistaModificarJugador implements Error {
     }
 
     public String getHP() {
-        return HPValue.getText();
+        return HPValueMod.getText();
     }
 
     public String getExp() {
         return expValueModDato.getText();
     }
 
-    public String getCobre() {
-        return cobreValue.getText();
+    public String getCobreMod() {
+        return cobreValueMod.getText();
     }
 
-    public String getPlata() {
-        return plataValue.getText();
+    public String getPlataMod() {
+        return plataValueMod.getText();
     }
 
-    public String getElectrum() {
-        return electrumValue.getText();
+    public String getElectrumMod() {
+        return electrumValueMod.getText();
     }
 
-    public String getOro() {
-        return oroValue.getText();
+    public String getOroMod() {
+        return oroValueMod.getText();
     }
 
     public String getPlatino() {
         return platinoValue.getText();
-    }
-
-    public void setHPMod(String mensaje) {
-        HPValue.setText(mensaje);
-    }
-
-    public void setExpMod(String mensaje) {
-        expValueModDato.setText(mensaje);
     }
 
     public void setHP(String mensaje) {
@@ -154,24 +177,44 @@ public class VistaModificarJugador implements Error {
         expValue.setText(mensaje);
     }
 
-    public void setCobre(String mensaje) {
-        cobreValue.setText(mensaje);
+    public void setCobreValue(int n) {
+        cobreValue.setText(String.valueOf(n));
     }
 
-    public void setPlata(String mensaje) {
-        plataValue.setText(mensaje);
+    public void setPlataValue(int n) {
+        plataValue.setText(String.valueOf(n));
     }
 
-    public void setElectrum(String mensaje) {
-        electrumValue.setText(mensaje);
+    public void setElectrumValue(int n) {
+        electrumValue.setText(String.valueOf(n));
     }
 
-    public void setOro(String mensaje) {
-        oroValue.setText(mensaje);
+    public void setOroValue(int n) {
+        oroValue.setText(String.valueOf(n));
     }
 
-    public void setPlatino(String mensaje) {
-        platinoValue.setText(mensaje);
+    public void setHPMod(String mensaje) {
+        HPValueMod.setText(mensaje);
+    }
+
+    public void setExpMod(String mensaje) {
+        expValueModDato.setText(mensaje);
+    }
+
+    public void setCobreValueMod(int n) {
+        cobreValueMod.setText(String.valueOf(n));
+    }
+
+    public void setPlataValueMod(int n) {
+        plataValueMod.setText(String.valueOf(n));
+    }
+
+    public void setElectrumValueMod(int n) {
+        electrumValueMod.setText(String.valueOf(n));
+    }
+
+    public void setOroValueMod(int n) {
+        oroValueMod.setText(String.valueOf(n));
     }
 
     public void setEstadisticas(int[] estadisticas) {
@@ -243,48 +286,6 @@ public class VistaModificarJugador implements Error {
     public void controlador(ActionListener ctr) {
         volverButton.addActionListener(ctr);
         volverButton.setActionCommand(VOLVER);
-
-        buttonHPmenos.addActionListener(ctr);
-        buttonHPmenos.setActionCommand(HP_MENOS);
-
-        buttonHPmas.addActionListener(ctr);
-        buttonHPmas.setActionCommand(HP_MAS);
-
-        buttonExpMenos.addActionListener(ctr);
-        buttonExpMenos.setActionCommand(EXP_MENOS);
-
-        buttonExpMas.addActionListener(ctr);
-        buttonExpMas.setActionCommand(EXP_MAS);
-
-        buttonCobreMenos.addActionListener(ctr);
-        buttonCobreMenos.setActionCommand(COBRE_MENOS);
-
-        buttonCobreMas.addActionListener(ctr);
-        buttonCobreMas.setActionCommand(COBRE_MAS);
-
-        buttonPlataMenos.addActionListener(ctr);
-        buttonPlataMenos.setActionCommand(PLATA_MENOS);
-
-        buttonPlataMas.addActionListener(ctr);
-        buttonPlataMas.setActionCommand(PLATA_MAS);
-
-        buttonElectrumMenos.addActionListener(ctr);
-        buttonElectrumMenos.setActionCommand(ELECTRUM_MENOS);
-
-        buttonElectrumMas.addActionListener(ctr);
-        buttonElectrumMas.setActionCommand(ELECTRUM_MAS);
-
-        buttonOroMenos.addActionListener(ctr);
-        buttonOroMenos.setActionCommand(ORO_MENOS);
-
-        buttonOroMas.addActionListener(ctr);
-        buttonOroMas.setActionCommand(ORO_MAS);
-
-        buttonPlatinoMenos.addActionListener(ctr);
-        buttonPlatinoMenos.setActionCommand(PLATINO_MENOS);
-
-        buttonPlatinoMas.addActionListener(ctr);
-        buttonPlatinoMas.setActionCommand(PLATINO_MAS);
 
         actualizarMonButton.addActionListener(ctr);
         actualizarMonButton.setActionCommand(ACTUALIZAR_MONEDAS);

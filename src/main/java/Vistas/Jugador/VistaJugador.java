@@ -59,7 +59,6 @@ public class VistaJugador implements Error {
     private JLabel plataLabel;
     private JLabel electrumLabel;
     private JLabel oroLabel;
-    private JLabel platinoLabel;
     private JLabel cobreValue;
     private JLabel plataValue;
     private JLabel electrumValue;
@@ -68,6 +67,22 @@ public class VistaJugador implements Error {
 
     public JPanel getPanel() {
         return panelJugador;
+    }
+
+    public void setCobreValue(int n) {
+        cobreValue.setText(String.valueOf(n));
+    }
+
+    public void setPlataValue(int n) {
+        plataValue.setText(String.valueOf(n));
+    }
+
+    public void setElectrumValue(int n) {
+        electrumValue.setText(String.valueOf(n));
+    }
+
+    public void setOroValue(int n) {
+        oroValue.setText(String.valueOf(n));
     }
 
     public void setEstadisticas(int[] estadisticas) {
@@ -131,7 +146,6 @@ public class VistaJugador implements Error {
 
     public void setRasgos(String rasgos) {
         textArea1.setText(rasgos);
-
     }
 
     public void setIdiomas(String idioma) {

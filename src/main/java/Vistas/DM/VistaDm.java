@@ -15,7 +15,6 @@ import java.util.List;
 
 public class VistaDm implements Error{
 
-    public static String CERRAR = "CERRAR";
     public static String EDITAR_PERSONAJE = "EDITAR_PERSONAJE";
     public static String ADD_HERRERO = "ADD_HERRERO";
     public static String ADD_ARMERO = "ADD_ARMERO";
@@ -219,9 +218,6 @@ public class VistaDm implements Error{
     }
 
     public void controlador (ActionListener ctr) {
-        Cerrar.addActionListener(ctr);
-        Cerrar.setActionCommand(CERRAR);
-
         editarPersonajeButton.addActionListener(ctr);
         editarPersonajeButton.setActionCommand(EDITAR_PERSONAJE);
 

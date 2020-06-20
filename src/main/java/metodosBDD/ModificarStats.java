@@ -46,7 +46,6 @@ public class ModificarStats {
         }
     }
 
-
     /**
      * @param Usuario
      * @param newVida
@@ -57,7 +56,7 @@ public class ModificarStats {
     public int modificarVida(String Usuario, int newVida) throws ClassNotFoundException, SQLException {
 
         Class.forName("com.mysql.cj.jdbc.Driver");
-        conn = DriverManager.getConnection("jdbc:mysql://database-iis.cobadwnzalab.eu-central-1.rds.amazonaws.com/dungeonsdragonsdb", "dundragons", "VengerHank");
+        conn = DriverManager.getConnection(DB_URL + "/" + DB_SCHEMA, USER, PASS);
         stmt = conn.createStatement();
 
         if(existeUsuario(Usuario) == 1){
@@ -68,7 +67,6 @@ public class ModificarStats {
             return existeUsuario(Usuario);
         }
     }
-
 
     /**
      *
@@ -90,11 +88,10 @@ public class ModificarStats {
             resultado.next();
             experiencia = resultado.getInt("experiencia");
             return experiencia;
-        }else {
+        } else {
             return -1;
         }
     }
-
 
     /**
      *
@@ -107,7 +104,7 @@ public class ModificarStats {
     public int modificarExperiencia(String Usuario, int newXP) throws ClassNotFoundException, SQLException {
 
         Class.forName("com.mysql.cj.jdbc.Driver");
-        conn = DriverManager.getConnection("jdbc:mysql://database-iis.cobadwnzalab.eu-central-1.rds.amazonaws.com/dungeonsdragonsdb", "dundragons", "VengerHank");
+        conn = DriverManager.getConnection(DB_URL + "/" + DB_SCHEMA, USER, PASS);
         stmt = conn.createStatement();
 
         if(existeUsuario(Usuario) == 1){
@@ -121,7 +118,6 @@ public class ModificarStats {
         }
     }
 
-
     /**
      *
      * @param Usuario
@@ -131,12 +127,13 @@ public class ModificarStats {
      */
     public int[] getMoneda(String Usuario) throws SQLException, ClassNotFoundException {
 
+
         Class.forName("com.mysql.cj.jdbc.Driver");
-        conn = DriverManager.getConnection("jdbc:mysql://database-iis.cobadwnzalab.eu-central-1.rds.amazonaws.com/dungeonsdragonsdb", "dundragons", "VengerHank");
+        conn = DriverManager.getConnection(DB_URL + "/" + DB_SCHEMA, USER, PASS);
         stmt = conn.createStatement();
 
 
-        if(existeUsuario(Usuario)==1){
+        if (existeUsuario(Usuario) == 1){
 
             String sqlConsulta = "SELECT idPersonaje FROM Personaje WHERE Usuario = '" + Usuario + "';";
             ResultSet resultado=stmt.executeQuery(sqlConsulta);
@@ -154,11 +151,10 @@ public class ModificarStats {
             monedas[3]=resultado.getInt("CantidadOro");
             monedas[4]=resultado.getInt("CantidadPlatino");
             return monedas;
-        }else{
+        } else{
             return null;
         }
     }
-
 
     /**
      *
@@ -171,29 +167,21 @@ public class ModificarStats {
     public int modificarMoneda(String Usuario, int monedas[]) throws ClassNotFoundException, SQLException {
 
         Class.forName("com.mysql.cj.jdbc.Driver");
-        conn = DriverManager.getConnection("jdbc:mysql://database-iis.cobadwnzalab.eu-central-1.rds.amazonaws.com/dungeonsdragonsdb", "dundragons", "VengerHank");
+        conn = DriverManager.getConnection(DB_URL + "/" + DB_SCHEMA, USER, PASS);
         stmt = conn.createStatement();
 
-
-        if(existeUsuario(Usuario)==1){
-
-
+        if (existeUsuario(Usuario)==1){
 
             String sqlConsulta = "SELECT idPersonaje FROM Personaje WHERE Usuario = '" + Usuario + "';";
             ResultSet resultado=stmt.executeQuery(sqlConsulta);
             resultado.next();
             int idPersonaje = resultado.getInt("idPersonaje");
 
-
-
             int CantidadCobre=monedas[0],
                     CantidadPlata=monedas[1],
                     CantidadElectum=monedas[2],
                     CantidadOro=monedas[3],
-                    CantidadPlatino=monedas[4];
-
-
-
+                    CantidadPlatino=0;
 
             sqlConsulta = "UPDATE `dungeonsdragonsdb`.`Moneda` SET `CantidadCobre` = '"
                     + CantidadCobre + "' WHERE (`idPersonaje` = '"
@@ -220,9 +208,8 @@ public class ModificarStats {
                     + idPersonaje + "');";
             stmt.executeUpdate(sqlConsulta);
 
-
-
             return 1;
+
         }else{
             return existeUsuario(Usuario);
         }
@@ -234,42 +221,27 @@ public class ModificarStats {
      * @param Usuario
      * @return
      * 1 existe
-     * 2 error bdd
+     * 2 no existe
      * 3 error conexion
      */
-    private  int existeUsuario(String Usuario) {
+    private int existeUsuario(String Usuario) throws SQLException, ClassNotFoundException {
 
+        Connection conn = null;
+        Statement stmt = null;
 
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            conn = DriverManager.getConnection("jdbc:mysql://database-iis.cobadwnzalab.eu-central-1.rds.amazonaws.com/dungeonsdragonsdb", "dundragons", "VengerHank");
-            stmt = conn.createStatement();
-        } catch (ClassNotFoundException e) {
-            return 3;
-        } catch (SQLException e) {
-            return 3;
-        }
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        conn = DriverManager.getConnection(DB_URL + "/" + DB_SCHEMA, USER, PASS);
+        stmt = conn.createStatement();
 
         ResultSet resultado;
-        try {
-            String sqlConsulta = "SELECT Nombre FROM Personaje WHERE Usuario = '" + Usuario + "';";
-            resultado = stmt.executeQuery(sqlConsulta);
-            resultado.next();
-        } catch (SQLException e) {
-            System.err.println(e.getMessage());
+        String sqlConsulta = "SELECT Nombre FROM Personaje WHERE Usuario = '" + Usuario + "';";
+        resultado = stmt.executeQuery(sqlConsulta);
+        resultado.next();
+
+        if (resultado.getRow() == 0) {
             return 2;
-        }
-
-
-
-        try {
-            if (resultado.getRow() == 0) {
-                return 2;
-            } else {
-                return 1;
-            }
-        } catch (SQLException e) {
-            return 2;
+        } else {
+            return 1;
         }
     }
 }
