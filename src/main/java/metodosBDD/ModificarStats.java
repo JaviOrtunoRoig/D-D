@@ -129,17 +129,7 @@ public class ModificarStats {
      * @throws SQLException
      * @throws ClassNotFoundException
      */
-    public static int[] getMoneda(String Usuario) throws SQLException, ClassNotFoundException {
-
-        Connection conn = null;
-        Statement stmt = null;
-        String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
-        String DB_URL = "jdbc:mysql://database-iis.cobadwnzalab.eu-central-1.rds.amazonaws.com";
-        String DB_SCHEMA = "dungeonsdragonsdb";
-        String USER = "dundragons";
-        String var8 = "VengerHank";
-
-
+    public int[] getMoneda(String Usuario) throws SQLException, ClassNotFoundException {
 
         Class.forName("com.mysql.cj.jdbc.Driver");
         conn = DriverManager.getConnection("jdbc:mysql://database-iis.cobadwnzalab.eu-central-1.rds.amazonaws.com/dungeonsdragonsdb", "dundragons", "VengerHank");
@@ -148,14 +138,12 @@ public class ModificarStats {
 
         if(existeUsuario(Usuario)==1){
 
-            System.out.println("Existe.");
             String sqlConsulta = "SELECT idPersonaje FROM Personaje WHERE Usuario = '" + Usuario + "';";
             ResultSet resultado=stmt.executeQuery(sqlConsulta);
             resultado.next();
 
             int idPersonaje = resultado.getInt("idPersonaje");
 
-            System.out.println("id: " + idPersonaje);
             int monedas[] = new int[5];
             sqlConsulta = "SELECT * FROM Moneda WHERE idPersonaje = " + idPersonaje + ";";
             resultado=stmt.executeQuery(sqlConsulta);
@@ -171,6 +159,76 @@ public class ModificarStats {
         }
     }
 
+
+    /**
+     *
+     * @param Usuario
+     * @param monedas
+     * @return 1 si bien, 2 si no existe el personaje-usuario, 3 error de conexión con la BDD
+     * @throws ClassNotFoundException
+     * @throws SQLException
+     */
+    public int modificarMoneda(String Usuario, int monedas[]) throws ClassNotFoundException, SQLException {
+
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        conn = DriverManager.getConnection("jdbc:mysql://database-iis.cobadwnzalab.eu-central-1.rds.amazonaws.com/dungeonsdragonsdb", "dundragons", "VengerHank");
+        stmt = conn.createStatement();
+
+
+        if(existeUsuario(Usuario)==1){
+
+
+
+            String sqlConsulta = "SELECT idPersonaje FROM Personaje WHERE Usuario = '" + Usuario + "';";
+            ResultSet resultado=stmt.executeQuery(sqlConsulta);
+            resultado.next();
+            int idPersonaje = resultado.getInt("idPersonaje");
+
+
+
+            int CantidadCobre=monedas[0],
+                    CantidadPlata=monedas[1],
+                    CantidadElectum=monedas[2],
+                    CantidadOro=monedas[3],
+                    CantidadPlatino=monedas[4];
+
+
+
+
+            sqlConsulta = "UPDATE `dungeonsdragonsdb`.`Moneda` SET `CantidadCobre` = '"
+                    + CantidadCobre + "' WHERE (`idPersonaje` = '"
+                    + idPersonaje + "');";
+            stmt.executeUpdate(sqlConsulta);
+
+            sqlConsulta = "UPDATE `dungeonsdragonsdb`.`Moneda` SET `CantidadPlata` = '"
+                    + CantidadPlata + "' WHERE (`idPersonaje` = '"
+                    + idPersonaje + "');";
+            stmt.executeUpdate(sqlConsulta);
+
+            sqlConsulta = "UPDATE `dungeonsdragonsdb`.`Moneda` SET `CantidadElectum` = '"
+                    + CantidadElectum + "' WHERE (`idPersonaje` = '"
+                    + idPersonaje + "');";
+            stmt.executeUpdate(sqlConsulta);
+
+            sqlConsulta = "UPDATE `dungeonsdragonsdb`.`Moneda` SET `CantidadOro` = '"
+                    + CantidadOro + "' WHERE (`idPersonaje` = '"
+                    + idPersonaje + "');";
+            stmt.executeUpdate(sqlConsulta);
+
+            sqlConsulta = "UPDATE `dungeonsdragonsdb`.`Moneda` SET `CantidadPlatino` = '"
+                    + CantidadPlatino + "' WHERE (`idPersonaje` = '"
+                    + idPersonaje + "');";
+            stmt.executeUpdate(sqlConsulta);
+
+
+
+            return 1;
+        }else{
+            return existeUsuario(Usuario);
+        }
+
+    }
+
     /**
      *
      * @param Usuario
@@ -179,15 +237,8 @@ public class ModificarStats {
      * 2 error bdd
      * 3 error conexion
      */
-    private static int existeUsuario(String Usuario) {
+    private  int existeUsuario(String Usuario) {
 
-        Connection conn = null;
-        Statement stmt = null;
-        String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
-        String DB_URL = "jdbc:mysql://database-iis.cobadwnzalab.eu-central-1.rds.amazonaws.com";
-        String DB_SCHEMA = "dungeonsdragonsdb";
-        String USER = "dundragons";
-        String var8 = "VengerHank";
 
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
