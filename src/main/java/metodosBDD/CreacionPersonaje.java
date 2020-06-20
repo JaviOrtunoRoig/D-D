@@ -219,20 +219,15 @@ public class CreacionPersonaje {
             }
         }
 
-        vida = (int) (Math.random() * vida + 1);
-
         int mod = modificadores[4];
-        VidaCalculada = VidaCalculada + vida + mod;
 
+        vida = (int) (Math.random() * vida + 1);
+        VidaCalculada = VidaCalculada + vida + mod;
     }
 
     public void asignacionTP() {
-
-
-        int mod = modificadores[3] * (-1);
-
+        int mod = (modificadores[3] * (-1));
         TP = TP + mod;
-
     }
 
     private void asignacionComportamiento(){
@@ -316,6 +311,9 @@ public class CreacionPersonaje {
         caracteristicasValores = car;
 
         asignacionModificadores(caracteristicasValores);
+
+        asignacionTP();
+
         insertarPersonaje();
         insertarModificadores();
         asignacionMonedas(resMon);

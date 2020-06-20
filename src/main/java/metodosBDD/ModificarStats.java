@@ -18,6 +18,12 @@ public class ModificarStats {
     final String USER = "dundragons";
     final String PASS = "VengerHank";
 
+    public ModificarStats() throws SQLException, ClassNotFoundException {
+        Class.forName(JDBC_DRIVER);
+        conn = DriverManager.getConnection(DB_URL + "/" + DB_SCHEMA, USER, PASS);
+        stmt = conn.createStatement();
+    }
+
 
     public int getIdUs(String nom) throws SQLException {
         Statement stmtAux = null;
@@ -46,9 +52,6 @@ public class ModificarStats {
     public int getVida(String Usuario) throws SQLException, ClassNotFoundException {
 
 
-        Class.forName(JDBC_DRIVER);
-        conn = DriverManager.getConnection(DB_URL + "/" + DB_SCHEMA, USER, PASS);
-        stmt = conn.createStatement();
         int vida = -1;
 
 
@@ -73,10 +76,6 @@ public class ModificarStats {
      */
     public int modificarVida(String Usuario, int newVida) throws ClassNotFoundException, SQLException {
 
-        Class.forName("com.mysql.cj.jdbc.Driver");
-        conn = DriverManager.getConnection(DB_URL + "/" + DB_SCHEMA, USER, PASS);
-        stmt = conn.createStatement();
-
         if (existeUsuario(Usuario) == 1){
             int idPer = getIdUs(Usuario);
             String sqlConsulta = String.format("UPDATE `dungeonsdragonsdb`.`Personaje` SET `VidaCalculada` = '%d', `vida` = '%d' WHERE (`idPersonaje` = '%s');", newVida, newVida, idPer);
@@ -96,9 +95,6 @@ public class ModificarStats {
      */
     public int getExperiencia(String Usuario) throws SQLException, ClassNotFoundException {
 
-        Class.forName(JDBC_DRIVER);
-        conn = DriverManager.getConnection(DB_URL + "/" + DB_SCHEMA, USER, PASS);
-        stmt = conn.createStatement();
         int experiencia = -1;
 
         if (existeUsuario(Usuario) == 1){
@@ -122,10 +118,6 @@ public class ModificarStats {
      */
     public int modificarExperiencia(String Usuario, int newXP) throws ClassNotFoundException, SQLException {
 
-        Class.forName("com.mysql.cj.jdbc.Driver");
-        conn = DriverManager.getConnection(DB_URL + "/" + DB_SCHEMA, USER, PASS);
-        stmt = conn.createStatement();
-
         if(existeUsuario(Usuario) == 1){
             String sqlConsulta = "UPDATE `dungeonsdragonsdb`.`Personaje` SET `experiencia` = '"
                     + newXP + "' WHERE (`Usuario` = '"
@@ -146,23 +138,12 @@ public class ModificarStats {
      */
     public int[] getMoneda(String Usuario) throws SQLException, ClassNotFoundException {
 
-
-        Class.forName("com.mysql.cj.jdbc.Driver");
-        conn = DriverManager.getConnection(DB_URL + "/" + DB_SCHEMA, USER, PASS);
-        stmt = conn.createStatement();
-
-
         if (existeUsuario(Usuario) == 1){
-
-            String sqlConsulta = "SELECT idPersonaje FROM Personaje WHERE Usuario = '" + Usuario + "';";
-            ResultSet resultado=stmt.executeQuery(sqlConsulta);
-            resultado.next();
-
-            int idPersonaje = resultado.getInt("idPersonaje");
+            int idPersonaje = getIdUs(Usuario);
 
             int monedas[] = new int[5];
-            sqlConsulta = "SELECT * FROM Moneda WHERE idPersonaje = " + idPersonaje + ";";
-            resultado=stmt.executeQuery(sqlConsulta);
+            String sqlConsulta = "SELECT * FROM Moneda WHERE idPersonaje = " + idPersonaje + ";";
+            ResultSet resultado=stmt.executeQuery(sqlConsulta);
             resultado.next();
             monedas[0]=resultado.getInt("CantidadCobre");
             monedas[1]=resultado.getInt("CantidadPlata");
@@ -185,16 +166,8 @@ public class ModificarStats {
      */
     public int modificarMoneda(String Usuario, int monedas[]) throws ClassNotFoundException, SQLException {
 
-        Class.forName("com.mysql.cj.jdbc.Driver");
-        conn = DriverManager.getConnection(DB_URL + "/" + DB_SCHEMA, USER, PASS);
-        stmt = conn.createStatement();
-
         if (existeUsuario(Usuario)==1){
-
-            String sqlConsulta = "SELECT idPersonaje FROM Personaje WHERE Usuario = '" + Usuario + "';";
-            ResultSet resultado=stmt.executeQuery(sqlConsulta);
-            resultado.next();
-            int idPersonaje = resultado.getInt("idPersonaje");
+            int idPersonaje = getIdUs(Usuario);
 
             int CantidadCobre=monedas[0],
                     CantidadPlata=monedas[1],
@@ -202,7 +175,7 @@ public class ModificarStats {
                     CantidadOro=monedas[3],
                     CantidadPlatino=0;
 
-            sqlConsulta = "UPDATE `dungeonsdragonsdb`.`Moneda` SET `CantidadCobre` = '"
+            String sqlConsulta = "UPDATE `dungeonsdragonsdb`.`Moneda` SET `CantidadCobre` = '"
                     + CantidadCobre + "' WHERE (`idPersonaje` = '"
                     + idPersonaje + "');";
             stmt.executeUpdate(sqlConsulta);
@@ -243,13 +216,6 @@ public class ModificarStats {
      * 3 error conexion
      */
     private int existeUsuario(String Usuario) throws SQLException, ClassNotFoundException {
-
-        Connection conn = null;
-        Statement stmt = null;
-
-        Class.forName("com.mysql.cj.jdbc.Driver");
-        conn = DriverManager.getConnection(DB_URL + "/" + DB_SCHEMA, USER, PASS);
-        stmt = conn.createStatement();
 
         ResultSet resultado;
         String sqlConsulta = "SELECT Nombre FROM Personaje WHERE Usuario = '" + Usuario + "';";
