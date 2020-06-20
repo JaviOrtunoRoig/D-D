@@ -194,11 +194,17 @@ public class VistaDm implements Error{
     public void setMessageError1(String mensaje) {
         messageError1.setForeground(Color.red);
         messageError1.setText(mensaje);
+
+        resetError hebra = new resetError(this);
+        hebra.start();
     }
 
     public void setMessageError2(String mensaje) {
         messageError2.setForeground(Color.red);
         messageError2.setText(mensaje);
+
+        resetError hebra = new resetError(this);
+        hebra.start();
     }
 
     public void setMessageError3(String mensaje) {
