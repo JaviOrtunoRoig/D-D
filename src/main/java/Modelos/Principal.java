@@ -28,7 +28,7 @@ public class Principal {
 		frame = new JFrame();
 		//frame.setSize(500,500);
 		frame.setExtendedState(Frame.MAXIMIZED_BOTH);
-		frame.setTitle("Proyecto D&D");
+		frame.setTitle("Proyecto D&D Beta 1.3");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setContentPane(vistaInicial.getPanel());
 
