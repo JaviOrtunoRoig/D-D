@@ -242,23 +242,24 @@ public class ControladorIdentificarse implements ActionListener {
 			try {
 				JugadorBDDnew jugadorBDDnew = new JugadorBDDnew();
 
-				String password = jugadorBDDnew.getPassword(vistaRecuperarPassword.getUsuario());
+				String correo = vistaRecuperarPassword.getCorreo();
+				String correoConf = vistaRecuperarPassword.getCorreoConf();
+				String password = jugadorBDDnew.getPassword(vistaRecuperarPassword.getUsuario(), correo);
 
 				if (password.equals("-1")) {
-					vistaRecuperarPassword.setErrorMessage("El usuario no existe");
+					vistaRecuperarPassword.setErrorMessage("El usuario no existe o ha introudcido mal los datos");
 				} else {
-					String correo = vistaRecuperarPassword.getCorreo();
-					String correoConf = vistaRecuperarPassword.getCorreoConf();
+
 					if (!correo.equals(correoConf)) {
 						vistaRecuperarPassword.setErrorMessage("Los correos no coinciden");
 					} else {
 						Gmail gmail = new Gmail();
-						gmail.enviarCorreo(correo, password);
+						gmail.enviarCorreo(correo, password, vistaRecuperarPassword.getUsuario());
 						vistaRecuperarPassword.setErrorMessage("Se le ha enviado un correo con su password");
 					}
 				}
 			} catch (ClassNotFoundException | SQLException ex) {
-				vistaRecuperarPassword.setErrorMessage("Ha ocurrido un error. \n Por favor contacte con nosotros en:\n D&DProyecto@gmail.com");
+				vistaRecuperarPassword.setErrorMessage("Ha ocurrido un error. \n Por favor contacte con nosotros en:\n DDProyectoUMA@gmail.com");
 			}
 		}
 	}

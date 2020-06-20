@@ -121,7 +121,7 @@ public class ControladorJugador implements ActionListener  {
             try {
                 obtenerdatos();
             } catch (SQLException | ClassNotFoundException ex) {
-                vistaJugador.setErrorMessage("Ha ocurrido un error. \n Por favor contacte con nosotros en:\n D&DProyecto@gmail.com");
+                vistaJugador.setErrorMessage("Ha ocurrido un error. \n Por favor contacte con nosotros en:\n DDProyectoUMA@gmail.com");
             }
         } else if (command.equals(VistaModificarJugador.VOLVER)) {
 
@@ -207,7 +207,7 @@ public class ControladorJugador implements ActionListener  {
 
             } catch (ClassNotFoundException | SQLException ex) {
                 ex.printStackTrace();
-                vistaModificarJugador.setErrorMessage("Ha ocurrido un error. \n Por favor contacte con nosotros en:\n D&DProyecto@gmail.com");
+                vistaModificarJugador.setErrorMessage("Ha ocurrido un error. \n Por favor contacte con nosotros en:\n DDProyectoUMA@gmail.com");
 
             } catch (NumberFormatException ex) {
                 ex.printStackTrace();

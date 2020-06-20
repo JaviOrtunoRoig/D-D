@@ -232,7 +232,7 @@ public class ControladorIniciarJugador implements ActionListener {
             try {
                 razasDisponibles = razasDisponibles(caracteristicasMapa);
             } catch (SQLException ex) {
-                vistaPersonajeAuto_manual.setMensajeError("Ha ocurrido un error. \n Por favor contacte con nosotros en: \nD&DProyecto@gmail.com");
+                vistaPersonajeAuto_manual.setMensajeError("Ha ocurrido un error. \n Por favor contacte con nosotros en: \nDDProyectoUMA@gmail.com");
             }
 
             Principal.frame.setContentPane(vistaMostrarEstadisticas.getPanel());
@@ -278,7 +278,7 @@ public class ControladorIniciarJugador implements ActionListener {
             } catch (NumberFormatException a) {
                 vistaEleccionManual.setErrorMessage("Las estadisticas tienen que ser numeros.");
             } catch (SQLException ex) {
-                vistaEleccionManual.setErrorMessage("Ha ocurrido un error. \n Por favor contacte con nosotros en: \nD&DProyecto@gmail.com");
+                vistaEleccionManual.setErrorMessage("Ha ocurrido un error. \n Por favor contacte con nosotros en: \nDDProyectoUMA@gmail.com");
             }
 
         } else if (comando.equals(VistaEleccionManual.ATRAS2)) {

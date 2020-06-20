@@ -19,8 +19,8 @@ public class Gmail {
 	static InputStream in = null;
 	static OutputStream out = null;
 	
-	static final String usuario = "elrodricordobes.99@gmail.com";
-	static final String clave = "ovdecjaulxolmmqu";
+	static final String usuario = "DDProyectoUMA@gmail.com";
+	static final String clave = "esvrsruebslkorfr";
 	
 	// Esta funci�n se conecta al servidor de SMTP
 	private void conectar(){
@@ -102,7 +102,7 @@ public class Gmail {
 		}
 	}
 
-	public void enviarCorreo(String destinatario, String password) {
+	public void enviarCorreo(String destinatario, String password, String personaje) {
 		// Flujo de lectura de teclado:
 		BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));
 		
@@ -159,7 +159,7 @@ public class Gmail {
 		enviar("\n");
 	
 		// Ahora el cuerpo que son muchas l�neas
-		String cuerpo = "Su contraseña es: " + password;
+		String cuerpo = "Para el usuario " + personaje + " y su contraseña es: " + password;
 		enviar(cuerpo);
 
 		enviar("\n");

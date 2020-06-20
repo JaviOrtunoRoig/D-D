@@ -19,6 +19,24 @@ public class ModificarStats {
     final String PASS = "VengerHank";
 
 
+    public int getIdUs(String nom) throws SQLException {
+        Statement stmtAux = null;
+        stmtAux = conn.createStatement();
+
+        String sqlUs = "SELECT idPersonaje, Usuario FROM Personaje";
+        ResultSet rsUs = stmtAux.executeQuery(sqlUs);
+
+        int idPer = 0;
+
+        while (rsUs.next()) {
+            if (nom.equals(rsUs.getString("Usuario"))) {
+                idPer = rsUs.getInt("idPersonaje");
+            }
+        }
+
+        return idPer;
+    }
+
     /**
      * @param Usuario
      * @return int:
@@ -59,34 +77,14 @@ public class ModificarStats {
         conn = DriverManager.getConnection(DB_URL + "/" + DB_SCHEMA, USER, PASS);
         stmt = conn.createStatement();
 
-        int idPer = getIdUs(Usuario);
-
-        if(existeUsuario(Usuario) == 1){
-            String sqlConsulta = String.format("UPDATE `dungeonsdragonsdb`.`Personaje` SET `VidaCalculada` = '%d', `vida` = '%d' " +
-                    "WHERE (`idPersonaje` = '" + idPer + "');", newVida, newVida);
+        if (existeUsuario(Usuario) == 1){
+            int idPer = getIdUs(Usuario);
+            String sqlConsulta = String.format("UPDATE `dungeonsdragonsdb`.`Personaje` SET `VidaCalculada` = '%d', `vida` = '%d' WHERE (`idPersonaje` = '%s');", newVida, newVida, idPer);
             stmt.executeUpdate(sqlConsulta);
             return 1;
-        }else{
+        } else{
             return existeUsuario(Usuario);
         }
-    }
-
-    public int getIdUs(String nom) throws SQLException {
-        Statement stmtAux = null;
-        stmtAux = conn.createStatement();
-
-        String sqlUs = "SELECT idPersonaje, Usuario FROM Personaje";
-        ResultSet rsUs = stmtAux.executeQuery(sqlUs);
-
-        int idPer = 0;
-
-        while (rsUs.next()) {
-            if (nom.equals(rsUs.getString("Usuario"))) {
-                idPer = rsUs.getInt("idPersonaje");
-            }
-        }
-
-        return idPer;
     }
 
     /**
@@ -234,7 +232,6 @@ public class ModificarStats {
         }else{
             return existeUsuario(Usuario);
         }
-
     }
 
     /**

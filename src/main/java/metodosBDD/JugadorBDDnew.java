@@ -25,6 +25,7 @@ public class JugadorBDDnew {
     private String comportamiento;
     private String nombrePersonaje;
     private String usuario;
+    private int [] caracteristicas;
     private int dadoVida;
     private String raza;
     private int idRaza;
@@ -59,7 +60,6 @@ public class JugadorBDDnew {
 
         dadoVida = Integer.parseInt(razasStats()[1]);
         raza = razasStats()[0];
-
     }
 
     public JugadorBDDnew() throws ClassNotFoundException, SQLException {
@@ -99,7 +99,43 @@ public class JugadorBDDnew {
         return sol;
     }
 
-    public String getPassword(String us, String email) throws SQLException {
+    public int getExperiencia() {
+        return experiencia;
+    }
+
+    public int getTP() {
+        return TP;
+    }
+
+    public int getVida() {
+        return vida;
+    }
+
+    public String getComportamiento() {
+        return comportamiento;
+    }
+
+    public String getNombrePersonaje() {
+        return nombrePersonaje;
+    }
+
+    public String getUsuario() {
+        return usuario;
+    }
+
+    public int[] getCaracteristicas() {
+        return caracteristicas;
+    }
+
+    public int getDadoVida() {
+        return dadoVida;
+    }
+
+    public String getRaza() {
+        return raza;
+    }
+
+    public String getPassword(String us, String correo) throws SQLException {
         String pass = null;
 
         Statement stmtAux = conn.createStatement();
@@ -110,7 +146,7 @@ public class JugadorBDDnew {
         boolean listo = false;
 
         while(rs.next() && !listo){
-            if(rs.getString("nombre").equals(us) && rs.getString("correo").equals(email)){
+            if(rs.getString("nombre").equals(us) && rs.getString("correo").equals(correo)){
                 pass = rs.getString("contrasena");
 
                 listo = true;

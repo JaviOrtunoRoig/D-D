@@ -79,7 +79,7 @@ public class ControladorDM implements ActionListener {
             } catch (SQLException ex) {
                 vistaDm.setMessageError1("Ha ocurrido un error. \n" +
                         " Por favor contacte con nosotros en:\n" +
-                        " D&DProyecto@gmail.com");
+                        " DDProyectoUMA@gmail.com");
             }
 
         } else if (comando.equals(VistaDm.ADD_ARMERO)) {
@@ -89,7 +89,7 @@ public class ControladorDM implements ActionListener {
             } catch (SQLException ex) {
                 vistaDm.setMessageError2("Ha ocurrido un error. \n" +
                         " Por favor contacte con nosotros en:\n" +
-                        " D&DProyecto@gmail.com");
+                        " DDProyectoUMA@gmail.com");
             }
 
         } else if (comando.equals(VistaDm.ADD_TENDERO)) {
@@ -99,7 +99,7 @@ public class ControladorDM implements ActionListener {
             } catch (SQLException ex) {
                 vistaDm.setMessageError3("Ha ocurrido un error. \n" +
                         " Por favor contacte con nosotros en:\n" +
-                        " D&DProyecto@gmail.com");
+                        " DDProyectoUMA@gmail.com");
             }
         } else if (comando.equals(VistaDm.DELETE_HERRERO)) {
             try {
@@ -108,7 +108,7 @@ public class ControladorDM implements ActionListener {
             } catch (SQLException ex) {
                 vistaDm.setMessageError1("Ha ocurrido un error. \n" +
                         " Por favor contacte con nosotros en:\n" +
-                        " D&DProyecto@gmail.com");
+                        " DDProyectoUMA@gmail.com");
             }
         } else if (comando.equals(VistaDm.DELETE_ARMERO)) {
             try {
@@ -117,7 +117,7 @@ public class ControladorDM implements ActionListener {
             } catch (SQLException ex) {
                 vistaDm.setMessageError2("Ha ocurrido un error. \n" +
                         " Por favor contacte con nosotros en:\n" +
-                        " D&DProyecto@gmail.com");
+                        " DDProyectoUMA@gmail.com");
             }
 
         } else if (comando.equals(VistaDm.DELETE_TENDERO)) {
@@ -127,7 +127,7 @@ public class ControladorDM implements ActionListener {
             } catch (SQLException ex) {
                 vistaDm.setMessageError3("Ha ocurrido un error. \n" +
                         " Por favor contacte con nosotros en:\n" +
-                        " D&DProyecto@gmail.com");
+                        " DDProyectoUMA@gmail.com");
             }
         } else if (comando.equals(VistaDm.DELETE_JUGADOR)) {
             QueriesPersonaje queriesPersonaje = new QueriesPersonaje();

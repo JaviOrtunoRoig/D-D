@@ -273,7 +273,7 @@ public class ControladorIniciarDM implements ActionListener {
             try {
                 idPartida = estaDMEnPartida(usuario);
             } catch (ClassNotFoundException | SQLException ex) {
-                vistaDM_usuario.setMensajeError("Ha ocurrido un error. \n Por favor contacte con nosotros en: \nD&DProyecto@gmail.com");
+                vistaDM_usuario.setMensajeError("Ha ocurrido un error. \n Por favor contacte con nosotros en: \nDDProyectoUMA@gmail.com");
             }
 
             if (idPartida >= 0) { //Se ha encontrado partida
@@ -300,7 +300,7 @@ public class ControladorIniciarDM implements ActionListener {
             try {
                 id = estaJugadorEnPartida(usuario);
             } catch (ClassNotFoundException | SQLException ex) {
-                vistaDM_usuario.setMensajeError("Ha ocurrido un error. \n Por favor contacte con nosotros en: \nD&DProyecto@gmail.com");
+                vistaDM_usuario.setMensajeError("Ha ocurrido un error. \n Por favor contacte con nosotros en: \nDDProyectoUMA@gmail.com");
             }
 
             if (id >= 0) { //to do bien
@@ -351,7 +351,7 @@ public class ControladorIniciarDM implements ActionListener {
             try {
                 estado = crearPartida(usuario, vistaCrearPartida.getPassword());
             } catch (SQLException | ClassNotFoundException ex) {
-                vistaCrearPartida.setErrorMessage("Ha ocurrido un error. \n Por favor contacte con nosotros en: \nD&DProyecto@gmail.com");
+                vistaCrearPartida.setErrorMessage("Ha ocurrido un error. \n Por favor contacte con nosotros en: \nDDProyectoUMA@gmail.com");
             }
             if (estado >= 0) {
                 vistaCrearPartida.setPasswordLabel("Partida creada");
