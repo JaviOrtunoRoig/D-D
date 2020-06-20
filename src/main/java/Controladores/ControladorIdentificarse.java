@@ -193,18 +193,19 @@ public class ControladorIdentificarse implements ActionListener {
 			String correo = vistaRegistrarse.getCorreo();
 			String confCorreo = vistaRegistrarse.getCorreoConf();
 
-			if (user.equals("") || passw.equals("") || passWConfig.equals("")) {
+			if (user.equals("") || passw.equals("") || passWConfig.equals("") || correo.equals("") || confCorreo.equals("")) {
 				vistaRegistrarse.setErrorMessageValue("Hay campos sin rellenar");
 			} else if (!correo.equals(confCorreo)) {
 				vistaRegistrarse.setErrorMessageValue("Los correos no coinciden");
+			} else {
+				correcto = this.registrarse(user, passw, passWConfig, correo);
+
+				if (correcto) {
+					Principal.frame.setContentPane(new VistaPG().getPanel());
+					Principal.frame.setVisible(true);
+				}
 			}
 
-			correcto = this.registrarse(user, passw, passWConfig, correo);
-
-			if (correcto) {
-				Principal.frame.setContentPane(new VistaPG().getPanel());
-				Principal.frame.setVisible(true);
-			}
 
 		} else if (e.equals(VistaIniciarSesion.INICIO)) {
 			String user = vistaIniciarSesion.getUsername().getText();
