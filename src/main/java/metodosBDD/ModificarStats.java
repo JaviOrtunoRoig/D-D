@@ -59,13 +59,34 @@ public class ModificarStats {
         conn = DriverManager.getConnection(DB_URL + "/" + DB_SCHEMA, USER, PASS);
         stmt = conn.createStatement();
 
+        int idPer = getIdUs(Usuario);
+
         if(existeUsuario(Usuario) == 1){
-            String sqlConsulta = String.format("UPDATE `dungeonsdragonsdb`.`Personaje` SET `VidaCalculada` = '%d', `vida` = '%d' WHERE (`idPersonaje` = '7');", newVida, newVida);
+            String sqlConsulta = String.format("UPDATE `dungeonsdragonsdb`.`Personaje` SET `VidaCalculada` = '%d', `vida` = '%d' " +
+                    "WHERE (`idPersonaje` = '" + idPer + "');", newVida, newVida);
             stmt.executeUpdate(sqlConsulta);
             return 1;
         }else{
             return existeUsuario(Usuario);
         }
+    }
+
+    public int getIdUs(String nom) throws SQLException {
+        Statement stmtAux = null;
+        stmtAux = conn.createStatement();
+
+        String sqlUs = "SELECT idPersonaje, Usuario FROM Personaje";
+        ResultSet rsUs = stmtAux.executeQuery(sqlUs);
+
+        int idPer = 0;
+
+        while (rsUs.next()) {
+            if (nom.equals(rsUs.getString("Usuario"))) {
+                idPer = rsUs.getInt("idPersonaje");
+            }
+        }
+
+        return idPer;
     }
 
     /**
