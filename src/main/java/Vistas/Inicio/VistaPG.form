@@ -2,7 +2,7 @@
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="Vistas.Inicio.VistaPG">
   <grid id="27dc6" binding="Inicio" layout-manager="GridBagLayout">
     <constraints>
-      <xy x="20" y="20" width="746" height="521"/>
+      <xy x="20" y="20" width="746" height="686"/>
     </constraints>
     <properties>
       <enabled value="true"/>
@@ -16,44 +16,62 @@
     <children>
       <component id="c1d8b" class="javax.swing.JButton" binding="buttonIniciSesion">
         <constraints>
-          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
           <gridbag weightx="0.0" weighty="0.0" ipadx="50" ipady="50"/>
         </constraints>
         <properties>
           <foreground color="-16777216"/>
           <hideActionText value="false"/>
-          <label value="Iniciar Sesión"/>
-          <text value="Iniciar Sesión"/>
+          <label value="&lt;html&gt; &lt;p style=&quot;font-size: 15px;&quot;&gt; Iniciar Sesión &lt;/p&gt; &lt;/html&gt;"/>
+          <text value="&lt;html&gt; &lt;p style=&quot;font-size: 15px;&quot;&gt; Iniciar Sesión &lt;/p&gt; &lt;/html&gt;"/>
         </properties>
       </component>
       <hspacer id="6ebdb">
         <constraints>
-          <grid row="1" column="1" row-span="2" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <grid row="3" column="1" row-span="2" col-span="1" vsize-policy="1" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
           <gridbag weightx="0.0" weighty="0.0"/>
         </constraints>
       </hspacer>
       <vspacer id="422c4">
         <constraints>
-          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+          <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
           <gridbag weightx="0.0" weighty="0.0"/>
         </constraints>
       </vspacer>
       <component id="529b1" class="javax.swing.JButton" binding="buttonRegistrarse">
         <constraints>
-          <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
           <gridbag weightx="0.0" weighty="0.0" ipadx="200" ipady="50"/>
         </constraints>
         <properties>
-          <label value="Registrarse"/>
-          <text value="Registrarse"/>
+          <label value="&lt;html&gt; &lt;p style=&quot;font-size: 15px;&quot;&gt; Registrarse &lt;/p&gt; &lt;/html&gt;"/>
+          <text value="&lt;html&gt; &lt;p style=&quot;font-size: 15px;&quot;&gt; Registrarse &lt;/p&gt; &lt;/html&gt;"/>
         </properties>
       </component>
       <vspacer id="43575">
         <constraints>
-          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
-          <gridbag weightx="0.0" weighty="0.0"/>
+          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+          <gridbag weightx="0.0" weighty="0.0" ipady="150"/>
         </constraints>
       </vspacer>
+      <component id="8283f" class="javax.swing.JLabel">
+        <constraints>
+          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+          <gridbag weightx="0.0" weighty="0.0"/>
+        </constraints>
+        <properties>
+          <text value="&lt;html&gt;&lt;p style=&quot;font-size: 45px;&quot;&gt;PROYECTO&lt;/p&gt;&lt;/html&gt;"/>
+        </properties>
+      </component>
+      <component id="babf1" class="javax.swing.JLabel">
+        <constraints>
+          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+          <gridbag weightx="0.0" weighty="0.0"/>
+        </constraints>
+        <properties>
+          <text value="&lt;html&gt;&lt;p style=&quot;font-size: 45px;&quot;&gt;DUNGEONS AND DRAGONS&lt;/p&gt;&lt;/html&gt;"/>
+        </properties>
+      </component>
     </children>
   </grid>
 </form>

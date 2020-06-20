@@ -341,8 +341,15 @@ public class ControladorIniciarJugador implements ActionListener {
                 } else if (rasgos.length() > 100) {
                     vistaFinAutomatico.setMensajeError("Longitud maxima superada");
                 } else {
-                    creacionPersonajeMetodos = new CreacionPersonaje(vistaFinAutomatico.getNombrePersonaje(),
+                    try {
+                        creacionPersonajeMetodos = new CreacionPersonaje(vistaFinAutomatico.getNombrePersonaje(),
                             vistaFinAutomatico.getRasgosPersonaje(), caracteristicas, raza, usuario, caracteristicasMapa, idPartida);
+                    } catch (java.sql.SQLIntegrityConstraintViolationException ex) {
+                        ex.printStackTrace();
+                        vistaFinAutomatico.setMensajeError("Ha habido un error inesperado,\n mande un correo a DDProyecto@gmail.com");
+                    }
+
+
 
                     VistaJugador vistaJugador = new VistaJugador();
                     ControladorJugador controladorJugador = new ControladorJugador(vistaJugador, caracteristicas, usuario);
@@ -397,7 +404,7 @@ public class ControladorIniciarJugador implements ActionListener {
                     vistaFinManual.setErrorMessage("No ha introducido un formato valido para la vida o las monedas");
                 } catch (SQLException | ClassNotFoundException ex) {
                     ex.printStackTrace();
-                    //vistaFinManual.setErrorMessage("Error inesperado");
+                    vistaFinAutomatico.setMensajeError("Ha habido un error inesperado,\n mande un correo a DDProyecto@gmail.com");
                 }
             }
         }
