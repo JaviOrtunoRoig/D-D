@@ -102,13 +102,10 @@ public class Inventario {
         ResultSet rsArmadura = stmt.executeQuery(sqlArmadura);
 
         while (rsArmadura.next()) {
-
             if (rsArmadura.getString("nombre").equals(nombre)) {
                 mod = rsArmadura.getInt("TP");
             }
         }
-
-
 
         return mod;
     }
@@ -123,11 +120,13 @@ public class Inventario {
             int TP = 0;
 
             while (rsTP.next()) {
-
                 if (rsTP.getInt("idPersonaje") == obtenerIDPersonaje(nombre)) {
                     TP = rsTP.getInt("TP");
                 }
             }
+
+            System.out.println(TP);
+        System.out.println(mod);
 
             String sqlMod = "UPDATE Personaje SET TP = " + (TP - mod) + " WHERE idPersonaje = " + idPersonaje;
             stmt.executeUpdate(sqlMod);
