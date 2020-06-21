@@ -2,6 +2,8 @@ package Modelos;
 
 import Vistas.Error;
 
+import java.util.Date;
+
 public class resetError extends Thread {
 
     Error vista;
@@ -12,10 +14,10 @@ public class resetError extends Thread {
 
     public void run() {
         try {
-            Thread.sleep(5000);
-            vista.resetErrorMessage();
+            Thread.sleep(7000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        vista.resetErrorMessage();
     }
 }
