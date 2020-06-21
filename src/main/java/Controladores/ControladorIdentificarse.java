@@ -193,8 +193,15 @@ public class ControladorIdentificarse implements ActionListener {
 			String correo = vistaRegistrarse.getCorreo();
 			String confCorreo = vistaRegistrarse.getCorreoConf();
 
+			String dirServidor = correo.substring(correo.lastIndexOf("@") + 1, correo.length());
+			System.out.println(dirServidor);
+
 			if (user.equals("") || passw.equals("") || passWConfig.equals("") || correo.equals("") || confCorreo.equals("")) {
 				vistaRegistrarse.setErrorMessageValue("Hay campos sin rellenar");
+			} else if (passw.length() < 6) {
+				vistaRegistrarse.setErrorMessageValue("Contraseña poco segura");
+			} else if (!dirServidor.equals("hotmail.com") && !dirServidor.equals("hotmail.es") && !dirServidor.equals("yahoo.com") && !dirServidor.equals("gmail.com")) {
+				vistaRegistrarse.setErrorMessageValue("Direccion de correo no válida");
 			} else if (!correo.equals(confCorreo)) {
 				vistaRegistrarse.setErrorMessageValue("Los correos no coinciden");
 			} else {
@@ -250,10 +257,9 @@ public class ControladorIdentificarse implements ActionListener {
 				if (password.equals("-1")) {
 					vistaRecuperarPassword.setErrorMessage("El usuario no existe o ha introudcido mal los datos");
 				} else {
-
 					if (!correo.equals(correoConf)) {
 						vistaRecuperarPassword.setErrorMessage("Los correos no coinciden");
-					} else {
+					}  else {
 						Gmail gmail = new Gmail();
 						gmail.enviarCorreo(correo, password, vistaRecuperarPassword.getUsuario());
 						vistaRecuperarPassword.setErrorMessage("Se le ha enviado un correo con su password");
